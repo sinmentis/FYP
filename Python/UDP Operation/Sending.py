@@ -2,7 +2,7 @@ import socket
 import time
 
 if __name__ == '__main__':
-    UDP_IP = "192.168.1.25"
+    UDP_IP = "192.168.1.26"
     UDP_PORT = 5005
     MESSAGE = bytes(23)
     print("UDP target IP:", UDP_IP)
