@@ -13,8 +13,12 @@ if __name__ == '__main__':
     sock.bind((UDP_PC_IP, UDP_PORT)) 
 
     while True:
-        data, addr = sock.recvfrom(100)  # buffer size is 1024 bytes    
-        print("received message: {0}".format(data))
-        sock.sendto(MESSAGE, (UDP_MASTER_IP, UDP_PORT))
-        time.sleep(1)
-        print("Send {0}".format(23))
+        flag = raw_input("What NOW!?\n")
+        if flag == "R":
+            data, addr = sock.recvfrom(100)  # buffer size is 1024 bytes
+            message = data.rstrip('\x00')
+            print("PC: I just received message: [{0}]".format(message[:2]))
+        else:
+            sock.sendto(bytes(flag), (UDP_MASTER_IP, UDP_PORT))
+            print("PC: I just Sent a [{0}]".format(flag))
+            
