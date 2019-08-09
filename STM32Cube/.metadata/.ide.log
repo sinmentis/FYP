@@ -1,0 +1,171 @@
+2019-07-31 13:59:21,665 [INFO] Activator:176 - 
+
+
+2019-07-31 13:59:21,670 [INFO] Activator:177 - !SESSION log4j initialized
+2019-07-31 13:59:22,666 [ERROR] LogOutputStream:66 - [STDERR_REDIRECT] 
+2019-07-31 13:59:53,691 [INFO] ApplicationProperties:181 - Using Application install path: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926
+2019-07-31 13:59:53,727 [INFO] DbMcusXml:68 - Set database path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//mcu/
+2019-07-31 13:59:53,736 [INFO] DbBoardsPdsc:54 - Set plugin database path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/boardmanager/
+2019-07-31 13:59:53,737 [INFO] DbMcus:262 - Set plugin images path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/mcufinder/images/
+2019-07-31 13:59:53,738 [INFO] DbBoards:225 - Set plugin images path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/mcufinder/images/
+2019-07-31 13:59:53,746 [INFO] APIGFXSelector:72 - Set database path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/mcufinder/mcu/
+2019-07-31 13:59:53,761 [INFO] DbMcusAds:72 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:53,763 [INFO] DbMcusDocs:90 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:53,768 [INFO] DbMcusJson:59 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:53,770 [INFO] DbBoardsDocs:82 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:53,773 [INFO] DbBoardsJson:51 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:54,128 [INFO] CrossReferenceDbSqlite:197 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/cs/
+2019-07-31 13:59:54,362 [INFO] RulesReader:52 - Compatibility file has been processed (156 Rules)
+2019-07-31 13:59:54,613 [INFO] MicroXplorer:521 - Detected Java Version = 1.8.0_202
+2019-07-31 13:59:54,614 [INFO] DbMcusXml:68 - Set database path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//mcu/
+2019-07-31 13:59:54,614 [INFO] DbBoardsPdsc:54 - Set plugin database path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/boardmanager/
+2019-07-31 13:59:54,617 [INFO] DbMcus:262 - Set plugin images path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/mcufinder/images/
+2019-07-31 13:59:54,617 [INFO] DbBoards:225 - Set plugin images path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/mcufinder/images/
+2019-07-31 13:59:54,618 [INFO] APIGFXSelector:72 - Set database path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/mcufinder/mcu/
+2019-07-31 13:59:54,619 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:54,619 [INFO] DbMcusAds:72 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:54,620 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:54,621 [INFO] DbMcusDocs:90 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:54,621 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:54,622 [INFO] DbMcusJson:59 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:54,622 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:54,623 [INFO] DbBoardsDocs:82 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:54,623 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:54,624 [INFO] DbBoardsJson:51 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:54,625 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:54,625 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:54,626 [INFO] CrossReferenceDbSqlite:197 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/cs/
+2019-07-31 13:59:54,826 [INFO] MainPanel:211 - HeapMemory: 314572800
+2019-07-31 13:59:55,047 [INFO] DbMcusXml:68 - Set database path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//mcu/
+2019-07-31 13:59:55,048 [INFO] DbBoardsPdsc:54 - Set plugin database path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/boardmanager/
+2019-07-31 13:59:55,049 [INFO] DbMcus:262 - Set plugin images path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/mcufinder/images/
+2019-07-31 13:59:55,049 [INFO] DbBoards:225 - Set plugin images path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/mcufinder/images/
+2019-07-31 13:59:55,050 [INFO] APIGFXSelector:72 - Set database path to: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//plugins/mcufinder/mcu/
+2019-07-31 13:59:55,051 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:55,052 [INFO] DbMcusAds:72 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:55,053 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:55,053 [INFO] DbMcusDocs:90 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:55,054 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:55,055 [INFO] DbMcusJson:59 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:55,055 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:55,056 [INFO] DbBoardsDocs:82 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:55,056 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:55,057 [INFO] DbBoardsJson:51 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/
+2019-07-31 13:59:55,057 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:55,058 [WARN] DbFile:31 - Overriding database path with different value: /Users/sinmentis/.stmcufinder/plugins/mcufinder/ => /Users/sinmentis/.stmcufinder/plugins/mcufinder
+2019-07-31 13:59:55,059 [INFO] CrossReferenceDbSqlite:197 - Set database path to: /Users/sinmentis/.stmcufinder/plugins/mcufinder//mcu/cs/
+2019-07-31 13:59:55,098 [INFO] ApplicationProperties:181 - Using Application install path: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926
+2019-07-31 13:59:55,102 [INFO] PluginManage:178 - Search for loadable plugins [exclusion list=]
+2019-07-31 13:59:55,105 [INFO] PluginManage:292 - Check plugin analytics
+2019-07-31 13:59:55,124 [INFO] PluginManage:342 - Loaded plugin analytics (category:tool,tabindex:-1)
+2019-07-31 13:59:55,125 [INFO] PluginManage:292 - Check plugin clock
+2019-07-31 13:59:55,158 [INFO] PluginManage:342 - Loaded plugin clock (category:base,tabindex:2)
+2019-07-31 13:59:55,159 [INFO] PluginManage:292 - Check plugin ddr
+2019-07-31 13:59:55,169 [INFO] PluginManage:342 - Loaded plugin ddr (category:tool,tabindex:6)
+2019-07-31 13:59:55,170 [INFO] PluginManage:292 - Check plugin filemanager
+2019-07-31 13:59:55,455 [INFO] PluginManage:342 - Loaded plugin filemanager (category:base,tabindex:10)
+2019-07-31 13:59:55,455 [INFO] PluginManage:292 - Check plugin ipmanager
+2019-07-31 13:59:55,478 [INFO] PluginManage:342 - Loaded plugin ipmanager (category:base,tabindex:5)
+2019-07-31 13:59:55,478 [INFO] PluginManage:292 - Check plugin pinoutandconfiguration
+2019-07-31 13:59:55,628 [INFO] PluginManage:342 - Loaded plugin pinoutandconfiguration (category:base,tabindex:1)
+2019-07-31 13:59:55,629 [INFO] PluginManage:292 - Check plugin pinoutconfig
+2019-07-31 13:59:55,680 [INFO] PluginManage:342 - Loaded plugin pinoutconfig (category:base,tabindex:0)
+2019-07-31 13:59:55,680 [INFO] PluginManage:292 - Check plugin power
+2019-07-31 13:59:55,694 [INFO] PluginManage:342 - Loaded plugin power (category:power,tabindex:4)
+2019-07-31 13:59:55,694 [INFO] PluginManage:292 - Check plugin projectmanager
+2019-07-31 13:59:55,722 [INFO] PluginManage:342 - Loaded plugin projectmanager (category:projectmanager,tabindex:3)
+2019-07-31 13:59:55,723 [INFO] PluginManage:292 - Check plugin thirdparty
+2019-07-31 13:59:55,765 [INFO] ThirdPartyDb:293 - Open Third Party DataBase File (/Users/sinmentis/.stm32cubemx/plugins/thirdparty/db/thirdparties_db.xml) : 1 ms. number of Sw pack : 0
+2019-07-31 13:59:55,789 [INFO] PluginManage:342 - Loaded plugin thirdparty (category:base,tabindex:-1)
+2019-07-31 13:59:55,789 [INFO] PluginManage:292 - Check plugin tools
+2019-07-31 13:59:55,793 [INFO] PluginManage:342 - Loaded plugin tools (category:base,tabindex:7)
+2019-07-31 13:59:55,794 [INFO] PluginManage:292 - Check plugin updater
+2019-07-31 13:59:55,815 [INFO] PluginManage:342 - Loaded plugin updater (category:base,tabindex:12)
+2019-07-31 13:59:55,816 [INFO] PluginManage:265 - PluginManage : Loaded plugins [12]
+2019-07-31 13:59:57,830 [INFO] PinOutPanel:1361 - setPackage(No Configuration,No Configuration)
+2019-07-31 13:59:57,959 [INFO] PluginManager:200 - loadIPPluginJar : add adc
+2019-07-31 13:59:57,964 [INFO] PluginManager:200 - loadIPPluginJar : add aes
+2019-07-31 13:59:57,969 [INFO] PluginManager:200 - loadIPPluginJar : add can
+2019-07-31 13:59:57,971 [INFO] PluginManager:200 - loadIPPluginJar : add comp
+2019-07-31 13:59:57,975 [INFO] PluginManager:200 - loadIPPluginJar : add cryp
+2019-07-31 13:59:57,980 [INFO] PluginManager:200 - loadIPPluginJar : add dfsdm
+2019-07-31 13:59:57,990 [INFO] PluginManager:200 - loadIPPluginJar : add dma
+2019-07-31 13:59:57,993 [INFO] PluginManager:200 - loadIPPluginJar : add fatfs
+2019-07-31 13:59:58,000 [INFO] PluginManager:200 - loadIPPluginJar : add fmc
+2019-07-31 13:59:58,012 [INFO] PluginManager:200 - loadIPPluginJar : add freertos
+2019-07-31 13:59:58,015 [INFO] PluginManager:200 - loadIPPluginJar : add genericplugin
+2019-07-31 13:59:58,020 [INFO] PluginManager:200 - loadIPPluginJar : add gfxmmu
+2019-07-31 13:59:58,024 [INFO] PluginManager:200 - loadIPPluginJar : add gfxsimulator
+2019-07-31 13:59:58,034 [INFO] PluginManager:200 - loadIPPluginJar : add gic
+2019-07-31 13:59:58,042 [INFO] PluginManager:200 - loadIPPluginJar : add gpio
+2019-07-31 13:59:58,046 [INFO] PluginManager:200 - loadIPPluginJar : add hash
+2019-07-31 13:59:58,051 [INFO] PluginManager:200 - loadIPPluginJar : add i2c
+2019-07-31 13:59:58,055 [INFO] PluginManager:200 - loadIPPluginJar : add i2s
+2019-07-31 13:59:58,062 [INFO] PluginManager:200 - loadIPPluginJar : add ipddr
+2019-07-31 13:59:58,065 [INFO] PluginManager:200 - loadIPPluginJar : add ltdc
+2019-07-31 13:59:58,072 [INFO] PluginManager:200 - loadIPPluginJar : add mdma
+2019-07-31 13:59:58,082 [INFO] PluginManager:200 - loadIPPluginJar : add nvic
+2019-07-31 13:59:58,087 [INFO] PluginManager:200 - loadIPPluginJar : add opamp
+2019-07-31 13:59:58,093 [INFO] PluginManager:200 - loadIPPluginJar : add pdm2pcm
+2019-07-31 13:59:58,120 [INFO] PluginManager:200 - loadIPPluginJar : add plateformsettings
+2019-07-31 13:59:58,123 [INFO] PluginManager:200 - loadIPPluginJar : add quadspi
+2019-07-31 13:59:58,130 [INFO] PluginManager:200 - loadIPPluginJar : add resmgrutility
+2019-07-31 13:59:58,136 [INFO] PluginManager:200 - loadIPPluginJar : add sai
+2019-07-31 13:59:58,141 [INFO] PluginManager:200 - loadIPPluginJar : add spi
+2019-07-31 13:59:58,146 [INFO] PluginManager:200 - loadIPPluginJar : add stm32_wpan
+2019-07-31 13:59:58,149 [INFO] PluginManager:200 - loadIPPluginJar : add tim
+2019-07-31 13:59:58,155 [INFO] PluginManager:200 - loadIPPluginJar : add touchsensing
+2019-07-31 13:59:58,158 [INFO] PluginManager:200 - loadIPPluginJar : add tracer_emb
+2019-07-31 13:59:58,162 [INFO] PluginManager:200 - loadIPPluginJar : add ts
+2019-07-31 13:59:58,165 [INFO] PluginManager:200 - loadIPPluginJar : add tsc
+2019-07-31 13:59:58,168 [INFO] PluginManager:200 - loadIPPluginJar : add ucpd
+2019-07-31 13:59:58,173 [INFO] PluginManager:200 - loadIPPluginJar : add usart
+2019-07-31 13:59:58,791 [FATAL] Updater:277 - Updater called before beeing initialized
+2019-07-31 13:59:58,793 [ERROR] IntegrityCheckThread:227 - Cannot obtain thirdParties list 21
+2019-07-31 13:59:58,793 [ERROR] IntegrityCheckThread:96 - Unexpected exception IntegrityCheckThread Thread: Updater error
+2019-07-31 13:59:58,795 [ERROR] LogOutputStream:66 - [STDERR_REDIRECT] java.lang.Exception: Updater error
+2019-07-31 13:59:58,796 [ERROR] LogOutputStream:66 - [STDERR_REDIRECT] 	at com.st.microxplorer.plugins.thirdparty.engine.IntegrityCheckThread.getUpdaterThirdPartyList(IntegrityCheckThread.java:239)
+2019-07-31 13:59:58,796 [ERROR] LogOutputStream:66 - [STDERR_REDIRECT] 	at com.st.microxplorer.plugins.thirdparty.engine.IntegrityCheckThread.run(IntegrityCheckThread.java:61)
+2019-07-31 13:59:58,797 [INFO] ThirdPartyDb:263 - Close Third Party DataBase File (/Users/sinmentis/.stm32cubemx/plugins/thirdparty/db/thirdparties_db.xml)
+2019-07-31 13:59:58,813 [FATAL] Updater:277 - Updater called before beeing initialized
+2019-07-31 13:59:59,157 [FATAL] Updater:277 - Updater called before beeing initialized
+2019-07-31 13:59:59,169 [INFO] PinOutPanel:1361 - setPackage(No Configuration,No Configuration)
+2019-07-31 13:59:59,171 [FATAL] Updater:277 - Updater called before beeing initialized
+2019-07-31 13:59:59,185 [INFO] Updater:860 - Updater Version found : 5.2.1
+2019-07-31 13:59:59,212 [INFO] ApplicationProperties:181 - Using Application install path: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926
+2019-07-31 14:00:00,746 [INFO] MainUpdater:2032 - connection check result : 10
+2019-07-31 14:00:00,750 [INFO] MainUpdater:223 - Updater Check For Update Now.
+2019-07-31 14:00:00,751 [INFO] MicroXplorer:401 - Change Database Version : DB.5.0.21
+2019-07-31 14:00:00,768 [WARN] CheckServerUpdateThread:167 - Error reading file: updaterThirdParties.xml
+2019-07-31 14:00:00,776 [WARN] CheckServerUpdateThread:84 - Open Updater Control File Fail
+2019-07-31 14:00:00,781 [INFO] CheckServerUpdateThread:121 - End of CheckServer Thread
+2019-07-31 14:00:00,954 [INFO] MainUpdater:2032 - connection check result : 10
+2019-07-31 14:00:00,955 [INFO] LogOutputStream:68 - [STDOUT_REDIRECT] Successfull proxy connection.
+2019-07-31 14:00:01,619 [INFO] MicroXplorer:371 - Change Database Path : 
+2019-07-31 14:00:01,619 [INFO] MicroXplorer:401 - Change Database Version : DB.5.0.21
+2019-07-31 14:00:01,623 [INFO] PinOutPanel:1361 - setPackage(No Configuration,No Configuration)
+2019-07-31 14:00:01,625 [INFO] UtilMem:74 - Begin LoadConfig() Used Memory: 174441112 Bytes (314572800)
+2019-07-31 14:00:01,626 [INFO] MicroXplorer:371 - Change Database Path : 
+2019-07-31 14:00:01,626 [INFO] MicroXplorer:401 - Change Database Version : DB.5.0.21
+2019-07-31 14:00:01,627 [INFO] OpenFileManager:269 - Change cursor
+2019-07-31 14:00:06,869 [INFO] ImportTextPane:162 - (OptionalMessage_ERROR) IP (RCC) : Parameter (48MHZClocksFreq_Value) has invalid value (90000000)
+2019-07-31 14:00:06,870 [INFO] ImportTextPane:162 - (OptionalMessage_ERROR) IP (RCC) : Invalid parameter (FamilyName)
+2019-07-31 14:00:06,871 [INFO] ImportTextPane:162 - (OptionalMessage_ERROR) IP (RCC) : Parameter (MCO2PinFreq_Value) has invalid value (180000000)
+2019-07-31 14:00:06,872 [INFO] ImportTextPane:162 - (OptionalMessage_ERROR) IP (RCC) : Parameter (RTCHSEDivFreq_Value) has invalid value (12500000)
+2019-07-31 14:00:07,901 [INFO] UtilMem:74 - End LoadConfig() Used Memory: 184161208 Bytes (314572800)
+2019-07-31 14:00:08,078 [INFO] ThirdPartyDb:293 - Open Third Party DataBase File (/Users/sinmentis/.stm32cubemx/plugins/thirdparty/db/thirdparties_db.xml) : 4 ms. number of Sw pack : 0
+2019-07-31 14:00:09,097 [INFO] PinOutPanel:1361 - setPackage(No Configuration,No Configuration)
+2019-07-31 14:00:09,103 [INFO] PinOutPanel:1361 - setPackage(STM32F429ZITx,LQFP144)
+2019-07-31 14:00:10,141 [INFO] UtilMem:74 - Before build in PCC Used Memory: 157378480 Bytes (314572800)
+2019-07-31 14:00:10,635 [INFO] SharedServices:71 - Folder for power plug-in: /Users/sinmentis/.stm32cubemx/plugins/power
+2019-07-31 14:00:10,637 [INFO] UtilMem:74 - After build in PCC Used Memory: 165066216 Bytes (314572800)
+2019-07-31 14:00:10,715 [INFO] LogOutputStream:68 - [STDOUT_REDIRECT] toolchainItems.length=====1
+2019-07-31 14:00:10,863 [INFO] OpenFileManager:289 - Restore cursor
+2019-07-31 14:00:10,869 [INFO] DbMcusXml:106 - Load MCU database from /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_1.0.0.201906050926//db//mcu/families.xml
+2019-07-31 14:00:12,001 [INFO] DbMcusJson:87 - JSON generation date=Wed May 22 06:47:07 NZST 2019 (1558464427)
+2019-07-31 14:00:12,398 [INFO] ApiDbMcu:444 - Load IP Config File for LWIP
+2019-07-31 14:00:14,037 [INFO] DbMcus:192 - Found 1486 MCUs (1445 are supported by CubeMX, 1445 are visible in CubeMX)
+2019-07-31 14:00:14,038 [INFO] ApiDb:147 - User favorites file not found: /Users/sinmentis/.stm32cubemx/favorites.mcus.txt
+2019-07-31 14:00:14,038 [INFO] DbMcus:203 - Set 0 / 0 favorites MCUs
+2019-07-31 14:37:43,080 [INFO] DbMcusDocs:127 - JSON generation date=Wed May 22 06:47:07 NZST 2019 (1558464427)
+2019-07-31 14:37:43,084 [INFO] DbMcusDocs:59 - Found 66 MCUs documents
