@@ -91,10 +91,10 @@ class CounterGui:
         self.seven_segs_2 = Text(self.panel_frame, width=5, height=1).place(x=600, y= 30)
         
         # dials
-        dial_label_1 = Label(self.panel_frame, text="Dial 1", font=F).place(x=200, y= 100)
+        dial_label_1 = Label(self.panel_frame, text="Dial 1", font=F).place(x=150, y= 100)
         dial_label_2 = Label(self.panel_frame, text="Dial 2", font=F).place(x=500, y= 100)
 
-        self.dial_1 = Text(self.panel_frame, width=20, height=5).place(x=150, y= 150)
+        self.dial_1 = Text(self.panel_frame, width=20, height=5).place(x=100, y= 150)
         self.dial_2 = Text(self.panel_frame, width=20, height=5).place(x=450, y= 150)
 
         """======================Detect the event and react======================"""
