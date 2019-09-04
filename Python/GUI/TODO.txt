@@ -1,13 +1,13 @@
 """~~~~~~Final goal: GUI + UDP operation~~~~~~"""
 
 
-TODO:
-1. Control 7 Segs
-2. Control Potentionmeter
-3. Control Dial
+TODO:	
+1. Control 7 Segs				Done
+2. Control Potentionmeter			Done
+3. Control Dial					Done			
 4. LED button
-	4.1. LED color change
-	4.2. LED button command function
+	4.1. LED color change			Done
+	4.2. LED button command function	Done
 5. 1_pos switch 
 	5.1. LED color change
 	5.2. switch command function
