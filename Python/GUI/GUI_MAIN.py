@@ -118,10 +118,13 @@ class CounterGui:
 
 
     def add_leds(self):
-        self.led_21_L = tkinter.Label(self.panel_frame, text="2_pos L").place(x=30, y= 300)
-        self.led_22_L = tkinter.Label(self.panel_frame, text="2_pos R").place(x=80, y= 300)
+        self.led_21_L = tkinter.Label(self.panel_frame, text="State 1")
+        self.led_21_L.place(x=30, y= 300)
+        self.led_22_L = tkinter.Label(self.panel_frame, text="State 2")
+        self.led_22_L.place(x=80, y= 300)
 
-        self.led_11_L = tkinter.Label(self.panel_frame, text="1_pos").place(x=150, y= 300)
+        self.led_switch_L = tkinter.Label(self.panel_frame, text="1_pos")
+        self.led_switch_L.place(x=150, y= 300)
 
         self.led_1_L_flag = 0
         self.led_1_L = tkinter.Label(self.panel_frame, text="LED 1")
@@ -150,12 +153,12 @@ class CounterGui:
         self.led_4_R = tkinter.Label(self.panel_frame, text="LED 4")
         self.led_4_R.place(x=520, y= 300)
 
-        self.led_11_R = tkinter.Label(self.panel_frame, text="1_pos")
-        self.led_11_R.place(x=600, y= 300)
+        self.led_switch_R = tkinter.Label(self.panel_frame, text="1_pos")
+        self.led_switch_R.place(x=600, y= 300)
 
-        self.led_21_R = tkinter.Label(self.panel_frame, text="2_pos L")
+        self.led_21_R = tkinter.Label(self.panel_frame, text="State 2")
         self.led_21_R.place(x=665, y= 300)
-        self.led_22_R = tkinter.Label(self.panel_frame, text="2_pos R")
+        self.led_22_R = tkinter.Label(self.panel_frame, text="State 1")
         self.led_22_R.place(x=715, y= 300)
 
 
@@ -167,46 +170,46 @@ class CounterGui:
 
         # 2 pos switch
         self.pos_L = IntVar()
-        self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="Off", variable=self.pos_L, value=0)
+        self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_L, value=0)
         self.switch_1_L.place(x=60, y= 335)
-        self.switch_2_L = tkinter.Radiobutton(self.panel_frame, text="On", variable=self.pos_L, value=1)
+        self.switch_2_L = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_L, value=1)
         self.switch_2_L.place(x=60, y= 360)
 
         # 1 pos switch
         self.switch_L_flag = 1
-        self.switch_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, relief=RAISED, command=self.Switch_L)
+        self.switch_L = tkinter.Button(self.panel_frame, text="OFF", height=1, width=4, relief=RAISED, command=self.Switch_L)
         self.switch_L.place(x=150, y= 335)
 
         # buttons
-        self.button_1_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, command=self.but_1_L)
+        self.button_1_L = tkinter.Button(self.panel_frame, text="1", height=1, width=4, command=self.but_1_L)
         self.button_1_L.place(x=220, y= 335)
-        self.button_2_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, command=self.but_2_L)
+        self.button_2_L = tkinter.Button(self.panel_frame, text="2", height=1, width=4, command=self.but_2_L)
         self.button_2_L.place(x=260, y= 335)
-        self.button_3_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, command=self.but_3_L)
+        self.button_3_L = tkinter.Button(self.panel_frame, text="3", height=1, width=4, command=self.but_3_L)
         self.button_3_L.place(x=300, y= 335)
-        self.button_4_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, command=self.but_4_L)
+        self.button_4_L = tkinter.Button(self.panel_frame, text="4", height=1, width=4, command=self.but_4_L)
         self.button_4_L.place(x=340, y= 335)
 
         # buttons
-        self.button_1_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, command=self.but_1_R)
+        self.button_1_R = tkinter.Button(self.panel_frame, text="1", height=1, width=4, command=self.but_1_R)
         self.button_1_R.place(x=400, y= 335)
-        self.button_2_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, command=self.but_2_R)
+        self.button_2_R = tkinter.Button(self.panel_frame, text="2", height=1, width=4, command=self.but_2_R)
         self.button_2_R.place(x=440, y= 335)
-        self.button_3_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, command=self.but_3_R)
+        self.button_3_R = tkinter.Button(self.panel_frame, text="3", height=1, width=4, command=self.but_3_R)
         self.button_3_R.place(x=480, y= 335)
-        self.button_4_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, command=self.but_4_R)
+        self.button_4_R = tkinter.Button(self.panel_frame, text="4", height=1, width=4, command=self.but_4_R)
         self.button_4_R.place(x=520, y= 335)
 
         # 1 pos switch
         self.switch_R_flag = 1
-        self.switch_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, relief=RAISED, command=self.Switch_R)
+        self.switch_R = tkinter.Button(self.panel_frame, text="OFF", height=1, width=4, relief=RAISED, command=self.Switch_R)
         self.switch_R.place(x=600, y= 335)
 
         # 2 pos switch
         self.pos_R = IntVar()
-        self.switch_1_R = tkinter.Radiobutton(self.panel_frame, text="Off", variable=self.pos_R, value=0)
+        self.switch_1_R = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_R, value=0, command=self.Switch_2_R)
         self.switch_1_R.place(x=690, y= 335)
-        self.switch_2_R = tkinter.Radiobutton(self.panel_frame, text="On", variable=self.pos_R, value=1)
+        self.switch_2_R = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_R, value=1, command=self.Switch_2_R)
         self.switch_2_R.place(x=690, y= 360)
 
     """======================Detect the event and react======================"""
@@ -265,26 +268,38 @@ class CounterGui:
     def Set_7seg_poten_dial(self, item, value):
         item['text'] = value
 
-    """------ Switchs ------"""
-    def LED_togle(self):
-        
-        pass
 
     """------ Switchs ------"""
     def Switch_L(self):
         self.switch_L_flag += 1
         if(self.switch_L_flag % 2 == 0):
             self.switch_L['relief']=SUNKEN
+            self.led_switch_L['bg']=self.ON
+            self.switch_L['text']="ON"
         else:
             self.switch_L['relief']=RAISED
-
+            self.led_switch_L['bg']=self.OFF
+            self.switch_L['text']="OFF"
 
     def Switch_R(self):
         self.switch_R_flag += 1
         if(self.switch_R_flag % 2 == 0):
             self.switch_R['relief']=SUNKEN
+            self.led_switch_R['bg']=self.ON
+            self.switch_R['text']="ON"
         else:
             self.switch_R['relief']=RAISED
+            self.led_switch_R['bg']=self.OFF
+            self.switch_R['text']="OFF"
+
+    def Switch_2_R(self):
+        if self.pos_R.get() == 1:
+            self.led_21_R.config(bg=self.ON)
+            self.led_22_R.config(bg=self.OFF)
+        else:
+            self.led_21_R.config(bg=self.OFF)
+            self.led_22_R.config(bg=self.ON)
+
 
     """------ Menus ------"""
 

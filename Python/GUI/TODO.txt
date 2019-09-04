@@ -9,11 +9,11 @@ TODO:
 	4.1. LED color change			Done
 	4.2. LED button command function	Done
 5. 1_pos switch 
-	5.1. LED color change
-	5.2. switch command function
-6. 2_pos switch event
-	6.1. LED color change
-	6.2. Switch command function
+	5.1. LED color change			Done
+	5.2. switch command function		Done
+6. 2_pos switch event				
+	6.1. LED color change			Done
+	6.2. Switch command function		Done
 7. Menu
 	7.1 Testing function - fake master emulation
 	7.2 Provide something to set
