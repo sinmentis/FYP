@@ -3,11 +3,8 @@ from tkinter import *
 from tkinter.messagebox import showinfo
 from tkinter.ttk import *
 
-"""Global Variables"""
-F =("Helvetica", 16)
 
 class CounterGui:
-    """======================Construct the GUI in the given window======================"""
 
     def __init__(self, window):
 
@@ -16,6 +13,7 @@ class CounterGui:
 
         # gloabl variables
         self.message = ["\n"]
+        self.F =("Helvetica", 16) # font and size
 
         # Draw the GUI
         self.init_GUI()     # setting [title && geometry]
@@ -71,31 +69,65 @@ class CounterGui:
 
 
     def add_panel(self):
-        
+
         # Adding Frame with frame hw:600*800
         self.panel_frame = tkinter.Frame(height = 500,width = 800, bg = '#C0C0C0')
         self.panel_frame.pack(fill=BOTH, side=TOP, padx=15, pady=15)
 
         # 7 segs and potentionmeter
-        # Widget distance: {50}50{100}150{50}50{100}
+        self.add_7seg_potentionmeters()
+
+        # dials
+        self.add_dials()
+
+        # LEDs
+        self.add_leds()
+
+
+    def add_7seg_potentionmeters(self):
+        # Widget distance: {50}50{100}150{50}50{100}  
         seg_label_1 = Label(self.panel_frame, text="7 Seg: ").place(x=50, y= 30)
         self.seven_segs_1 = Text(self.panel_frame, width=5, height=1).place(x=100, y= 30)
 
-        poten_label_1 = Label(self.panel_frame, text="Potentionmeter: ").place(x=150, y= 30)
-        self.poten_1 = Text(self.panel_frame, width=5, height=1).place(x=250, y= 30)
+        poten_label_1 = Label(self.panel_frame, text="Potentionmeter: ").place(x=200, y= 30)
+        self.poten_1 = Text(self.panel_frame, width=5, height=1).place(x=300, y= 30)
 
-        poten_label_2 = Label(self.panel_frame, text="Potentionmeter: ").place(x=400, y= 30)
-        self.poten_2 = Text(self.panel_frame, width=5, height=1).place(x=500, y= 30)
+        poten_label_2 = Label(self.panel_frame, text="Potentionmeter: ").place(x=450, y= 30)
+        self.poten_2 = Text(self.panel_frame, width=5, height=1).place(x=550, y= 30)
 
-        seg_label_2 = Label(self.panel_frame, text="7 Seg: ").place(x=550, y= 30)
-        self.seven_segs_2 = Text(self.panel_frame, width=5, height=1).place(x=600, y= 30)
-        
-        # dials
-        dial_label_1 = Label(self.panel_frame, text="Dial 1", font=F).place(x=150, y= 100)
-        dial_label_2 = Label(self.panel_frame, text="Dial 2", font=F).place(x=500, y= 100)
+        seg_label_2 = Label(self.panel_frame, text="7 Seg: ").place(x=650, y= 30)
+        self.seven_segs_2 = Text(self.panel_frame, width=5, height=1).place(x=700, y= 30)
+
+
+    def add_dials(self):
+        dial_label_1 = Label(self.panel_frame, text="Dial 1", font=self.F).place(x=150, y= 100)
+        dial_label_2 = Label(self.panel_frame, text="Dial 2", font=self.F).place(x=550, y= 100)
 
         self.dial_1 = Text(self.panel_frame, width=20, height=5).place(x=100, y= 150)
-        self.dial_2 = Text(self.panel_frame, width=20, height=5).place(x=450, y= 150)
+        self.dial_2 = Text(self.panel_frame, width=20, height=5).place(x=500, y= 150)
+
+    def add_leds(self):
+        self.led_21_L = Label(self.panel_frame, text="2_pos L").place(x=10, y= 300)
+        self.led_22_L = Label(self.panel_frame, text="2_pos R").place(x=60, y= 300)
+
+        self.led_11_L = Label(self.panel_frame, text="1_pos").place(x=150, y= 300)
+
+        self.led_1_L = Label(self.panel_frame, text="LED 1").place(x=220, y= 300)
+        self.led_2_L = Label(self.panel_frame, text="LED 2").place(x=260, y= 300)
+        self.led_3_L = Label(self.panel_frame, text="LED 3").place(x=300, y= 300)
+        self.led_4_L = Label(self.panel_frame, text="LED 4").place(x=340, y= 300)
+
+        # Symmetrical
+        self.led_1_R = Label(self.panel_frame, text="LED 1").place(x=400, y= 300)
+        self.led_2_R = Label(self.panel_frame, text="LED 2").place(x=440, y= 300)
+        self.led_3_R = Label(self.panel_frame, text="LED 3").place(x=480, y= 300)
+        self.led_4_R = Label(self.panel_frame, text="LED 4").place(x=520, y= 300)
+
+        self.led_11_R = Label(self.panel_frame, text="1_pos").place(x=600, y= 300)
+
+        self.led_21_R = Label(self.panel_frame, text="2_pos L").place(x=665, y= 300)
+        self.led_22_R = Label(self.panel_frame, text="2_pos R").place(x=715, y= 300)
+
 
         """======================Detect the event and react======================"""
 
@@ -121,7 +153,7 @@ class CounterGui:
         # Update the message
         self.console_message.configure(text=total_message)
 
-    """============= Menus ============="""
+    """------ Menus ------"""
 
     def Menu_testing(self):
         self.message.append("Testing\n")
