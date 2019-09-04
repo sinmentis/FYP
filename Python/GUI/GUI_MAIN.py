@@ -64,7 +64,7 @@ class CounterGui:
 
         # Adding message
         self.console_message = Message(self.console_frame, text = "\n\n\n\n\n\n\n\n\n")
-        self.console_message.place(in_=self.console_frame,x=20, y=420)#.pack(fill='x', side=LEFT)
+        self.console_message.place(in_=self.console_frame,x=20, y=420)
 
     def add_panel(self):
 
@@ -135,6 +135,10 @@ class CounterGui:
 
     def add_buttons(self):
 
+        # Apply button
+        self.apply = tkinter.Button(self.panel_frame, text="Send to Panel", height=1, width=12, relief=GROOVE, font=self.F, command=self.Apply)
+        self.apply.place(x=310, y= 150)
+
         # 2 pos switch
         self.v_1 = IntVar()
         self.switch_11_L = tkinter.Radiobutton(self.panel_frame, text="Off", variable=self.v_1, value=0)
@@ -180,6 +184,12 @@ class CounterGui:
         self.switch_12_R.place(x=690, y= 360)
 
     """======================Detect the event and react======================"""
+    """------ Switchs ------"""
+    def Apply(self):
+        # TODO: Read all data and send UDP packet
+        pass
+
+
     """------ Switchs ------"""
     def Switch_L(self):
         self.switch_L_flag += 1

@@ -1,0 +1,25 @@
+Final goal: GUI + UDP operation
+
+
+TODO:
+1. Control 7 Segs
+2. Control Potentionmeter
+3. Control Dial
+4. LED button
+	4.1. LED color change
+	4.2. LED button command function
+5. 1_pos switch 
+	5.1. LED color change
+	5.2. switch command function
+6. 2_pos switch event
+	6.1. LED color change
+	6.2. Switch command function
+7. Menu
+	7.1 Testing function - fake master emulation
+	7.2 Provide something to set
+8. Icons?
+9. UDP
+	9.1. UDP sending
+	9.2. UDP Receiving
+	9.3. UDP communicate with console
+	9.4. UDP combine with all widgets
