@@ -63,7 +63,7 @@ class CounterGui:
         self.console_frame = Labelframe(self.window, text="Message Console").place(x=10,y=405,height=200,width=780)
 
         # Adding message
-        self.console_message = Message(self.console_frame, text = "\n\n\n\n\n\n\n\n\n")
+        self.console_message = Message(self.console_frame, text = "\n\n\n\n\n\n\n\n\n",width=780)
         self.console_message.place(in_=self.console_frame,x=20, y=420)
 
     def add_panel(self):
@@ -85,31 +85,31 @@ class CounterGui:
 
     def add_7seg_potentionmeters(self):
         # Widget distance: {50}50{100}150{50}50{100}  
-        seg_label_1 = Label(self.panel_frame, text="7 Seg: ").place(x=50, y= 30)
-        self.seven_segs_1 = Text(self.panel_frame, width=5, height=1)
-        self.seven_segs_1.place(x=100, y= 30)
+        seg_label_L = Label(self.panel_frame, text="7 Seg: ").place(x=50, y= 30)
+        self.seven_segs_L = Text(self.panel_frame, width=5, height=1)
+        self.seven_segs_L.place(x=100, y= 30)
 
-        poten_label_1 = Label(self.panel_frame, text="Potentionmeter: ").place(x=200, y= 30)
-        self.poten_1 = Text(self.panel_frame, width=5, height=1)
-        self.poten_1.place(x=300, y= 30)
+        poten_label_L = Label(self.panel_frame, text="Potentionmeter: ").place(x=200, y= 30)
+        self.poten_L = Text(self.panel_frame, width=5, height=1)
+        self.poten_L.place(x=300, y= 30)
 
-        poten_label_2 = Label(self.panel_frame, text="Potentionmeter: ").place(x=450, y= 30)
-        self.poten_2 = Text(self.panel_frame, width=5, height=1)
-        self.poten_2.place(x=550, y= 30)
+        poten_label_R = Label(self.panel_frame, text="Potentionmeter: ").place(x=450, y= 30)
+        self.poten_R = Text(self.panel_frame, width=5, height=1)
+        self.poten_R.place(x=550, y= 30)
 
-        seg_label_2 = Label(self.panel_frame, text="7 Seg: ").place(x=650, y= 30)
-        self.seven_segs_2 = Text(self.panel_frame, width=5, height=1)
-        self.seven_segs_2.place(x=700, y= 30)
+        seg_label_R = Label(self.panel_frame, text="7 Seg: ").place(x=650, y= 30)
+        self.seven_segs_R = Text(self.panel_frame, width=5, height=1)
+        self.seven_segs_R.place(x=700, y= 30)
 
 
     def add_dials(self):
-        dial_label_1 = Label(self.panel_frame, text="Dial 1", font=self.F).place(x=150, y= 100)
-        dial_label_2 = Label(self.panel_frame, text="Dial 2", font=self.F).place(x=550, y= 100)
+        dial_label_L = Label(self.panel_frame, text="Dial 1", font=self.F).place(x=150, y= 100)
+        dial_label_R = Label(self.panel_frame, text="Dial 2", font=self.F).place(x=550, y= 100)
 
-        self.dial_1 = Text(self.panel_frame, width=20, height=5)
-        self.dial_1.place(x=100, y= 150)
-        self.dial_2 = Text(self.panel_frame, width=20, height=5)
-        self.dial_2.place(x=500, y= 150)
+        self.dial_L = Text(self.panel_frame, width=20, height=5)
+        self.dial_L.place(x=100, y= 150)
+        self.dial_R = Text(self.panel_frame, width=20, height=5)
+        self.dial_R.place(x=500, y= 150)
 
     def add_leds(self):
         self.led_21_L = Label(self.panel_frame, text="2_pos L").place(x=30, y= 300)
@@ -140,10 +140,10 @@ class CounterGui:
         self.apply.place(x=310, y= 150)
 
         # 2 pos switch
-        self.v_1 = IntVar()
-        self.switch_11_L = tkinter.Radiobutton(self.panel_frame, text="Off", variable=self.v_1, value=0)
+        self.pos_L = IntVar()
+        self.switch_11_L = tkinter.Radiobutton(self.panel_frame, text="Off", variable=self.pos_L, value=0)
         self.switch_11_L.place(x=60, y= 335)
-        self.switch_12_L = tkinter.Radiobutton(self.panel_frame, text="On", variable=self.v_1, value=1)
+        self.switch_12_L = tkinter.Radiobutton(self.panel_frame, text="On", variable=self.pos_L, value=1)
         self.switch_12_L.place(x=60, y= 360)
 
         # 1 pos switch
@@ -177,18 +177,35 @@ class CounterGui:
         self.switch_R.place(x=600, y= 335)
 
         # 2 pos switch
-        self.v_2 = IntVar()
-        self.switch_11_R = tkinter.Radiobutton(self.panel_frame, text="Off", variable=self.v_2, value=0)
+        self.pos_R = IntVar()
+        self.switch_11_R = tkinter.Radiobutton(self.panel_frame, text="Off", variable=self.pos_R, value=0)
         self.switch_11_R.place(x=690, y= 335)
-        self.switch_12_R = tkinter.Radiobutton(self.panel_frame, text="On", variable=self.v_2, value=1)
+        self.switch_12_R = tkinter.Radiobutton(self.panel_frame, text="On", variable=self.pos_R, value=1)
         self.switch_12_R.place(x=690, y= 360)
 
     """======================Detect the event and react======================"""
-    """------ Switchs ------"""
+    """------ Buttons ------"""
     def Apply(self):
-        # TODO: Read all data and send UDP packet
-        pass
+        # TODO: send UDP packet
 
+        # Read from Text widget
+        v_seg_L = str(self.seven_segs_L.get("1.0",END)).strip()
+        v_seg_R = str(self.seven_segs_R.get("1.0",END)).strip()
+        v_meter_L = str(self.poten_L.get("1.0",END)).strip()
+        v_meter_R = str(self.poten_R.get("1.0",END)).strip()
+        v_dial_L = str(self.dial_L.get("1.0",END)).strip()
+        v_dial_R = str(self.dial_R.get("1.0",END)).strip()
+
+        # Testing part: gather data and print out to console
+        data_list = [v_seg_L, v_seg_R, v_meter_L, v_meter_R, v_dial_L, v_dial_R]
+        data_name = ["Left 7 Seg", "Right 7 Seg", "Left meter", "Right meter", "Left Dial", "Right Dial"]
+        for num in range(len(data_list)):
+            self.message.append("{0:<10}: {1:<3}\n".format(data_name[num], data_list[num]))
+        self.update_message()
+
+    """------ 7 Segs && potentionmeter && dials------"""
+    def Set_7seg_poten_dial(self, item, value):
+        item['text'] = value
 
     """------ Switchs ------"""
     def Switch_L(self):
@@ -226,7 +243,7 @@ class CounterGui:
             self.message.remove("\n")
 
         # Clear buffer limit the length to 10
-        if(len(self.message) > 10):
+        while(len(self.message) > 10):
             self.message = self.message[1:]
 
         # Adding \n if buffer is not 9
@@ -239,6 +256,7 @@ class CounterGui:
             total_message += line
 
         # Update the message
+        print(self.message)
         self.console_message.configure(text=total_message)
 
 
