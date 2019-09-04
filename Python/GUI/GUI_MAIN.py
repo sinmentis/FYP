@@ -32,8 +32,8 @@ class CounterGui:
 
         # centralize the windows
         width_limit = (self.window.winfo_screenwidth() - 800) / 2
-        height_limit = (self.window.winfo_screenheight() - 600) / 2
-        self.window.geometry("800x600+{0:.0f}+{1:.0f}".format(width_limit, height_limit))
+        height_limit = (self.window.winfo_screenheight() - 620) / 2
+        self.window.geometry("800x620+{0:.0f}+{1:.0f}".format(width_limit, height_limit))
 
         # Fix the width and height
         self.window.resizable(False, False)
@@ -60,19 +60,16 @@ class CounterGui:
     def add_console(self):
 
         # Adding labelFrame with hw:200*800
-        self.console_frame = Labelframe(self.window, text="Message Console",height = 200,width = 800)
-        self.console_frame.pack(fill="x", padx=5, pady=5)
+        self.console_frame = Labelframe(self.window, text="Message Console").place(x=10,y=405,height=200,width=780)
 
         # Adding message
-        self.console_message = Message(self.console_frame, text = "\n\n\n\n\n\n\n\n\n\n", width=800)
-        self.console_message.pack(side='left')
-
+        self.console_message = Message(self.console_frame, text = "\n\n\n\n\n\n\n\n\n")
+        self.console_message.place(in_=self.console_frame,x=20, y=420)#.pack(fill='x', side=LEFT)
 
     def add_panel(self):
 
         # Adding Frame with frame hw:600*800
-        self.panel_frame = tkinter.Frame(height = 400,width = 800, bg = '#C0C0C0')
-        self.panel_frame.pack(fill=BOTH, side=TOP, padx=15, pady=15)
+        self.panel_frame = tkinter.Frame(height = 400,width = 800, bg = '#C0C0C0').pack(fill=BOTH, side=TOP, padx=15, pady=15)
 
         # 7 segs and potentionmeter
         self.add_7seg_potentionmeters()
@@ -89,28 +86,34 @@ class CounterGui:
     def add_7seg_potentionmeters(self):
         # Widget distance: {50}50{100}150{50}50{100}  
         seg_label_1 = Label(self.panel_frame, text="7 Seg: ").place(x=50, y= 30)
-        self.seven_segs_1 = Text(self.panel_frame, width=5, height=1).place(x=100, y= 30)
+        self.seven_segs_1 = Text(self.panel_frame, width=5, height=1)
+        self.seven_segs_1.place(x=100, y= 30)
 
         poten_label_1 = Label(self.panel_frame, text="Potentionmeter: ").place(x=200, y= 30)
-        self.poten_1 = Text(self.panel_frame, width=5, height=1).place(x=300, y= 30)
+        self.poten_1 = Text(self.panel_frame, width=5, height=1)
+        self.poten_1.place(x=300, y= 30)
 
         poten_label_2 = Label(self.panel_frame, text="Potentionmeter: ").place(x=450, y= 30)
-        self.poten_2 = Text(self.panel_frame, width=5, height=1).place(x=550, y= 30)
+        self.poten_2 = Text(self.panel_frame, width=5, height=1)
+        self.poten_2.place(x=550, y= 30)
 
         seg_label_2 = Label(self.panel_frame, text="7 Seg: ").place(x=650, y= 30)
-        self.seven_segs_2 = Text(self.panel_frame, width=5, height=1).place(x=700, y= 30)
+        self.seven_segs_2 = Text(self.panel_frame, width=5, height=1)
+        self.seven_segs_2.place(x=700, y= 30)
 
 
     def add_dials(self):
         dial_label_1 = Label(self.panel_frame, text="Dial 1", font=self.F).place(x=150, y= 100)
         dial_label_2 = Label(self.panel_frame, text="Dial 2", font=self.F).place(x=550, y= 100)
 
-        self.dial_1 = Text(self.panel_frame, width=20, height=5).place(x=100, y= 150)
-        self.dial_2 = Text(self.panel_frame, width=20, height=5).place(x=500, y= 150)
+        self.dial_1 = Text(self.panel_frame, width=20, height=5)
+        self.dial_1.place(x=100, y= 150)
+        self.dial_2 = Text(self.panel_frame, width=20, height=5)
+        self.dial_2.place(x=500, y= 150)
 
     def add_leds(self):
-        self.led_21_L = Label(self.panel_frame, text="2_pos L").place(x=10, y= 300)
-        self.led_22_L = Label(self.panel_frame, text="2_pos R").place(x=60, y= 300)
+        self.led_21_L = Label(self.panel_frame, text="2_pos L").place(x=30, y= 300)
+        self.led_22_L = Label(self.panel_frame, text="2_pos R").place(x=80, y= 300)
 
         self.led_11_L = Label(self.panel_frame, text="1_pos").place(x=150, y= 300)
 
@@ -131,48 +134,66 @@ class CounterGui:
         self.led_22_R = Label(self.panel_frame, text="2_pos R").place(x=715, y= 300)
 
     def add_buttons(self):
-        self.switch_2_L = Label(self.panel_frame, text="0", font=self.F).place(x=50, y= 335)
 
-        self.switch_1_L = Label(self.panel_frame, text="0", font=self.F).place(x=155, y= 335)
+        # 2 pos switch
+        self.v_1 = IntVar()
+        self.switch_11_L = tkinter.Radiobutton(self.panel_frame, text="Off", variable=self.v_1, value=0)
+        self.switch_11_L.place(x=60, y= 335)
+        self.switch_12_L = tkinter.Radiobutton(self.panel_frame, text="On", variable=self.v_1, value=1)
+        self.switch_12_L.place(x=60, y= 360)
 
-        self.button_1_L = Label(self.panel_frame, text="0", font=self.F).place(x=230, y= 335)
-        self.button_2_L = Label(self.panel_frame, text="0", font=self.F).place(x=270, y= 335)
-        self.button_3_L = Label(self.panel_frame, text="0", font=self.F).place(x=310, y= 335)
-        self.button_4_L = Label(self.panel_frame, text="0", font=self.F).place(x=350, y= 335)
+        # 1 pos switch
+        self.switch_L_flag = 1
+        self.switch_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, relief=RAISED, command=self.Switch_L)
+        self.switch_L.place(x=150, y= 335)
 
-        # Symmetrical
-        self.button_1_R = Label(self.panel_frame, text="0", font=self.F).place(x=410, y= 335)
-        self.button_2_R = Label(self.panel_frame, text="0", font=self.F).place(x=450, y= 335)
-        self.button_3_R = Label(self.panel_frame, text="0", font=self.F).place(x=490, y= 335)
-        self.button_4_R = Label(self.panel_frame, text="0", font=self.F).place(x=530, y= 335)
+        # buttons
+        self.button_1_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4)
+        self.button_1_L.place(x=220, y= 335)
+        self.button_2_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4)
+        self.button_2_L.place(x=260, y= 335)
+        self.button_3_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4)
+        self.button_3_L.place(x=300, y= 335)
+        self.button_4_L = tkinter.Button(self.panel_frame, text="Off", height=1, width=4)
+        self.button_4_L.place(x=340, y= 335)
 
-        self.switch_1_R = Label(self.panel_frame, text="0", font=self.F).place(x=610, y= 335)
+        # buttons
+        self.button_1_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4)
+        self.button_1_R.place(x=400, y= 335)
+        self.button_2_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4)
+        self.button_2_R.place(x=440, y= 335)
+        self.button_3_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4)
+        self.button_3_R.place(x=480, y= 335)
+        self.button_4_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4)
+        self.button_4_R.place(x=520, y= 335)
 
-        self.switch_2_R = Label(self.panel_frame, text="0", font=self.F).place(x=700, y= 335)
+        # 1 pos switch
+        self.switch_R_flag = 1
+        self.switch_R = tkinter.Button(self.panel_frame, text="Off", height=1, width=4, relief=RAISED, command=self.Switch_R)
+        self.switch_R.place(x=600, y= 335)
 
-        """======================Detect the event and react======================"""
+        # 2 pos switch
+        self.v_2 = IntVar()
+        self.switch_11_R = tkinter.Radiobutton(self.panel_frame, text="Off", variable=self.v_2, value=0)
+        self.switch_11_R.place(x=690, y= 335)
+        self.switch_12_R = tkinter.Radiobutton(self.panel_frame, text="On", variable=self.v_2, value=1)
+        self.switch_12_R.place(x=690, y= 360)
 
-    def update_message(self):
+    """======================Detect the event and react======================"""
+    """------ Switchs ------"""
+    def Switch_L(self):
+        self.switch_L_flag += 1
+        if(self.switch_L_flag % 2 == 0):
+            self.switch_L['relief']=SUNKEN
+        else:
+            self.switch_L['relief']=RAISED
 
-        # when adding new line, remove old \n
-        while("\n" in self.message):
-            self.message.remove("\n")
-
-        # Clear buffer limit the length to 10
-        if(len(self.message) > 9):
-            self.message = self.message[1:]
-
-        # Adding \n if buffer is not 9
-        while(len(self.message) <= 9):
-            self.message += ["\n"]
-
-        # Convert list into string
-        total_message = ""
-        for line in self.message:
-            total_message += line
-
-        # Update the message
-        self.console_message.configure(text=total_message)
+    def Switch_R(self):
+        self.switch_R_flag += 1
+        if(self.switch_R_flag % 2 == 0):
+            self.switch_R['relief']=SUNKEN
+        else:
+            self.switch_R['relief']=RAISED
 
     """------ Menus ------"""
 
@@ -186,6 +207,29 @@ class CounterGui:
 
     def Menu_about_us(self):
         showinfo(title="About us", message="This is E19")
+
+    """------ Message Console ------"""
+    def update_message(self):
+
+        # when adding new line, remove old \n
+        while("\n" in self.message):
+            self.message.remove("\n")
+
+        # Clear buffer limit the length to 10
+        if(len(self.message) > 10):
+            self.message = self.message[1:]
+
+        # Adding \n if buffer is not 9
+        while(len(self.message) <= 10):
+            self.message += ["\n"]
+
+        # Convert list into string
+        total_message = ""
+        for line in self.message:
+            total_message += line
+
+        # Update the message
+        self.console_message.configure(text=total_message)
 
 
 if __name__ == "__main__":
