@@ -170,10 +170,10 @@ class CounterGui:
 
         # 2 pos switch
         self.pos_L = IntVar()
-        self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_L, value=0)
-        self.switch_1_L.place(x=60, y= 335)
-        self.switch_2_L = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_L, value=1)
-        self.switch_2_L.place(x=60, y= 360)
+        self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_L, value=0, command=self.Switch_2_L)
+        self.switch_1_L.place(x=50, y= 335)
+        self.switch_2_L = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_L, value=1, command=self.Switch_2_L)
+        self.switch_2_L.place(x=50, y= 360)
 
         # 1 pos switch
         self.switch_L_flag = 1
@@ -208,9 +208,9 @@ class CounterGui:
         # 2 pos switch
         self.pos_R = IntVar()
         self.switch_1_R = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_R, value=0, command=self.Switch_2_R)
-        self.switch_1_R.place(x=690, y= 335)
+        self.switch_1_R.place(x=680, y= 335)
         self.switch_2_R = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_R, value=1, command=self.Switch_2_R)
-        self.switch_2_R.place(x=690, y= 360)
+        self.switch_2_R.place(x=680, y= 360)
 
     """======================Detect the event and react======================"""
     """------ Buttons ------"""
@@ -300,6 +300,13 @@ class CounterGui:
             self.led_21_R.config(bg=self.OFF)
             self.led_22_R.config(bg=self.ON)
 
+    def Switch_2_L(self):
+        if self.pos_L.get() == 1:
+            self.led_22_L.config(bg=self.ON)
+            self.led_21_L.config(bg=self.OFF)
+        else:
+            self.led_22_L.config(bg=self.OFF)
+            self.led_21_L.config(bg=self.ON)
 
     """------ Menus ------"""
 
