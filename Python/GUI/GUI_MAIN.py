@@ -33,7 +33,7 @@ class CounterGui:
         # centralize the windows
         width_limit = (self.window.winfo_screenwidth() - 800) / 2
         height_limit = (self.window.winfo_screenheight() - 700) / 2
-        self.window.geometry("800x800+{0:.0f}+{1:.0f}".format(width_limit, height_limit))  
+        self.window.geometry("800x800+{0:.0f}+{1:.0f}".format(width_limit, height_limit))
 
         # Fix the width and height
         self.window.resizable(False, False)
