@@ -373,7 +373,7 @@ class Simulator_GUI:
         self.window.destroy()
 
 
-    """------ Message Console ------"""
+    """====================== Message ======================"""
     def Update_message(self, new_message=None):
 
         # Adding new message into self
