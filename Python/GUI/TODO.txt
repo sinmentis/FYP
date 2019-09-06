@@ -1,0 +1,35 @@
+"""~~~~~~Final goal: GUI + UDP operation~~~~~~"""
+
+
+TODO:	
+1. Control 7 Segs				Done
+2. Control Potentionmeter			Done
+3. Control Dial					Done			
+4. LED button
+	4.1. LED color change			Done
+	4.2. LED button command function	Done
+5. 1_pos switch 
+	5.1. LED color change			Done
+	5.2. switch command function		Done
+6. 2_pos switch event				
+	6.1. LED color change			Done
+	6.2. Switch command function		Done
+7. Menu
+	7.1 Testing function - fake master emulation
+	7.2 Provide something to set
+8. Icons?					Pending
+9. UDP						Done
+	9.1. UDP sending			Done
+	9.2. UDP Receiving			Done
+	9.3. UDP communicate with console	Done
+	9.4. UDP combine with all widgets	
+	9.5  Decode the Packet
+	0.6  Construct the Packet
+	
+	
+"""~~~~~~How to do UDP with GUI?~~~~~~"""
+Done 	1. Init the Eth before GUI running.
+Done	2. Create a thread to call receiver function - The function has to keep listen the UDP in a endless loop.
+Done	3. Create a thread (or Button) to call sender function.
+		- The function will send the packet contain changed state of the component.
+Done		- The function will be called periodic.
