@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 import socket
 import select
-import time
 
 """=====================Head Define====================="""
 DEBUG_MODE = True
@@ -26,7 +25,9 @@ else:
 
 
 def init_UDP_connection():
-    print("My IP is:     {0}, PORT: {1}\nTarget IP is: {0}, PORT: {1}".format(UDP_PC_IP, UDP_PC_PORT,UDP_MASTER_IP, UDP_MASTER_PORT))
+    print("My IP is:     {0}, PORT: {1}".format(UDP_PC_IP, UDP_PC_PORT))
+    print("Target IP is: {0}, PORT: {1}\n\n".format(UDP_MASTER_IP, UDP_MASTER_PORT))
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.setblocking(0)
     sock.bind((UDP_PC_IP, UDP_PC_PORT))
@@ -36,8 +37,6 @@ def init_UDP_connection():
 
 """===================== MAIN ====================="""
 def main(sock):
-
-    data = b"HELLO"
     while True:
         ready = select.select([sock], [], [], UDP_RECEIVE_TIMEOUT)
         if ready[0]:
@@ -48,7 +47,6 @@ def main(sock):
         else:
             sock.sendto(data, (UDP_MASTER_IP, UDP_MASTER_PORT))
             print("PC: I just Sent a [{0}]".format(data))
-
 if __name__ == '__main__':
     sock = init_UDP_connection()
     main(sock)

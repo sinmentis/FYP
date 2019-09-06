@@ -17,17 +17,19 @@ TODO:
 7. Menu
 	7.1 Testing function - fake master emulation
 	7.2 Provide something to set
-8. Icons?
-9. UDP
-	9.1. UDP sending
-	9.2. UDP Receiving
-	9.3. UDP communicate with console
-	9.4. UDP combine with all widgets
+8. Icons?					Pending
+9. UDP						Done
+	9.1. UDP sending			Done
+	9.2. UDP Receiving			Done
+	9.3. UDP communicate with console	Done
+	9.4. UDP combine with all widgets	
+	9.5  Decode the Packet
+	0.6  Construct the Packet
 	
 	
 """~~~~~~How to do UDP with GUI?~~~~~~"""
-1. Init the Eth before GUI running.
-2. Create a thread to call receiver function - The function has to keep listen the UDP in a endless loop.
-3. Create a thread (or Button) to call sender function.
-	- The function will send the packet contain changed state of the component.
-	- The function will be called periodic.
+Done 	1. Init the Eth before GUI running.
+Done	2. Create a thread to call receiver function - The function has to keep listen the UDP in a endless loop.
+Done	3. Create a thread (or Button) to call sender function.
+		- The function will send the packet contain changed state of the component.
+Done		- The function will be called periodic.
