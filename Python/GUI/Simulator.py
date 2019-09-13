@@ -27,8 +27,8 @@ class Simulator_GUI:
 
         # global variables
         self.message = ["\n"]
-        self.F =("Helvetica", 16) # font and size
-        self.sF=("Helvetica", 8)
+        self.F = ("Helvetica", 16) # font and size
+        self.sF = ("Helvetica", 8)
         self.defbg = '#C0C0C0'
         self.ON = "#FFD700"
         self.OFF = "#F0F0F0"
@@ -94,11 +94,11 @@ class Simulator_GUI:
     def add_console(self):
 
         # Adding labelFrame with hw:200*800
-        self.console_frame = Labelframe(self.window, text="Message Console").place(x=10,y=440,height=210,width=800)
+        self.console_frame = Labelframe(self.window, text="Message Console").place(x=10, y=440, height=210, width=800)
 
         # Adding message
-        self.console_message = Message(self.console_frame, text = "\n\n\n\n\n\n\n\n\n",width=780)
-        self.console_message.place(in_=self.console_frame,x=20, y=460)
+        self.console_message = Message(self.console_frame, text = "\n\n\n\n\n\n\n\n\n", width=780)
+        self.console_message.place(in_=self.console_frame, x=20, y=460)
 
 
     def add_seeting(self):
@@ -108,39 +108,39 @@ class Simulator_GUI:
         y_variable = 650
 
         # Draw the label
-        Label(self.panel_frame, text="Button Slave").place(x=x_variable+100, y= y_variable)
-        Label(self.panel_frame, text="LED Slave").place(x=x_variable+200, y= y_variable)
-        Label(self.panel_frame, text="Other Slave").place(x=x_variable+300, y= y_variable)
-        Label(self.panel_frame, text="Board Type").place(x=x_variable, y= y_variable+30)
-        Label(self.panel_frame, text="Borad Number").place(x=x_variable, y= y_variable+60)
+        Label(self.panel_frame, text="Button Slave").place(x=x_variable+100, y=y_variable)
+        Label(self.panel_frame, text="LED Slave").place(x=x_variable+200, y=y_variable)
+        Label(self.panel_frame, text="Other Slave").place(x=x_variable+300, y=y_variable)
+        Label(self.panel_frame, text="Board Type").place(x=x_variable, y=y_variable+30)
+        Label(self.panel_frame, text="Borad Number").place(x=x_variable, y=y_variable+60)
 
         # Entrys: types
         self.but_type = Text(self.panel_frame, width=7, height=1)
         self.but_type.insert(END, "0")
-        self.but_type.place(x=x_variable+100, y= y_variable+30)
+        self.but_type.place(x=x_variable+100, y=y_variable+30)
         self.led_type = Text(self.panel_frame, width=7, height=1)
         self.led_type.insert(END, "0")
-        self.led_type.place(x=x_variable+200, y= y_variable+30)
+        self.led_type.place(x=x_variable+200, y=y_variable+30)
         self.oth_type = Text(self.panel_frame, width=7, height=1)
         self.oth_type.insert(END, "0")
-        self.oth_type.place(x=x_variable+300, y= y_variable+30)
+        self.oth_type.place(x=x_variable+300, y=y_variable+30)
 
         # Entrys: numbers
         self.but_numb = Text(self.panel_frame, width=7, height=1)
         self.but_numb.insert(END, "0")
-        self.but_numb.place(x=x_variable+100, y= y_variable+60)
+        self.but_numb.place(x=x_variable+100, y=y_variable+60)
         self.led_numb = Text(self.panel_frame, width=7, height=1)
         self.led_numb.insert(END, "0")
-        self.led_numb.place(x=x_variable+200, y= y_variable+60)
+        self.led_numb.place(x=x_variable+200, y=y_variable+60)
         self.oth_numb = Text(self.panel_frame, width=7, height=1)
         self.oth_numb.insert(END, "0")
-        self.oth_numb.place(x=x_variable+300, y= y_variable+60)
+        self.oth_numb.place(x=x_variable+300, y=y_variable+60)
 
 
     def add_panel(self):
 
         # Adding Frame with frame hw:600*800
-        self.panel_frame = tkinter.Frame(height = 420,width = 800, bg = self.defbg).pack(fill=BOTH, side=TOP, padx=15, pady=15)
+        self.panel_frame = tkinter.Frame(height=420, width=800, bg=self.defbg).pack(fill=BOTH, side=TOP, padx=15, pady=15)
 
         # 7 segs and potentionmeter
         self.add_7seg_potentionmeters()
@@ -160,41 +160,41 @@ class Simulator_GUI:
         # Widget distance: {50}50{100}150{50}50{100}
         y_variable = 30
 
-        Label(self.panel_frame, text="7 Seg: ").place(x=50, y= y_variable)
+        Label(self.panel_frame, text="7 Seg: ").place(x=50, y=y_variable)
         self.seven_segs_L = Text(self.panel_frame, width=5, height=1)
         self.seven_segs_L.insert(END, "0")
-        self.seven_segs_L.place(x=100, y= y_variable)
+        self.seven_segs_L.place(x=100, y=y_variable)
 
-        Label(self.panel_frame, text="Potentionmeter: ").place(x=200, y= y_variable)
+        Label(self.panel_frame, text="Potentionmeter: ").place(x=200, y=y_variable)
         self.poten_L = tkinter.Label(self.panel_frame, text='0', width=5, height=1)
-        self.poten_L.place(x=300, y= y_variable)
+        self.poten_L.place(x=300, y=y_variable)
 
-        Label(self.panel_frame, text="Potentionmeter: ").place(x=450, y= y_variable)
+        Label(self.panel_frame, text="Potentionmeter: ").place(x=450, y=y_variable)
         self.poten_R = tkinter.Label(self.panel_frame, text='0', width=5, height=1)
-        self.poten_R.place(x=550, y= y_variable)
+        self.poten_R.place(x=550, y=y_variable)
 
-        Label(self.panel_frame, text="7 Seg: ").place(x=650, y= y_variable)
+        Label(self.panel_frame, text="7 Seg: ").place(x=650, y=y_variable)
         self.seven_segs_R = Text(self.panel_frame, width=5, height=1)
         self.seven_segs_R.insert(END, "0")
-        self.seven_segs_R.place(x=700, y= y_variable)
+        self.seven_segs_R.place(x=700, y=y_variable)
 
         # Hardware address
-        HW_label = Label(self.panel_frame, text="HW addr: ", background=self.defbg, font=self.sF).place(x=25, y= y_variable+32)
+        HW_label = Label(self.panel_frame, text="HW addr: ", background=self.defbg, font=self.sF).place(x=25, y=y_variable+32)
         self.seven_segs_L_addr = Text(self.panel_frame, width=4, height=1)
         self.seven_segs_L_addr.insert(END, "0")
-        self.seven_segs_L_addr.place(x=100, y= y_variable+30)
+        self.seven_segs_L_addr.place(x=100, y=y_variable+30)
 
         self.poten_L_addr = Text(self.panel_frame, width=4, height=1)
         self.poten_L_addr.insert(END, "0")
-        self.poten_L_addr.place(x=300, y= y_variable+30)
+        self.poten_L_addr.place(x=300, y=y_variable+30)
 
         self.poten_R_addr = Text(self.panel_frame, width=4, height=1)
         self.poten_R_addr.insert(END, "0")
-        self.poten_R_addr.place(x=550, y= y_variable+30)
+        self.poten_R_addr.place(x=550, y=y_variable+30)
 
         self.seven_segs_R_addr = Text(self.panel_frame, width=4, height=1)
         self.seven_segs_R_addr.insert(END, "0")
-        self.seven_segs_R_addr.place(x=700, y= y_variable+30)
+        self.seven_segs_R_addr.place(x=700, y=y_variable+30)
 
 
     def add_dials(self):
@@ -216,112 +216,112 @@ class Simulator_GUI:
         self.apply.place(x=310, y=y_variable)
 
         # Hardware address
-        Label(self.panel_frame, text="HW addr: ", background=self.defbg, font=self.sF).place(x=25, y= y_variable+90)
+        Label(self.panel_frame, text="HW addr: ", background=self.defbg, font=self.sF).place(x=25, y=y_variable+90)
         self.dial_L_addr = Text(self.panel_frame, width=4, height=1)
         self.dial_L_addr.insert(END, "0")
-        self.dial_L_addr.place(x=100, y= y_variable+90)
+        self.dial_L_addr.place(x=100, y=y_variable+90)
 
         self.dial_R_addr = Text(self.panel_frame, width=4, height=1)
         self.dial_R_addr.insert(END, "0")
-        self.dial_R_addr.place(x=500, y= y_variable+90)
+        self.dial_R_addr.place(x=500, y=y_variable+90)
 
     def add_leds(self):
 
         y_variable = 280
         self.led_21_L = tkinter.Label(self.panel_frame, text="State 1")
-        self.led_21_L.place(x=30, y= y_variable)
+        self.led_21_L.place(x=30, y=y_variable)
         self.led_22_L = tkinter.Label(self.panel_frame, text="State 2")
-        self.led_22_L.place(x=80, y= y_variable)
+        self.led_22_L.place(x=80, y=y_variable)
 
         self.led_switch_L = tkinter.Label(self.panel_frame, text="1_pos")
-        self.led_switch_L.place(x=150, y= y_variable)
+        self.led_switch_L.place(x=150, y=y_variable)
 
         self.led_1_L_flag = 0
         self.led_1_L = tkinter.Label(self.panel_frame, text="LED 1")
-        self.led_1_L.place(x=220, y= y_variable)
+        self.led_1_L.place(x=220, y=y_variable)
         self.led_2_L_flag = 0
         self.led_2_L = tkinter.Label(self.panel_frame, text="LED 2")
-        self.led_2_L.place(x=260, y= y_variable)
+        self.led_2_L.place(x=260, y=y_variable)
         self.led_3_L_flag = 0
         self.led_3_L = tkinter.Label(self.panel_frame, text="LED 3")
-        self.led_3_L.place(x=300, y= y_variable)
+        self.led_3_L.place(x=300, y=y_variable)
         self.led_4_L_flag = 0
         self.led_4_L = tkinter.Label(self.panel_frame, text="LED 4")
-        self.led_4_L.place(x=340, y= y_variable)
+        self.led_4_L.place(x=340, y=y_variable)
 
         # Symmetrical
         self.led_1_R_flag = 0
         self.led_1_R = tkinter.Label(self.panel_frame, text="LED 1")
-        self.led_1_R.place(x=400, y= y_variable)
+        self.led_1_R.place(x=400, y=y_variable)
         self.led_2_R_flag = 0
         self.led_2_R = tkinter.Label(self.panel_frame, text="LED 2")
-        self.led_2_R.place(x=440, y= y_variable)
+        self.led_2_R.place(x=440, y=y_variable)
         self.led_3_R_flag = 0
         self.led_3_R = tkinter.Label(self.panel_frame, text="LED 3")
-        self.led_3_R.place(x=480, y= y_variable)
+        self.led_3_R.place(x=480, y=y_variable)
         self.led_4_R_flag = 0
         self.led_4_R = tkinter.Label(self.panel_frame, text="LED 4")
-        self.led_4_R.place(x=520, y= y_variable)
+        self.led_4_R.place(x=520, y=y_variable)
 
         self.led_switch_R = tkinter.Label(self.panel_frame, text="1_pos")
-        self.led_switch_R.place(x=600, y= y_variable)
+        self.led_switch_R.place(x=600, y=y_variable)
 
         self.led_21_R = tkinter.Label(self.panel_frame, text="State 2")
-        self.led_21_R.place(x=665, y= y_variable)
+        self.led_21_R.place(x=665, y=y_variable)
         self.led_22_R = tkinter.Label(self.panel_frame, text="State 1")
-        self.led_22_R.place(x=715, y= y_variable)
+        self.led_22_R.place(x=715, y=y_variable)
 
 
         # Hardware Address
         self.led_21_L_addr = Text(self.panel_frame, width=4, height=1)
         self.led_21_L_addr.insert(END, "0")
-        self.led_21_L_addr.place(x=30, y= y_variable+30)
+        self.led_21_L_addr.place(x=30, y=y_variable+30)
         self.led_22_L_addr = Text(self.panel_frame, width=4, height=1)
         self.led_22_L_addr.insert(END, "0")
-        self.led_22_L_addr.place(x=80, y= y_variable+30)
+        self.led_22_L_addr.place(x=80, y=y_variable+30)
 
         self.led_switch_L_addr = Text(self.panel_frame, width=4, height=1)
         self.led_switch_L_addr.insert(END, "0")
-        self.led_switch_L_addr.place(x=150, y= y_variable+30)
+        self.led_switch_L_addr.place(x=150, y=y_variable+30)
 
 
         self.led_1_L_addr = Text(self.panel_frame, width=4, height=1)
         self.led_1_L_addr.insert(END, "0")
-        self.led_1_L_addr.place(x=220, y= y_variable+30)
+        self.led_1_L_addr.place(x=220, y=y_variable+30)
         self.led_2_L_addr = Text(self.panel_frame, width=4, height=1)
         self.led_2_L_addr.insert(END, "0")
-        self.led_2_L_addr.place(x=260, y= y_variable+30)
+        self.led_2_L_addr.place(x=260, y=y_variable+30)
         self.led_3_L_addr = Text(self.panel_frame, width=4, height=1)
         self.led_3_L_addr.insert(END, "0")
-        self.led_3_L_addr.place(x=300, y= y_variable+30)
+        self.led_3_L_addr.place(x=300, y=y_variable+30)
         self.led_4_L_addr = Text(self.panel_frame, width=4, height=1)
         self.led_4_L_addr.insert(END, "0")
-        self.led_4_L_addr.place(x=340, y= y_variable+30)
+        self.led_4_L_addr.place(x=340, y=y_variable+30)
 
         # Symmetrical
         self.led_1_R_addr = Text(self.panel_frame, width=4, height=1)
         self.led_1_R_addr.insert(END, "0")
-        self.led_1_R_addr.place(x=400, y= y_variable+30)
+        self.led_1_R_addr.place(x=400, y=y_variable+30)
         self.led_2_R_addr = Text(self.panel_frame, width=4, height=1)
         self.led_2_R_addr.insert(END, "0")
-        self.led_2_R_addr.place(x=440, y= y_variable+30)
+        self.led_2_R_addr.place(x=440, y=y_variable+30)
         self.led_3_R_addr = Text(self.panel_frame, width=4, height=1)
         self.led_3_R_addr.insert(END, "0")
-        self.led_3_R_addr.place(x=480, y= y_variable+30)
+        self.led_3_R_addr.place(x=480, y=y_variable+30)
         self.led_4_R_addr = Text(self.panel_frame, width=4, height=1)
         self.led_4_R_addr.insert(END, "0")
-        self.led_4_R_addr.place(x=520, y= y_variable+30)
+        self.led_4_R_addr.place(x=520, y=y_variable+30)
 
         self.led_switch_R_addr = Text(self.panel_frame, width=4, height=1)
         self.led_switch_R_addr.insert(END, "0")
-        self.led_switch_R_addr.place(x=600, y= y_variable+30)
+        self.led_switch_R_addr.place(x=600, y=y_variable+30)
 
         self.led_21_R_addr = Text(self.panel_frame, width=4, height=1)
         self.led_21_R_addr.insert(END, "0")
-        self.led_21_R_addr.place(x=665, y= y_variable+30)
+        self.led_21_R_addr.place(x=665, y=y_variable+30)
         self.led_22_R_addr = Text(self.panel_frame, width=4, height=1)
         self.led_22_R_addr.insert(END, "0")
-        self.led_22_R_addr.place(x=715, y= y_variable+30)
+        self.led_22_R_addr.place(x=715, y=y_variable+30)
 
     def add_buttons(self):
 
@@ -330,91 +330,91 @@ class Simulator_GUI:
         # 2 pos switch
         self.pos_L = IntVar()
         self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_L, value=0, command=self.Switch_2_L)
-        self.switch_1_L.place(x=50, y= y_variable)
+        self.switch_1_L.place(x=50, y=y_variable)
         self.switch_2_L = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_L, value=1, command=self.Switch_2_L)
-        self.switch_2_L.place(x=50, y= y_variable+25)
+        self.switch_2_L.place(x=50, y=y_variable+25)
 
         # 1 pos switch
         self.switch_L_flag = 1
         self.switch_L = tkinter.Button(self.panel_frame, text="OFF", height=1, width=4, relief=RAISED, command=self.Switch_L)
-        self.switch_L.place(x=150, y= y_variable)
+        self.switch_L.place(x=150, y=y_variable)
 
         # buttons
         self.button_1_L = tkinter.Button(self.panel_frame, text="1", height=1, width=4, command=self.but_1_L)
-        self.button_1_L.place(x=220, y= y_variable)
+        self.button_1_L.place(x=220, y=y_variable)
         self.button_2_L = tkinter.Button(self.panel_frame, text="2", height=1, width=4, command=self.but_2_L)
-        self.button_2_L.place(x=260, y= y_variable)
+        self.button_2_L.place(x=260, y=y_variable)
         self.button_3_L = tkinter.Button(self.panel_frame, text="3", height=1, width=4, command=self.but_3_L)
-        self.button_3_L.place(x=300, y= y_variable)
+        self.button_3_L.place(x=300, y=y_variable)
         self.button_4_L = tkinter.Button(self.panel_frame, text="4", height=1, width=4, command=self.but_4_L)
-        self.button_4_L.place(x=340, y= y_variable)
+        self.button_4_L.place(x=340, y=y_variable)
 
         # buttons
         self.button_1_R = tkinter.Button(self.panel_frame, text="1", height=1, width=4, command=self.but_1_R)
-        self.button_1_R.place(x=400, y= y_variable)
+        self.button_1_R.place(x=400, y=y_variable)
         self.button_2_R = tkinter.Button(self.panel_frame, text="2", height=1, width=4, command=self.but_2_R)
-        self.button_2_R.place(x=440, y= y_variable)
+        self.button_2_R.place(x=440, y=y_variable)
         self.button_3_R = tkinter.Button(self.panel_frame, text="3", height=1, width=4, command=self.but_3_R)
-        self.button_3_R.place(x=480, y= y_variable)
+        self.button_3_R.place(x=480, y=y_variable)
         self.button_4_R = tkinter.Button(self.panel_frame, text="4", height=1, width=4, command=self.but_4_R)
-        self.button_4_R.place(x=520, y= y_variable)
+        self.button_4_R.place(x=520, y=y_variable)
 
         # 1 pos switch
         self.switch_R_flag = 1
         self.switch_R = tkinter.Button(self.panel_frame, text="OFF", height=1, width=4, relief=RAISED, command=self.Switch_R)
-        self.switch_R.place(x=600, y= y_variable)
+        self.switch_R.place(x=600, y=y_variable)
 
         # 2 pos switch
         self.pos_R = IntVar()
         self.switch_1_R = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_R, value=0, command=self.Switch_2_R)
-        self.switch_1_R.place(x=680, y= y_variable)
+        self.switch_1_R.place(x=680, y=y_variable)
         self.switch_2_R = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_R, value=1, command=self.Switch_2_R)
-        self.switch_2_R.place(x=680, y= y_variable+25)
+        self.switch_2_R.place(x=680, y=y_variable+25)
 
 
         # Hardware Address
 
         self.switch_1_L_addr = Text(self.panel_frame, width=4, height=1)
         self.switch_1_L_addr.insert(END, "0")
-        self.switch_1_L_addr.place(x=50, y= y_variable+60)
+        self.switch_1_L_addr.place(x=50, y=y_variable+60)
 
         self.switch_L_addr = Text(self.panel_frame, width=4, height=1)
         self.switch_L_addr.insert(END, "0")
-        self.switch_L_addr.place(x=150, y= y_variable+60)
+        self.switch_L_addr.place(x=150, y=y_variable+60)
 
         self.button_1_L_addr = Text(self.panel_frame, width=4, height=1)
         self.button_1_L_addr.insert(END, "0")
-        self.button_1_L_addr.place(x=220, y= y_variable+60)
+        self.button_1_L_addr.place(x=220, y=y_variable+60)
         self.button_2_L_addr = Text(self.panel_frame, width=4, height=1)
         self.button_2_L_addr.insert(END, "0")
-        self.button_2_L_addr.place(x=260, y= y_variable+60)
+        self.button_2_L_addr.place(x=260, y=y_variable+60)
         self.button_3_L_addr = Text(self.panel_frame, width=4, height=1)
         self.button_3_L_addr.insert(END, "0")
-        self.button_3_L_addr.place(x=300, y= y_variable+60)
+        self.button_3_L_addr.place(x=300, y=y_variable+60)
         self.button_4_L_addr = Text(self.panel_frame, width=4, height=1)
         self.button_4_L_addr.insert(END, "0")
-        self.button_4_L_addr.place(x=340, y= y_variable+60)
+        self.button_4_L_addr.place(x=340, y=y_variable+60)
 
         self.button_1_R_addr = Text(self.panel_frame, width=4, height=1)
         self.button_1_R_addr.insert(END, "0")
-        self.button_1_R_addr.place(x=400, y= y_variable+60)
+        self.button_1_R_addr.place(x=400, y=y_variable+60)
         self.button_2_R_addr = Text(self.panel_frame, width=4, height=1)
         self.button_2_R_addr.insert(END, "0")
-        self.button_2_R_addr.place(x=440, y= y_variable+60)
+        self.button_2_R_addr.place(x=440, y=y_variable+60)
         self.button_3_R_addr = Text(self.panel_frame, width=4, height=1)
         self.button_3_R_addr.insert(END, "0")
-        self.button_3_R_addr.place(x=480, y= y_variable+60)
+        self.button_3_R_addr.place(x=480, y=y_variable+60)
         self.button_4_R_addr = Text(self.panel_frame, width=4, height=1)
         self.button_4_R_addr.insert(END, "0")
-        self.button_4_R_addr.place(x=520, y= y_variable+60)
+        self.button_4_R_addr.place(x=520, y=y_variable+60)
 
         self.switch_R_addr = Text(self.panel_frame, width=4, height=1)
         self.switch_R_addr.insert(END, "0")
-        self.switch_R_addr.place(x=600, y= y_variable+60)
+        self.switch_R_addr.place(x=600, y=y_variable+60)
 
         self.switch_1_R_addr = Text(self.panel_frame, width=4, height=1)
         self.switch_1_R_addr.insert(END, "0")
-        self.switch_1_R_addr.place(x=680, y= y_variable+60)
+        self.switch_1_R_addr.place(x=680, y=y_variable+60)
 
     """======================Detect the event and react======================"""
 
