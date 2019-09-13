@@ -10,7 +10,7 @@ from tkinter.messagebox import showinfo
 from tkinter.ttk import *
 from tkinter import messagebox
 
-import UDP
+import UDP                               # E19 UDP module
 
 
 DEBUG_MODE = True
@@ -26,13 +26,14 @@ class Simulator_GUI:
         self.sock = sock
 
         # global variables
-        self.message = ["\n"]
-        self.F = ("Helvetica", 16) # font and size
-        self.sF = ("Helvetica", 8)
-        self.defbg = '#C0C0C0'
-        self.ON = "#FFD700"
-        self.OFF = "#F0F0F0"
-        self.thread_quit_flag = False
+        self.message = ["\n"]           # init message in console
+        self.F = ("Helvetica", 16)      # Font of big words
+        self.sF = ("Helvetica", 8)      # Font of hardware address
+        self.hwbg = '#F8F8FF'           # Change color of HW text box
+        self.defbg = '#C0C0C0'          # Default color
+        self.ON = "#FFD700"             # When LED is on
+        self.OFF = "#F0F0F0"            # When LED is off
+        self.thread_quit_flag = False   # Easy to do clean up work
 
         # Draw the GUI
         self.init_GUI()     # setting [title && geometry]
@@ -42,15 +43,18 @@ class Simulator_GUI:
         self.add_seeting()  # Adding  [Slave Configuration]
 
         # Read init state
-        self.init_state()
+        self.states = {}    # initial the state of the panel
+        self.init_state()   # Generate the init state of the panel
 
         # Start running UDP
         if ENABLE_THREAD:
             receiver_thread = threading.Thread(target=self.reciver)
             receiver_thread.start()
 
-        # Start the GUI
+        # When GUI about to quit, take over and run close_callback()
         window.protocol("WM_DELETE_WINDOW", self.close_callback)
+
+        # Start the GUI
         window.mainloop()
 
     """====================== INIT ======================"""
@@ -115,24 +119,24 @@ class Simulator_GUI:
         Label(self.panel_frame, text="Borad Number").place(x=x_variable, y=y_variable+60)
 
         # Entrys: types
-        self.but_type = Text(self.panel_frame, width=7, height=1)
+        self.but_type = Text(self.panel_frame, width=7, height=1, background=self.hwbg)
         self.but_type.insert(END, "0")
         self.but_type.place(x=x_variable+100, y=y_variable+30)
-        self.led_type = Text(self.panel_frame, width=7, height=1)
+        self.led_type = Text(self.panel_frame, width=7, height=1, background=self.hwbg)
         self.led_type.insert(END, "0")
         self.led_type.place(x=x_variable+200, y=y_variable+30)
-        self.oth_type = Text(self.panel_frame, width=7, height=1)
+        self.oth_type = Text(self.panel_frame, width=7, height=1, background=self.hwbg)
         self.oth_type.insert(END, "0")
         self.oth_type.place(x=x_variable+300, y=y_variable+30)
 
         # Entrys: numbers
-        self.but_numb = Text(self.panel_frame, width=7, height=1)
+        self.but_numb = Text(self.panel_frame, width=7, height=1, background=self.hwbg)
         self.but_numb.insert(END, "0")
         self.but_numb.place(x=x_variable+100, y=y_variable+60)
-        self.led_numb = Text(self.panel_frame, width=7, height=1)
+        self.led_numb = Text(self.panel_frame, width=7, height=1, background=self.hwbg)
         self.led_numb.insert(END, "0")
         self.led_numb.place(x=x_variable+200, y=y_variable+60)
-        self.oth_numb = Text(self.panel_frame, width=7, height=1)
+        self.oth_numb = Text(self.panel_frame, width=7, height=1, background=self.hwbg)
         self.oth_numb.insert(END, "0")
         self.oth_numb.place(x=x_variable+300, y=y_variable+60)
 
@@ -180,19 +184,19 @@ class Simulator_GUI:
 
         # Hardware address
         HW_label = Label(self.panel_frame, text="HW addr: ", background=self.defbg, font=self.sF).place(x=25, y=y_variable+32)
-        self.seven_segs_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.seven_segs_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.seven_segs_L_addr.insert(END, "0")
         self.seven_segs_L_addr.place(x=100, y=y_variable+30)
 
-        self.poten_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.poten_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.poten_L_addr.insert(END, "0")
         self.poten_L_addr.place(x=300, y=y_variable+30)
 
-        self.poten_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.poten_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.poten_R_addr.insert(END, "0")
         self.poten_R_addr.place(x=550, y=y_variable+30)
 
-        self.seven_segs_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.seven_segs_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.seven_segs_R_addr.insert(END, "0")
         self.seven_segs_R_addr.place(x=700, y=y_variable+30)
 
@@ -217,11 +221,11 @@ class Simulator_GUI:
 
         # Hardware address
         Label(self.panel_frame, text="HW addr: ", background=self.defbg, font=self.sF).place(x=25, y=y_variable+90)
-        self.dial_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.dial_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.dial_L_addr.insert(END, "0")
         self.dial_L_addr.place(x=100, y=y_variable+90)
 
-        self.dial_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.dial_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.dial_R_addr.insert(END, "0")
         self.dial_R_addr.place(x=500, y=y_variable+90)
 
@@ -273,53 +277,53 @@ class Simulator_GUI:
 
 
         # Hardware Address
-        self.led_21_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_21_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_21_L_addr.insert(END, "0")
         self.led_21_L_addr.place(x=30, y=y_variable+30)
-        self.led_22_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_22_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_22_L_addr.insert(END, "0")
         self.led_22_L_addr.place(x=80, y=y_variable+30)
 
-        self.led_switch_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_switch_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_switch_L_addr.insert(END, "0")
         self.led_switch_L_addr.place(x=150, y=y_variable+30)
 
 
-        self.led_1_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_1_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_1_L_addr.insert(END, "0")
         self.led_1_L_addr.place(x=220, y=y_variable+30)
-        self.led_2_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_2_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_2_L_addr.insert(END, "0")
         self.led_2_L_addr.place(x=260, y=y_variable+30)
-        self.led_3_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_3_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_3_L_addr.insert(END, "0")
         self.led_3_L_addr.place(x=300, y=y_variable+30)
-        self.led_4_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_4_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_4_L_addr.insert(END, "0")
         self.led_4_L_addr.place(x=340, y=y_variable+30)
 
         # Symmetrical
-        self.led_1_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_1_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_1_R_addr.insert(END, "0")
         self.led_1_R_addr.place(x=400, y=y_variable+30)
-        self.led_2_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_2_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_2_R_addr.insert(END, "0")
         self.led_2_R_addr.place(x=440, y=y_variable+30)
-        self.led_3_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_3_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_3_R_addr.insert(END, "0")
         self.led_3_R_addr.place(x=480, y=y_variable+30)
-        self.led_4_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_4_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_4_R_addr.insert(END, "0")
         self.led_4_R_addr.place(x=520, y=y_variable+30)
 
-        self.led_switch_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_switch_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_switch_R_addr.insert(END, "0")
         self.led_switch_R_addr.place(x=600, y=y_variable+30)
 
-        self.led_21_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_21_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_21_R_addr.insert(END, "0")
         self.led_21_R_addr.place(x=665, y=y_variable+30)
-        self.led_22_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.led_22_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_22_R_addr.insert(END, "0")
         self.led_22_R_addr.place(x=715, y=y_variable+30)
 
@@ -374,45 +378,45 @@ class Simulator_GUI:
 
         # Hardware Address
 
-        self.switch_1_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.switch_1_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.switch_1_L_addr.insert(END, "0")
         self.switch_1_L_addr.place(x=50, y=y_variable+60)
 
-        self.switch_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.switch_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.switch_L_addr.insert(END, "0")
         self.switch_L_addr.place(x=150, y=y_variable+60)
 
-        self.button_1_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.button_1_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.button_1_L_addr.insert(END, "0")
         self.button_1_L_addr.place(x=220, y=y_variable+60)
-        self.button_2_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.button_2_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.button_2_L_addr.insert(END, "0")
         self.button_2_L_addr.place(x=260, y=y_variable+60)
-        self.button_3_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.button_3_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.button_3_L_addr.insert(END, "0")
         self.button_3_L_addr.place(x=300, y=y_variable+60)
-        self.button_4_L_addr = Text(self.panel_frame, width=4, height=1)
+        self.button_4_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.button_4_L_addr.insert(END, "0")
         self.button_4_L_addr.place(x=340, y=y_variable+60)
 
-        self.button_1_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.button_1_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.button_1_R_addr.insert(END, "0")
         self.button_1_R_addr.place(x=400, y=y_variable+60)
-        self.button_2_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.button_2_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.button_2_R_addr.insert(END, "0")
         self.button_2_R_addr.place(x=440, y=y_variable+60)
-        self.button_3_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.button_3_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.button_3_R_addr.insert(END, "0")
         self.button_3_R_addr.place(x=480, y=y_variable+60)
-        self.button_4_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.button_4_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.button_4_R_addr.insert(END, "0")
         self.button_4_R_addr.place(x=520, y=y_variable+60)
 
-        self.switch_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.switch_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.switch_R_addr.insert(END, "0")
         self.switch_R_addr.place(x=600, y=y_variable+60)
 
-        self.switch_1_R_addr = Text(self.panel_frame, width=4, height=1)
+        self.switch_1_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.switch_1_R_addr.insert(END, "0")
         self.switch_1_R_addr.place(x=680, y=y_variable+60)
 
@@ -535,9 +539,9 @@ class Simulator_GUI:
         showinfo(title="About us", message="This is E19")
 
     def close_callback(self):
-        self.thread_quit_flag = True
+        self.thread_quit_flag = True        # Clean up work for UDP Thread
         tkinter.messagebox.showinfo('~~~~~Hello World~~~~~',"GUESS WHAT! I am about to quit!!")
-        self.window.destroy()
+        self.window.destroy()               # Quit GUI
 
 
     """====================== Message ======================"""
