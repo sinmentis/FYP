@@ -37,6 +37,7 @@ class Simulator_GUI:
         self.add_menu()     # Adding  [main menu && About us]
         self.add_panel()    # Adding  [frame for panel && console].
         self.add_console()  # Adding  [Message console]
+        self.add_seeting()  # Adding  [Slave Configuration]
 
         # Read init state
         self.init_state()
@@ -59,8 +60,8 @@ class Simulator_GUI:
 
         # centralize the windows
         width_limit = (self.window.winfo_screenwidth() - 800) / 2
-        height_limit = (self.window.winfo_screenheight() - 620) / 2
-        self.window.geometry("800x620+{0:.0f}+{1:.0f}".format(width_limit, height_limit))
+        height_limit = (self.window.winfo_screenheight() - 720) / 2
+        self.window.geometry("800x720+{0:.0f}+{1:.0f}".format(width_limit, height_limit))
 
         # Fix the width and height
         self.window.resizable(False, False)
@@ -99,6 +100,42 @@ class Simulator_GUI:
         self.console_message.place(in_=self.console_frame,x=20, y=420)
 
 
+    def add_seeting(self):
+
+        # Basic grid start from x=20, y=620
+        x_variable = 20
+        y_variable = 620
+
+        # Draw the label
+        set_but_label = Label(self.panel_frame, text="Button Slave").place(x=x_variable+100, y= y_variable)
+        set_led_label = Label(self.panel_frame, text="LED Slave").place(x=x_variable+200, y= y_variable)
+        set_oth_label = Label(self.panel_frame, text="Other Slave").place(x=x_variable+300, y= y_variable)
+        set_type_label = Label(self.panel_frame, text="Board Type").place(x=x_variable, y= y_variable+30)
+        set_num_label = Label(self.panel_frame, text="Borad Number").place(x=x_variable, y= y_variable+60)
+
+        # Entrys: types
+        self.but_type = Text(self.panel_frame, width=7, height=1)
+        self.but_type.insert(END, "0")
+        self.but_type.place(x=x_variable+100, y= y_variable+30)
+        self.led_type = Text(self.panel_frame, width=7, height=1)
+        self.led_type.insert(END, "0")
+        self.led_type.place(x=x_variable+200, y= y_variable+30)
+        self.oth_type = Text(self.panel_frame, width=7, height=1)
+        self.oth_type.insert(END, "0")
+        self.oth_type.place(x=x_variable+300, y= y_variable+30)
+
+        # Entrys: numbers
+        self.but_numb = Text(self.panel_frame, width=7, height=1)
+        self.but_numb.insert(END, "0")
+        self.but_numb.place(x=x_variable+100, y= y_variable+60)
+        self.led_numb = Text(self.panel_frame, width=7, height=1)
+        self.led_numb.insert(END, "0")
+        self.led_numb.place(x=x_variable+200, y= y_variable+60)
+        self.oth_numb = Text(self.panel_frame, width=7, height=1)
+        self.oth_numb.insert(END, "0")
+        self.oth_numb.place(x=x_variable+300, y= y_variable+60)
+
+
     def add_panel(self):
 
         # Adding Frame with frame hw:600*800
@@ -122,18 +159,20 @@ class Simulator_GUI:
         # Widget distance: {50}50{100}150{50}50{100}
         seg_label_L = Label(self.panel_frame, text="7 Seg: ").place(x=50, y= 30)
         self.seven_segs_L = Text(self.panel_frame, width=5, height=1)
+        self.seven_segs_L.insert(END, "0")
         self.seven_segs_L.place(x=100, y= 30)
 
         poten_label_L = Label(self.panel_frame, text="Potentionmeter: ").place(x=200, y= 30)
-        self.poten_L = tkinter.Label(self.panel_frame, width=5, height=1)
+        self.poten_L = tkinter.Label(self.panel_frame, text='0', width=5, height=1)
         self.poten_L.place(x=300, y= 30)
 
         poten_label_R = Label(self.panel_frame, text="Potentionmeter: ").place(x=450, y= 30)
-        self.poten_R = tkinter.Label(self.panel_frame, width=5, height=1)
+        self.poten_R = tkinter.Label(self.panel_frame, text='0', width=5, height=1)
         self.poten_R.place(x=550, y= 30)
 
         seg_label_R = Label(self.panel_frame, text="7 Seg: ").place(x=650, y= 30)
         self.seven_segs_R = Text(self.panel_frame, width=5, height=1)
+        self.seven_segs_R.insert(END, "0")
         self.seven_segs_R.place(x=700, y= 30)
 
 
@@ -143,8 +182,10 @@ class Simulator_GUI:
         dial_label_R = Label(self.panel_frame, text="Dial 2", font=self.F).place(x=550, y= 100)
 
         self.dial_L = Text(self.panel_frame, width=20, height=5)
+        self.dial_L.insert(END, "0")
         self.dial_L.place(x=100, y= 150)
         self.dial_R = Text(self.panel_frame, width=20, height=5)
+        self.dial_R.insert(END, "0")
         self.dial_R.place(x=500, y= 150)
 
 
