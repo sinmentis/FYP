@@ -5,7 +5,7 @@ import select
 import time
 
 """=====================Head Define====================="""
-DEBUG_MODE = True
+DEBUG_MODE = False
 UDP_RECEIVE_TIMEOUT = 1
 LOOP_DELAY = 1
 
@@ -22,6 +22,19 @@ else:
 
     UDP_PC_IP = "192.168.1.25"
     UDP_PC_PORT = 5005
+"""=====================Class====================="""
+class UDP_packet:
+    def __init__(self,board_info, board_add, state):
+        self.board_info = board_info
+        self.board_add = board_add
+        self.state = state
+
+    def __str__(self):
+        return "info:{}, addr:{}, state:{}".format(self.board_info, self.board_add,self.state)
+
+    def __repr__(self):
+        return "info:{}, addr:{}, state:{}".format(self.board_info, self.board_add,self.state)
+
 """=====================Support functions====================="""
 
 

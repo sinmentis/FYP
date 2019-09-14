@@ -14,7 +14,7 @@ import UDP                               # E19 UDP module
 
 
 DEBUG_MODE = True
-ENABLE_THREAD = False
+ENABLE_THREAD = True
 
 
 class Simulator_GUI:
@@ -98,18 +98,18 @@ class Simulator_GUI:
     def add_console(self):
 
         # Adding labelFrame with hw:200*800
-        self.console_frame = Labelframe(self.window, text="Message Console").place(x=10, y=440, height=210, width=800)
+        self.console_frame = Labelframe(self.window, text="Message Console").place(x=10, y=400, height=210, width=800)
 
         # Adding message
         self.console_message = Message(self.console_frame, text = "\n\n\n\n\n\n\n\n\n", width=780)
-        self.console_message.place(in_=self.console_frame, x=20, y=460)
+        self.console_message.place(in_=self.console_frame, x=20, y=420)
 
 
     def add_seeting(self):
 
         # Basic grid start from x=20, y=620
         x_variable = 20
-        y_variable = 650
+        y_variable = 620
 
         # Draw the label
         Label(self.panel_frame, text="Button Slave").place(x=x_variable+100, y=y_variable)
@@ -144,7 +144,7 @@ class Simulator_GUI:
     def add_panel(self):
 
         # Adding Frame with frame hw:600*800
-        self.panel_frame = tkinter.Frame(height=420, width=800, bg=self.defbg).pack(fill=BOTH, side=TOP, padx=15, pady=15)
+        self.panel_frame = tkinter.Frame(height=380, width=800, bg=self.defbg).pack(fill=BOTH, side=TOP, padx=15, pady=15)
 
         # 7 segs and potentionmeter
         self.add_7seg_potentionmeters()
@@ -203,15 +203,15 @@ class Simulator_GUI:
 
     def add_dials(self):
 
-        y_variable = 150
+        y_variable = 130
 
         Label(self.panel_frame, text="Dial 1", font=self.F).place(x=150, y= 100)
         Label(self.panel_frame, text="Dial 2", font=self.F).place(x=550, y= 100)
 
-        self.dial_L = Text(self.panel_frame, width=20, height=5)
+        self.dial_L = Text(self.panel_frame, width=20, height=3)
         self.dial_L.insert(END, "0")
         self.dial_L.place(x=100, y=y_variable)
-        self.dial_R = Text(self.panel_frame, width=20, height=5)
+        self.dial_R = Text(self.panel_frame, width=20, height=3)
         self.dial_R.insert(END, "0")
         self.dial_R.place(x=500, y=y_variable)
 
@@ -220,18 +220,18 @@ class Simulator_GUI:
         self.apply.place(x=310, y=y_variable)
 
         # Hardware address
-        Label(self.panel_frame, text="HW addr: ", background=self.defbg, font=self.sF).place(x=25, y=y_variable+90)
+        Label(self.panel_frame, text="HW addr: ", background=self.defbg, font=self.sF).place(x=25, y=y_variable+60)
         self.dial_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.dial_L_addr.insert(END, "0")
-        self.dial_L_addr.place(x=100, y=y_variable+90)
+        self.dial_L_addr.place(x=100, y=y_variable+60)
 
         self.dial_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.dial_R_addr.insert(END, "0")
-        self.dial_R_addr.place(x=500, y=y_variable+90)
+        self.dial_R_addr.place(x=500, y=y_variable+60)
 
     def add_leds(self):
 
-        y_variable = 280
+        y_variable = 230
         self.led_21_L = tkinter.Label(self.panel_frame, text="State 1")
         self.led_21_L.place(x=30, y=y_variable)
         self.led_22_L = tkinter.Label(self.panel_frame, text="State 2")
@@ -329,7 +329,7 @@ class Simulator_GUI:
 
     def add_buttons(self):
 
-        y_variable = 335
+        y_variable = 305
 
         # 2 pos switch
         self.pos_L = IntVar()
@@ -544,7 +544,7 @@ class Simulator_GUI:
         self.window.destroy()               # Quit GUI
 
 
-    """====================== Message ======================"""
+    """====================== Update ======================"""
     def Update_message(self, new_message=None):
 
         # Adding new message into self
@@ -570,45 +570,67 @@ class Simulator_GUI:
         self.console_message.configure(text=total_message)
 
 
+    def Update_state(self, packet):
+        """Update self.state based on packet"""
+        for key, value in self.states.items():
+            if value[0] == packet.board_add:
+                self.states[key] = (value[1],packet.state) # update the state
+                self.Update_GUI()
+                break
+        return 0
+
+
+    def Update_GUI(self):
+        """TODO: UPDATE GUI basd on new self.state"""
+
+
+
+
     """====================== States ======================"""
     def init_state(self):
-        # TODO: create a dictionary of new states
         """ Contain all states order is  {seg*2, dial*2，pos2*2，pos1*2,led*8}
         detail:
         {seg_L, seg_R, dial_L, dial R, pos_2L, pos_2R, pos_1L, pos_1R, 
         led_1L, led_1L, led_2L, led_3L, led_4L, led_1L, led_1R, led_2R, led_3R, led_4R}
-        """
-        self.states = {"seg_L":0, "seg_R":0, \
-                       "dial_L":0, "dial_R":0, \
-                       "pos_2L":0, "pos_2R":0, \
-                       "pos_1L":0, "pos_1R":0,\
-                       "led_1L":0, "led_2L":0, "led_3L":0, "led_4L":0, \
-                       "led_1R":0, "led_2R":0, "led_3R":0, "led_4R":0}
+
+                        states = {hardware_name:(board_addr, state)}"""
+
+        self.states = {"seg_L":(0,0), "seg_R":(0,0), \
+                       "dial_L":(0,0), "dial_R":(0,0), \
+                       "pot_L":(0,0), "pot_R":(0,0), \
+                       "pos_2L":(0,0), "pos_2R":(0,0), \
+                       "pos_1L":(0,0), "pos_1R":(0,0),\
+                       "led_1L":(0,0), "led_2L":(0,0), "led_3L":(0,0), "led_4L":(0,0), \
+                       "led_1R":(0,0), "led_2R":(0,0), "led_3R":(0,0), "led_4R":(0,0)}
 
 
     def get_new_states(self):
+        """TODO: Update data strucutre into {xx:(A, B)}"""
         states = {}
         
-        states["seg_L"] = int(self.seven_segs_L.get("1.0",END).strip())
-        states["seg_R"] = int(self.seven_segs_R.get("1.0",END).strip())
+        states["seg_L"] = (self.seven_segs_L_addr.get("1.0",END).strip(), int(self.seven_segs_L.get("1.0",END).strip()))
+        states["seg_R"] = (self.seven_segs_R_addr.get("1.0",END).strip(), int(self.seven_segs_R.get("1.0",END).strip()))
 
-        states["dial_L"] = int(self.dial_L.get("1.0",END).strip())
-        states["dial_R"] = int(self.dial_R.get("1.0",END).strip())
+        states["dial_L"] = (self.dial_L_addr.get("1.0",END).strip(), int(self.dial_L.get("1.0",END).strip()))
+        states["dial_R"] = (self.dial_R_addr.get("1.0",END).strip(), int(self.dial_R.get("1.0",END).strip()))
 
-        states["pos_2L"] = self.pos_L.get()
-        states["pos_2R"] = self.pos_R.get()
+        states["pot_L"] = (self.poten_L_addr.get("1.0",END).strip(),self.poten_L['text'])
+        states["pot_R"] = (self.poten_R_addr.get("1.0",END).strip(),self.poten_R['text'])
 
-        states["pos_1L"] = self.switch_L_flag
-        states["pos_1R"] = self.switch_R_flag
+        states["pos_2L"] = (self.poten_L_addr.get("1.0",END).strip(), self.pos_L.get())
+        states["pos_2R"] = (self.poten_R_addr.get("1.0",END).strip(), self.pos_R.get())
 
-        states["led_1L"] = self.led_1_L_flag
-        states["led_2L"] = self.led_2_L_flag
-        states["led_3L"] = self.led_3_L_flag
-        states["led_4L"] = self.led_4_L_flag
-        states["led_1R"] = self.led_1_R_flag
-        states["led_2R"] = self.led_2_R_flag
-        states["led_3R"] = self.led_3_R_flag
-        states["led_4R"] = self.led_4_R_flag
+        states["pos_1L"] = (self.switch_L_addr.get("1.0",END).strip(), self.switch_L_flag)
+        states["pos_1R"] = (self.switch_R_addr.get("1.0",END).strip(), self.switch_R_flag)
+
+        states["led_1L"] = (self.led_1_L_addr.get("1.0",END).strip(), self.led_1_L_flag)
+        states["led_2L"] = (self.led_2_L_addr.get("1.0",END).strip(), self.led_2_L_flag)
+        states["led_3L"] = (self.led_3_L_addr.get("1.0",END).strip(), self.led_3_L_flag)
+        states["led_4L"] = (self.led_4_L_addr.get("1.0",END).strip(), self.led_4_L_flag)
+        states["led_1R"] = (self.led_1_R_addr.get("1.0",END).strip(), self.led_1_R_flag)
+        states["led_2R"] = (self.led_2_R_addr.get("1.0",END).strip(), self.led_2_R_flag)
+        states["led_3R"] = (self.led_3_R_addr.get("1.0",END).strip(), self.led_3_R_flag)
+        states["led_4R"] = (self.led_4_R_addr.get("1.0",END).strip(), self.led_4_R_flag)
 
         return states
 
@@ -617,13 +639,14 @@ class Simulator_GUI:
     def reciver(self):
 
         while not self.thread_quit_flag:
-            ready = select.select([self.sock], [], [], 1)
+            ready = select.select([self.sock], [], [], 0.2)
+            packet_list = []
             if ready[0]:
-                packet, _ = self.sock.recvfrom(80)  # buffer size is 1024 bytes
-                print("Reciver: I just got {}\n".format(packet))
-                decode_packet(packet)
-            elif DEBUG_MODE:
-                self.Update_message("Recever: I got nothing\n")
+                data, _ = self.sock.recvfrom(30)        # buffer size is 1024 bytes
+                packet_list = self.decode_packet(data)  # Get packet from received data
+                self.get_new_states()
+                for packet in packet_list:
+                    self.Update_state(packet)        # Upate GUI based on packet
         return 0
 
 
@@ -661,9 +684,17 @@ class Simulator_GUI:
         return difference_states
 
 
-    def decode_packet(self, packet):
-        # TODO: Decode the received packet
-        pass
+    def decode_packet(self, data):
+        packet_list = []
+        index = 1
+
+        # decode what we got into packet.
+        for index in range(len(data)):
+            data_slices = data[index*3:index*3+3]
+            if data_slices != b'' and data_slices != b"\x00\x00\x00":
+                packet = UDP.UDP_packet(data_slices[0], data_slices[1], data_slices[2])
+                packet_list.append(packet)
+        return packet_list
 
 
 if __name__=="__main__":
