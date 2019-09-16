@@ -43,8 +43,7 @@ class Simulator_GUI:
         self.add_seeting()  # Adding  [Slave Configuration]
 
         # Read init state
-        self.states = {}    # initial the state of the panel
-        self.init_state()   # Generate the init state of the panel
+        self.states = self.init_state()    # initial the state of the panel
 
         # Start running UDP
         if ENABLE_THREAD:
@@ -593,31 +592,50 @@ class Simulator_GUI:
     def Update_states_from_GUI(self):
         """TODO: Update state's structure into new dir with class"""
 
-        states = {}
-        
-        states["seg_L"] = (self.seven_segs_L_addr.get("1.0",END).strip(), int(self.seven_segs_L.get("1.0",END).strip()))
-        states["seg_R"] = (self.seven_segs_R_addr.get("1.0",END).strip(), int(self.seven_segs_R.get("1.0",END).strip()))
+        states = self.init_state()
 
-        states["dial_L"] = (self.dial_L_addr.get("1.0",END).strip(), int(self.dial_L.get("1.0",END).strip()))
-        states["dial_R"] = (self.dial_R_addr.get("1.0",END).strip(), int(self.dial_R.get("1.0",END).strip()))
+        states["seg_L"].board_add = self.seven_segs_L_addr.get("1.0",END).strip(),
+        states["seg_L"].state = int(self.seven_segs_L.get("1.0",END).strip())
+        states["seg_R"].board_add = self.seven_segs_R_addr.get("1.0",END).strip()
+        states["seg_R"].state = int(self.seven_segs_R.get("1.0",END).strip())
 
-        states["pot_L"] = (self.poten_L_addr.get("1.0",END).strip(),self.poten_L['text'])
-        states["pot_R"] = (self.poten_R_addr.get("1.0",END).strip(),self.poten_R['text'])
+        states["dial_L"].board_add = self.dial_L_addr.get("1.0",END).strip() 
+        states["dial_L"].state = int(self.dial_L.get("1.0",END).strip())
+        states["dial_R"].board_add = self.dial_R_addr.get("1.0",END).strip()
+        states["dial_R"].state = int(self.dial_R.get("1.0",END).strip())
 
-        states["pos_2L"] = (self.poten_L_addr.get("1.0",END).strip(), self.pos_L.get())
-        states["pos_2R"] = (self.poten_R_addr.get("1.0",END).strip(), self.pos_R.get())
+        states["pot_L"].board_add = self.poten_L_addr.get("1.0",END).strip()
+        states["pot_L"].state = self.poten_L['text']
+        states["pot_R"].board_add = self.poten_R_addr.get("1.0",END).strip()
+        states["pot_R"].state = self.poten_R['text']
 
-        states["pos_1L"] = (self.switch_L_addr.get("1.0",END).strip(), self.switch_L_flag)
-        states["pos_1R"] = (self.switch_R_addr.get("1.0",END).strip(), self.switch_R_flag)
+        states["pos_2L"].board_add = self.poten_L_addr.get("1.0",END).strip()
+        states["pos_2L"].state = self.pos_L.get()
+        states["pos_2R"].board_add = self.poten_R_addr.get("1.0",END).strip()
+        states["pos_2R"].state = self.pos_R.get()
 
-        states["led_1L"] = (self.led_1_L_addr.get("1.0",END).strip(), self.led_1_L_flag)
-        states["led_2L"] = (self.led_2_L_addr.get("1.0",END).strip(), self.led_2_L_flag)
-        states["led_3L"] = (self.led_3_L_addr.get("1.0",END).strip(), self.led_3_L_flag)
-        states["led_4L"] = (self.led_4_L_addr.get("1.0",END).strip(), self.led_4_L_flag)
-        states["led_1R"] = (self.led_1_R_addr.get("1.0",END).strip(), self.led_1_R_flag)
-        states["led_2R"] = (self.led_2_R_addr.get("1.0",END).strip(), self.led_2_R_flag)
-        states["led_3R"] = (self.led_3_R_addr.get("1.0",END).strip(), self.led_3_R_flag)
-        states["led_4R"] = (self.led_4_R_addr.get("1.0",END).strip(), self.led_4_R_flag)
+        states["pos_1L"].board_add = self.switch_L_addr.get("1.0",END).strip()
+        states["pos_1L"].state = self.switch_L_flag
+        states["pos_1R"].board_add = self.switch_R_addr.get("1.0",END).strip()
+        states["pos_1R"].state = self.switch_R_flag
+
+        states["led_1L"].board_add = self.led_1_L_addr.get("1.0",END).strip()
+        states["led_1L"].state = self.led_1_L_flag
+        states["led_2L"].board_add = self.led_2_L_addr.get("1.0",END).strip()
+        states["led_2L"].state = self.led_2_L_flag
+        states["led_3L"].board_add = self.led_3_L_addr.get("1.0",END).strip()
+        states["led_3L"].state = self.led_3_L_flag
+        states["led_4L"].board_add = self.led_4_L_addr.get("1.0",END).strip()
+        states["led_4L"].state = self.led_4_L_flag
+
+        states["led_1R"].board_add = self.led_1_R_addr.get("1.0",END).strip()
+        states["led_1R"].state = self.led_1_R_flag
+        states["led_2R"].board_add = self.led_2_R_addr.get("1.0",END).strip()
+        states["led_2R"].state = self.led_2_R_flag
+        states["led_3R"].board_add = self.led_3_R_addr.get("1.0",END).strip()
+        states["led_3R"].state = self.led_3_R_flag
+        states["led_4R"].board_add = self.led_4_R_addr.get("1.0",END).strip()
+        states["led_4R"].state = self.led_4_R_flag        
 
         return states
 
@@ -652,7 +670,7 @@ class Simulator_GUI:
 
         states = {hardware_name:(board_type, board_num, board_addr, state)}"""
 
-        self.states = {"seg_L":UDP.UDP_packet(0,0,0), "seg_R":UDP.UDP_packet(0,0,0), \
+        states = {"seg_L":UDP.UDP_packet(0,0,0), "seg_R":UDP.UDP_packet(0,0,0), \
                        "dial_L":UDP.UDP_packet(0,0,0), "dial_R":UDP.UDP_packet(0,0,0), \
                        "pot_L":UDP.UDP_packet(0,0,0), "pot_R":UDP.UDP_packet(0,0,0), \
                        "pos_2L":UDP.UDP_packet(0,0,0), "pos_2R":UDP.UDP_packet(0,0,0), \
@@ -661,6 +679,7 @@ class Simulator_GUI:
                        "led_1R":UDP.UDP_packet(0,0,0), "led_2R":UDP.UDP_packet(0,0,0), "led_3R":UDP.UDP_packet(0,0,0), "led_4R":UDP.UDP_packet(0,0,0), \
                        "but_1L":UDP.UDP_packet(0,0,0), "but_1L":UDP.UDP_packet(0,0,0), "but_1L":UDP.UDP_packet(0,0,0), "but_1L":UDP.UDP_packet(0,0,0), \
                        "but_1R":UDP.UDP_packet(0,0,0), "but_1R":UDP.UDP_packet(0,0,0), "but_1R":UDP.UDP_packet(0,0,0), "but_1R":UDP.UDP_packet(0,0,0)}
+        return states
 
     """====================== UDP operation ======================"""
     def reciver(self):
@@ -702,13 +721,11 @@ class Simulator_GUI:
         new_states = self.Update_states_from_GUI()  # Read from GUI to self.states
         difference_states = {}                      # Empty for whatever changed
         packet_list = []                            # Store all UDP message 
-
         # Compate with old state
         for component in self.states.keys():
-            print(component, type(self.states[component]))
             if self.states[component].state != new_states[component].state:
-                difference_states[component].state = new_states[component].state
-
+                difference_states[component] = new_states[component]
+        print(difference_states)
         # Assign new state to old state
         self.states = new_states
 
