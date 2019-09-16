@@ -12,7 +12,7 @@ from tkinter import messagebox
 
 import UDP                               # E19 UDP module
 
-
+LOCAL_MODE = True
 DEBUG_MODE = True
 ENABLE_THREAD = True
 
@@ -440,30 +440,38 @@ class Simulator_GUI:
         # It's time to send the UDP
         self.sender()
 
-    def but_1_L(self):
+    def but_1_L(self, send_flag=True):
         self.led_1_L_flag = self.LED_toggle(self.led_1_L, self.led_1_L_flag)
-        self.sender()
-    def but_2_L(self):
+        if send_flag:
+            self.sender()
+    def but_2_L(self, send_flag=True):
         self.led_2_L_flag = self.LED_toggle(self.led_2_L, self.led_2_L_flag)
-        self.sender()
-    def but_3_L(self):
+        if send_flag:
+            self.sender()
+    def but_3_L(self, send_flag=True):
         self.led_3_L_flag = self.LED_toggle(self.led_3_L, self.led_3_L_flag)
-        self.sender()
-    def but_4_L(self):
+        if send_flag:
+            self.sender()
+    def but_4_L(self, send_flag=True):
         self.led_4_L_flag = self.LED_toggle(self.led_4_L, self.led_4_L_flag)
-        self.sender()
-    def but_1_R(self):
+        if send_flag:
+            self.sender()
+    def but_1_R(self, send_flag=True):
         self.led_1_R_flag = self.LED_toggle(self.led_1_R, self.led_1_R_flag)
-        self.sender()
-    def but_2_R(self):
+        if send_flag:
+            self.sender()
+    def but_2_R(self, send_flag=True):
         self.led_2_R_flag = self.LED_toggle(self.led_2_R, self.led_2_R_flag)
-        self.sender()
-    def but_3_R(self):
+        if send_flag:
+            self.sender()
+    def but_3_R(self, send_flag=True):
         self.led_3_R_flag = self.LED_toggle(self.led_3_R, self.led_3_R_flag)
-        self.sender()
-    def but_4_R(self):
+        if send_flag:
+            self.sender()
+    def but_4_R(self, send_flag=True):
         self.led_4_R_flag = self.LED_toggle(self.led_4_R, self.led_4_R_flag)
-        self.sender()
+        if send_flag:
+            self.sender()
 
 
     """------ LEDs ------"""
@@ -480,7 +488,7 @@ class Simulator_GUI:
 
 
     """------ Switchs ------"""
-    def Switch_L(self):
+    def Switch_L(self, send_flag=True):
 
         self.switch_L_flag += 1
         if(self.switch_L_flag % 2 == 0):
@@ -492,9 +500,10 @@ class Simulator_GUI:
             self.led_switch_L['bg']=self.OFF
             self.switch_L['text']="OFF"
         self.switch_L_flag = self.switch_L_flag % 2 
-        self.sender()
+        if send_flag:
+            self.sender()
 
-    def Switch_R(self):
+    def Switch_R(self, send_flag=True):
 
         self.switch_R_flag += 1
         if(self.switch_R_flag % 2 == 0):
@@ -506,9 +515,10 @@ class Simulator_GUI:
             self.led_switch_R['bg']=self.OFF
             self.switch_R['text']="OFF"
         self.switch_R_flag = self.switch_R_flag % 2 
-        self.sender()
+        if send_flag:
+            self.sender()
 
-    def Switch_2_R(self):
+    def Switch_2_R(self, send_flag=True):
 
         if self.pos_R.get() == 1:
             self.led_21_R.config(bg=self.ON)
@@ -516,9 +526,9 @@ class Simulator_GUI:
         else:
             self.led_21_R.config(bg=self.OFF)
             self.led_22_R.config(bg=self.ON)
-        self.sender()
-
-    def Switch_2_L(self):
+        if send_flag:
+            self.sender()
+    def Switch_2_L(self, send_flag=True):
 
         if self.pos_L.get() == 1:
             self.led_22_L.config(bg=self.ON)
@@ -526,7 +536,8 @@ class Simulator_GUI:
         else:
             self.led_22_L.config(bg=self.OFF)
             self.led_21_L.config(bg=self.ON)
-        self.sender()
+        if send_flag:
+            self.sender()
 
 
     """------ Menus ------"""
@@ -572,14 +583,16 @@ class Simulator_GUI:
     def Update_state_from_packet(self, packet):
         """Update self.state based on packet"""
         for key, value in self.states.items():
-            if int(value[0]) == int(packet.board_add):
+            if int(value.board_add) == int(packet.board_add):
                 self.Update_message("match!\n")
-                self.states[key] = (value[1],packet.state) # update the state
+                self.states[key].state = value[1],packet.state # update the state
                 break
         return 0
 
 
     def Update_states_from_GUI(self):
+        """TODO: Update state's structure into new dir with class"""
+
         states = {}
         
         states["seg_L"] = (self.seven_segs_L_addr.get("1.0",END).strip(), int(self.seven_segs_L.get("1.0",END).strip()))
@@ -610,42 +623,44 @@ class Simulator_GUI:
 
 
     def Update_GUI(self):
-        """TODO: BUTTON %% LED"""
+        """Update GUI based on new self.states"""
 
         self.seven_segs_L.delete('1.0', END)
-        self.seven_segs_L.insert(END, self.states["seg_L"][1])
+        self.seven_segs_L.insert(END, self.states["seg_L"].state)
         self.seven_segs_R.delete('1.0', END)
-        self.seven_segs_R.insert(END, self.states["seg_R"][1])
+        self.seven_segs_R.insert(END, self.states["seg_R"].state)
 
         self.dial_L.delete('1.0', END)
-        self.dial_L.insert(END, self.states["dial_L"][1])
+        self.dial_L.insert(END, self.states["dial_L"].state)
         self.dial_R.delete('1.0', END)
-        self.dial_R.insert(END, self.states["dial_R"][1])
+        self.dial_R.insert(END, self.states["dial_R"].state)
 
-        self.poten_L['text'] = self.states["pot_L"][1]
-        self.poten_R['text'] = self.states["pot_R"][1]
+        self.poten_L['text'] = self.states["pot_L"].state
+        self.poten_R['text'] = self.states["pot_R"].state
 
         """TODO: BUTTON %% LED"""
+        
 
 
     """====================== States ======================"""
     def init_state(self):
-        """ Contain all states order is  {seg*2, dial*2，pos2*2，pos1*2,led*8}
-        detail:
+        """ Contain all states:
+
         {seg_L, seg_R, dial_L, dial R, pot_L, pot_R pos_2L, pos_2R, pos_1L, pos_1R, 
-        led_1L, led_1L, led_2L, led_3L, led_4L, led_1L, led_1R, led_2R, led_3R, led_4R}
+        led_1L, led_2L, led_3L, led_4L, led_1R, led_2R, led_3R, led_4R
+        but_1L, but_2L, but_3L, but_4L, but_1R, but_2R, but_3R, but_4R}
 
-                        states = {hardware_name:(board_addr, state)}"""
+        states = {hardware_name:(board_type, board_num, board_addr, state)}"""
 
-        self.states = {"seg_L":(0,0), "seg_R":(0,0), \
-                       "dial_L":(0,0), "dial_R":(0,0), \
-                       "pot_L":(0,0), "pot_R":(0,0), \
-                       "pos_2L":(0,0), "pos_2R":(0,0), \
-                       "pos_1L":(0,0), "pos_1R":(0,0),\
-                       "led_1L":(0,0), "led_2L":(0,0), "led_3L":(0,0), "led_4L":(0,0), \
-                       "led_1R":(0,0), "led_2R":(0,0), "led_3R":(0,0), "led_4R":(0,0)}
-
-
+        self.states = {"seg_L":UDP.UDP_packet(0,0,0), "seg_R":UDP.UDP_packet(0,0,0), \
+                       "dial_L":UDP.UDP_packet(0,0,0), "dial_R":UDP.UDP_packet(0,0,0), \
+                       "pot_L":UDP.UDP_packet(0,0,0), "pot_R":UDP.UDP_packet(0,0,0), \
+                       "pos_2L":UDP.UDP_packet(0,0,0), "pos_2R":UDP.UDP_packet(0,0,0), \
+                       "pos_1L":UDP.UDP_packet(0,0,0), "pos_1R":UDP.UDP_packet(0,0,0),\
+                       "led_1L":UDP.UDP_packet(0,0,0), "led_2L":UDP.UDP_packet(0,0,0), "led_3L":UDP.UDP_packet(0,0,0), "led_4L":UDP.UDP_packet(0,0,0), \
+                       "led_1R":UDP.UDP_packet(0,0,0), "led_2R":UDP.UDP_packet(0,0,0), "led_3R":UDP.UDP_packet(0,0,0), "led_4R":UDP.UDP_packet(0,0,0), \
+                       "but_1L":UDP.UDP_packet(0,0,0), "but_1L":UDP.UDP_packet(0,0,0), "but_1L":UDP.UDP_packet(0,0,0), "but_1L":UDP.UDP_packet(0,0,0), \
+                       "but_1R":UDP.UDP_packet(0,0,0), "but_1R":UDP.UDP_packet(0,0,0), "but_1R":UDP.UDP_packet(0,0,0), "but_1R":UDP.UDP_packet(0,0,0)}
 
     """====================== UDP operation ======================"""
     def reciver(self):
@@ -690,15 +705,16 @@ class Simulator_GUI:
 
         # Compate with old state
         for component in self.states.keys():
-            if self.states[component] != new_states[component]:
-                difference_states[component] = new_states[component]
+            print(component, type(self.states[component]))
+            if self.states[component].state != new_states[component].state:
+                difference_states[component].state = new_states[component].state
 
         # Assign new state to old state
         self.states = new_states
 
         """ TODO: Construct based on 'difference_states'"""
-        for key, value in difference_states:
-            pass
+        for key, value in difference_states.items():
+            break
 
         return packet_list
 
@@ -717,6 +733,6 @@ class Simulator_GUI:
 
 
 if __name__=="__main__":
-    sock = UDP.init_UDP_connection()
+    sock = UDP.init_UDP_connection(LOCAL_MODE)
     window = Tk()
     Simulator_GUI(window, sock)
