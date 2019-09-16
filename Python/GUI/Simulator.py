@@ -57,6 +57,7 @@ class Simulator_GUI:
         # Start the GUI
         window.mainloop()
 
+
     """====================== INIT ======================"""
 
     def init_GUI(self):
@@ -71,7 +72,6 @@ class Simulator_GUI:
 
         # Fix the width and height
         self.window.resizable(False, False)
-
 
 
     """======================Draw the GUI======================"""
@@ -216,7 +216,7 @@ class Simulator_GUI:
         self.dial_R.place(x=500, y=y_variable)
 
         # Apply button
-        self.apply = tkinter.Button(self.panel_frame, text="Send to Panel", height=1, width=12, relief=GROOVE, font=self.F, command=self.Apply)
+        self.apply = tkinter.Button(self.panel_frame, text="Send to Panel", height=1, width=12, relief=GROOVE, font=self.F, command=self.Apply_button_handler)
         self.apply.place(x=310, y=y_variable)
 
         # Hardware address
@@ -228,6 +228,7 @@ class Simulator_GUI:
         self.dial_R_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.dial_R_addr.insert(END, "0")
         self.dial_R_addr.place(x=500, y=y_variable+60)
+
 
     def add_leds(self):
 
@@ -275,7 +276,6 @@ class Simulator_GUI:
         self.led_22_R = tkinter.Label(self.panel_frame, text="State 1")
         self.led_22_R.place(x=715, y=y_variable)
 
-
         # Hardware Address
         self.led_21_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_21_L_addr.insert(END, "0")
@@ -287,7 +287,6 @@ class Simulator_GUI:
         self.led_switch_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_switch_L_addr.insert(END, "0")
         self.led_switch_L_addr.place(x=150, y=y_variable+30)
-
 
         self.led_1_L_addr = Text(self.panel_frame, width=4, height=1, background=self.hwbg)
         self.led_1_L_addr.insert(END, "0")
@@ -420,51 +419,51 @@ class Simulator_GUI:
         self.switch_1_R_addr.insert(END, "0")
         self.switch_1_R_addr.place(x=680, y=y_variable+60)
 
+
     """======================Detect the event and react======================"""
 
 
     """------ Buttons ------"""
-    def Apply(self):
-
-        # Read from Text widget
-        v_seg_L = str(self.seven_segs_L.get("1.0",END)).strip()
-        v_seg_R = str(self.seven_segs_R.get("1.0",END)).strip()
-        v_dial_L = str(self.dial_L.get("1.0",END)).strip()
-        v_dial_R = str(self.dial_R.get("1.0",END)).strip()
+    def Apply_button_handler(self):
 
         # Testing part: gather data and print out to console
-        data_list = [v_seg_L, v_seg_R, v_dial_L, v_dial_R]
-        data_name = ["Left 7Seg", "Right 7Seg", "Left Dial", "Right Dial"]
-        for num in range(len(data_list)):
-            self.Update_message("{0:<10}: {1:<3}\n".format(data_name[num], data_list[num]))
+        if DEBUG_MODE:
+            v_seg_L = str(self.seven_segs_L.get("1.0",END)).strip()
+            v_seg_R = str(self.seven_segs_R.get("1.0",END)).strip()
+            v_dial_L = str(self.dial_L.get("1.0",END)).strip()
+            v_dial_R = str(self.dial_R.get("1.0",END)).strip()
+            data_list = [v_seg_L, v_seg_R, v_dial_L, v_dial_R]
+            data_name = ["Left 7Seg", "Right 7Seg", "Left Dial", "Right Dial"]
+            for num in range(len(data_list)):
+                self.Update_message("{0:<10}: {1:<3}\n".format(data_name[num], data_list[num]))
 
         # It's time to send the UDP
-        self.send_UDP_update()
+        self.sender()
 
     def but_1_L(self):
         self.led_1_L_flag = self.LED_toggle(self.led_1_L, self.led_1_L_flag)
-        self.send_UDP_update()
+        self.sender()
     def but_2_L(self):
         self.led_2_L_flag = self.LED_toggle(self.led_2_L, self.led_2_L_flag)
-        self.send_UDP_update()
+        self.sender()
     def but_3_L(self):
         self.led_3_L_flag = self.LED_toggle(self.led_3_L, self.led_3_L_flag)
-        self.send_UDP_update()
+        self.sender()
     def but_4_L(self):
         self.led_4_L_flag = self.LED_toggle(self.led_4_L, self.led_4_L_flag)
-        self.send_UDP_update()
+        self.sender()
     def but_1_R(self):
         self.led_1_R_flag = self.LED_toggle(self.led_1_R, self.led_1_R_flag)
-        self.send_UDP_update()
+        self.sender()
     def but_2_R(self):
         self.led_2_R_flag = self.LED_toggle(self.led_2_R, self.led_2_R_flag)
-        self.send_UDP_update()
+        self.sender()
     def but_3_R(self):
         self.led_3_R_flag = self.LED_toggle(self.led_3_R, self.led_3_R_flag)
-        self.send_UDP_update()
+        self.sender()
     def but_4_R(self):
         self.led_4_R_flag = self.LED_toggle(self.led_4_R, self.led_4_R_flag)
-        self.send_UDP_update()
+        self.sender()
 
 
     """------ LEDs ------"""
@@ -493,7 +492,7 @@ class Simulator_GUI:
             self.led_switch_L['bg']=self.OFF
             self.switch_L['text']="OFF"
         self.switch_L_flag = self.switch_L_flag % 2 
-        self.send_UDP_update()
+        self.sender()
 
     def Switch_R(self):
 
@@ -507,7 +506,7 @@ class Simulator_GUI:
             self.led_switch_R['bg']=self.OFF
             self.switch_R['text']="OFF"
         self.switch_R_flag = self.switch_R_flag % 2 
-        self.send_UDP_update()
+        self.sender()
 
     def Switch_2_R(self):
 
@@ -517,7 +516,7 @@ class Simulator_GUI:
         else:
             self.led_21_R.config(bg=self.OFF)
             self.led_22_R.config(bg=self.ON)
-        self.send_UDP_update()
+        self.sender()
 
     def Switch_2_L(self):
 
@@ -527,7 +526,7 @@ class Simulator_GUI:
         else:
             self.led_22_L.config(bg=self.OFF)
             self.led_21_L.config(bg=self.ON)
-        self.send_UDP_update()
+        self.sender()
 
 
     """------ Menus ------"""
@@ -611,20 +610,29 @@ class Simulator_GUI:
 
 
     def Update_GUI(self):
-        """TODO: UPDATE GUI basd on new self.state"""
+        """TODO: BUTTON %% LED"""
+
         self.seven_segs_L.delete('1.0', END)
         self.seven_segs_L.insert(END, self.states["seg_L"][1])
         self.seven_segs_R.delete('1.0', END)
         self.seven_segs_R.insert(END, self.states["seg_R"][1])
+
+        self.dial_L.delete('1.0', END)
+        self.dial_L.insert(END, self.states["dial_L"][1])
+        self.dial_R.delete('1.0', END)
+        self.dial_R.insert(END, self.states["dial_R"][1])
+
         self.poten_L['text'] = self.states["pot_L"][1]
         self.poten_R['text'] = self.states["pot_R"][1]
+
+        """TODO: BUTTON %% LED"""
 
 
     """====================== States ======================"""
     def init_state(self):
         """ Contain all states order is  {seg*2, dial*2，pos2*2，pos1*2,led*8}
         detail:
-        {seg_L, seg_R, dial_L, dial R, pos_2L, pos_2R, pos_1L, pos_1R, 
+        {seg_L, seg_R, dial_L, dial R, pot_L, pot_R pos_2L, pos_2R, pos_1L, pos_1R, 
         led_1L, led_1L, led_2L, led_3L, led_4L, led_1L, led_1R, led_2R, led_3R, led_4R}
 
                         states = {hardware_name:(board_addr, state)}"""
@@ -657,27 +665,28 @@ class Simulator_GUI:
         return 0
 
 
-    def send_UDP_update(self):
+    def sender(self):
 
         # Check the changging state
-        udp_packet = self.get_new_packet()
+        udp_packet_list = self.generate_packet()
 
-        if len(udp_packet) != 0:  # If there are changes
-            try:
-                self.sock.sendto(udp_packet, (UDP.UDP_MASTER_IP, UDP.UDP_MASTER_PORT))
-                self.Update_message("Update Success\n")
-            except:
-                self.Update_message("Error: Sending UDP\n")
+        if len(udp_packet_list) != 0:  # 
+            for packet in udp_packet_list:
+                try:
+                    self.sock.sendto(packet, (UDP.UDP_MASTER_IP, UDP.UDP_MASTER_PORT))
+                    self.Update_message("UDP Sent to master!\n")
+                except Exception as e:
+                    self.Update_message("{0} | {1}\n".format(e.message, e.args))
+                if DEBUG_MODE:
+                    print(packet)
 
-            if DEBUG_MODE:
-                print(udp_packet)
 
-
-    def get_new_packet(self):
-
+    def generate_packet(self):
+        """TODO: generate new packet based on old state and new GUI"""
         # Read new state
-        new_states = self.Update_states_from_GUI()
-        difference_states = {}
+        new_states = self.Update_states_from_GUI()  # Read from GUI to self.states
+        difference_states = {}                      # Empty for whatever changed
+        packet_list = []                            # Store all UDP message 
 
         # Compate with old state
         for component in self.states.keys():
@@ -687,8 +696,11 @@ class Simulator_GUI:
         # Assign new state to old state
         self.states = new_states
 
-        # TODO: Construct based on "difference_states"
-        return difference_states
+        """ TODO: Construct based on 'difference_states'"""
+        for key, value in difference_states:
+            pass
+
+        return packet_list
 
 
     def decode_packet(self, data):
