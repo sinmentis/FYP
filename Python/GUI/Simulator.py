@@ -570,42 +570,17 @@ class Simulator_GUI:
         self.console_message.configure(text=total_message)
 
 
-    def Update_state(self, packet):
+    def Update_state_from_packet(self, packet):
         """Update self.state based on packet"""
         for key, value in self.states.items():
-            if value[0] == packet.board_add:
+            if int(value[0]) == int(packet.board_add):
+                self.Update_message("match!\n")
                 self.states[key] = (value[1],packet.state) # update the state
-                self.Update_GUI()
                 break
         return 0
 
 
-    def Update_GUI(self):
-        """TODO: UPDATE GUI basd on new self.state"""
-
-
-
-
-    """====================== States ======================"""
-    def init_state(self):
-        """ Contain all states order is  {seg*2, dial*2，pos2*2，pos1*2,led*8}
-        detail:
-        {seg_L, seg_R, dial_L, dial R, pos_2L, pos_2R, pos_1L, pos_1R, 
-        led_1L, led_1L, led_2L, led_3L, led_4L, led_1L, led_1R, led_2R, led_3R, led_4R}
-
-                        states = {hardware_name:(board_addr, state)}"""
-
-        self.states = {"seg_L":(0,0), "seg_R":(0,0), \
-                       "dial_L":(0,0), "dial_R":(0,0), \
-                       "pot_L":(0,0), "pot_R":(0,0), \
-                       "pos_2L":(0,0), "pos_2R":(0,0), \
-                       "pos_1L":(0,0), "pos_1R":(0,0),\
-                       "led_1L":(0,0), "led_2L":(0,0), "led_3L":(0,0), "led_4L":(0,0), \
-                       "led_1R":(0,0), "led_2R":(0,0), "led_3R":(0,0), "led_4R":(0,0)}
-
-
-    def get_new_states(self):
-        """TODO: Update data strucutre into {xx:(A, B)}"""
+    def Update_states_from_GUI(self):
         states = {}
         
         states["seg_L"] = (self.seven_segs_L_addr.get("1.0",END).strip(), int(self.seven_segs_L.get("1.0",END).strip()))
@@ -635,18 +610,50 @@ class Simulator_GUI:
         return states
 
 
+    def Update_GUI(self):
+        """TODO: UPDATE GUI basd on new self.state"""
+        self.seven_segs_L.delete('1.0', END)
+        self.seven_segs_L.insert(END, self.states["seg_L"][1])
+        self.seven_segs_R.delete('1.0', END)
+        self.seven_segs_R.insert(END, self.states["seg_R"][1])
+        self.poten_L['text'] = self.states["pot_L"][1]
+        self.poten_R['text'] = self.states["pot_R"][1]
+
+
+    """====================== States ======================"""
+    def init_state(self):
+        """ Contain all states order is  {seg*2, dial*2，pos2*2，pos1*2,led*8}
+        detail:
+        {seg_L, seg_R, dial_L, dial R, pos_2L, pos_2R, pos_1L, pos_1R, 
+        led_1L, led_1L, led_2L, led_3L, led_4L, led_1L, led_1R, led_2R, led_3R, led_4R}
+
+                        states = {hardware_name:(board_addr, state)}"""
+
+        self.states = {"seg_L":(0,0), "seg_R":(0,0), \
+                       "dial_L":(0,0), "dial_R":(0,0), \
+                       "pot_L":(0,0), "pot_R":(0,0), \
+                       "pos_2L":(0,0), "pos_2R":(0,0), \
+                       "pos_1L":(0,0), "pos_1R":(0,0),\
+                       "led_1L":(0,0), "led_2L":(0,0), "led_3L":(0,0), "led_4L":(0,0), \
+                       "led_1R":(0,0), "led_2R":(0,0), "led_3R":(0,0), "led_4R":(0,0)}
+
+
+
     """====================== UDP operation ======================"""
     def reciver(self):
 
         while not self.thread_quit_flag:
-            ready = select.select([self.sock], [], [], 0.2)
+            ready = select.select([self.sock], [], [], 0.1)
             packet_list = []
             if ready[0]:
                 data, _ = self.sock.recvfrom(30)        # buffer size is 1024 bytes
                 packet_list = self.decode_packet(data)  # Get packet from received data
-                self.get_new_states()
+                self.states = self.Update_states_from_GUI()
                 for packet in packet_list:
-                    self.Update_state(packet)        # Upate GUI based on packet
+                    if DEBUG_MODE:
+                        self.Update_message(str(packet)+'\n')
+                    self.Update_state_from_packet(packet)           # Update self.states based on packet
+                self.Update_GUI()                       # Update GUI based on new self.states
         return 0
 
 
@@ -669,7 +676,7 @@ class Simulator_GUI:
     def get_new_packet(self):
 
         # Read new state
-        new_states = self.get_new_states()
+        new_states = self.Update_states_from_GUI()
         difference_states = {}
 
         # Compate with old state
