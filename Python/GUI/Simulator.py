@@ -757,7 +757,7 @@ class Simulator_GUI:
                 except Exception as e:
                     self.Update_message("{0}\n".format(e))
                 if DEBUG_MODE:
-                    print(packet)
+                    print("Sent Packet:{0}".format(packet))
 
     def generate_packet(self):
         """TODO: generate new packet based on old state and new GUI"""
@@ -772,7 +772,6 @@ class Simulator_GUI:
                 difference_states[component] = new_states[component]
 
         if DEBUG_MODE:
-            print(new_states)
             print(difference_states)
 
         if len(difference_states) != 0:
@@ -798,12 +797,27 @@ class Simulator_GUI:
         return packet_list
 
     def encode_packet(self, value):
-        """TODO: construct the packet"""
-        packet = b""
-        info = '{0:004b}'.format(value.board_type) + '{0:004b}'.format(value.board_num)
-        print()
+        """TODO: construct the packet
+        packet = board_type board_num board_add board_state"""
 
-        return packet
+        info_binary_str = '{0:004b}'.format(value.board_type) + '{0:004b}'.format(value.board_num)
+        info_dec_int = int(info_binary_str, 2)
+
+
+        dec_list = [info_dec_int, value.board_add, value.state]
+        dec_packet = bytes(dec_list)
+
+
+        if DEBUG_MODE:
+            info_ascii = chr(info_dec_int)
+            add_ascii = chr(value.board_add)
+            state_ascii = chr(value.state)
+            print("encode_packet info: Ascii:{}, dec:{}, binary:{}".format(info_ascii, info_dec_int, info_binary_str))
+            print("encode_packet address: Ascii:{}, dec:{}".format(add_ascii, value.board_add))
+            print("encode_packet state: Ascii:{}, dec:{}".format(state_ascii, value.state))
+            print("encode_packet: Final Ascii:{}, len:{}".format(dec_packet, len(dec_packet)))
+
+        return dec_packet
 
 
 if __name__ == "__main__":
