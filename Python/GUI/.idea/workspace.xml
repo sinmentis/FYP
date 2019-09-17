@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6960bdc-7658-46a1-9cf9-9b9921d4cfce" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/GUI.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,13 +15,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Simulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="102" column="26" lean-forward="true" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
+            <state relative-caret-position="1448">
+              <caret line="785" column="11" selection-start-line="785" selection-start-column="11" selection-end-line="785" selection-end-column="11" />
               <folding>
                 <element signature="e#43#59#0" expanded="true" />
+                <element signature="e#409#1785#0" />
                 <element signature="e#1882#2298#0" />
                 <element signature="e#2402#2938#0" />
                 <element signature="e#2977#3328#0" />
+                <element signature="e#3267#5050#0" />
                 <element signature="e#5153#5517#0" />
                 <element signature="e#5569#7506#0" />
                 <element signature="e#7543#8771#0" />
@@ -43,13 +41,15 @@
                 <element signature="e#20884#21129#0" />
                 <element signature="e#21213#21646#0" />
                 <element signature="e#21697#22130#0" />
-                <element signature="e#22183#22452#0" />
+                <element signature="e#23182#23580#0" />
                 <element signature="e#22504#22773#0" />
                 <element signature="e#22843#22875#0" />
                 <element signature="e#22914#22963#0" />
                 <element signature="e#23003#23220#0" />
                 <element signature="e#23343#23984#0" />
                 <element signature="e#24043#24351#0" />
+                <element signature="e#27747#28364#0" />
+                <element signature="e#28473#30444#0" />
                 <element signature="e#30548#31282#0" />
                 <element signature="e#31316#31836#0" />
                 <element signature="e#32741#33135#0" />
@@ -61,6 +61,13 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>reciver</find>
@@ -69,6 +76,12 @@
       <find>seven_segs_L</find>
       <find>led_1_L_addr</find>
       <find>add_seeting</find>
+      <find>oth_numb</find>
+      <find>Switch_2_L</find>
+      <find>Switch_2_R</find>
+      <find>switch_R_flag</find>
+      <find>generate_packet</find>
+      <find>TODO</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -77,13 +90,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/venv/test.py" />
         <option value="$PROJECT_DIR$/Simulator.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1280" />
-    <option name="height" value="800" />
+    <option name="height" value="796" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -92,17 +106,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="GUI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -184,6 +188,14 @@
       <option name="presentableId" value="Default" />
       <updated>1568684991265</updated>
     </task>
+    <task id="LOCAL-00001" summary="Change IDE into Pycharm, fix the structure of self.states, needs to finish sending function">
+      <created>1568686399519</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1568686399520</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -191,14 +203,14 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.031771246" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49863014" visible="true" weight="0.15250199" />
+      <window_info id="Structure" order="1" sideWeight="0.50136983" side_tool="true" visible="true" weight="0.15250199" />
+      <window_info anchor="bottom" id="Version Control" weight="0.32876712" />
+      <window_info anchor="bottom" id="Python Console" weight="0.32876712" />
+      <window_info anchor="bottom" id="Terminal" weight="0.32876712" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32876712" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32876712" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.2890411" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -209,16 +221,29 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Change IDE into Pycharm, fix the structure of self.states, needs to finish sending function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change IDE into Pycharm, fix the structure of self.states, needs to finish sending function" />
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/venv/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="13" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Simulator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="102" column="26" lean-forward="true" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
+        <state relative-caret-position="1448">
+          <caret line="785" column="11" selection-start-line="785" selection-start-column="11" selection-end-line="785" selection-end-column="11" />
           <folding>
             <element signature="e#43#59#0" expanded="true" />
+            <element signature="e#409#1785#0" />
             <element signature="e#1882#2298#0" />
             <element signature="e#2402#2938#0" />
             <element signature="e#2977#3328#0" />
+            <element signature="e#3267#5050#0" />
             <element signature="e#5153#5517#0" />
             <element signature="e#5569#7506#0" />
             <element signature="e#7543#8771#0" />
@@ -236,13 +261,15 @@
             <element signature="e#20884#21129#0" />
             <element signature="e#21213#21646#0" />
             <element signature="e#21697#22130#0" />
-            <element signature="e#22183#22452#0" />
+            <element signature="e#23182#23580#0" />
             <element signature="e#22504#22773#0" />
             <element signature="e#22843#22875#0" />
             <element signature="e#22914#22963#0" />
             <element signature="e#23003#23220#0" />
             <element signature="e#23343#23984#0" />
             <element signature="e#24043#24351#0" />
+            <element signature="e#27747#28364#0" />
+            <element signature="e#28473#30444#0" />
             <element signature="e#30548#31282#0" />
             <element signature="e#31316#31836#0" />
             <element signature="e#32741#33135#0" />
