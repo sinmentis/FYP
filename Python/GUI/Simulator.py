@@ -21,7 +21,7 @@ ENABLE_THREAD = True
 
 class Simulator_GUI:
 
-    def __init__(self, window, sock):
+    def __init__(self, window, sock, UDP_MASTER_IP, UDP_MASTER_PORT):
 
         # Assign to self
         self.window = window
@@ -36,6 +36,8 @@ class Simulator_GUI:
         self.ON = "#FFD700"  # When LED is on
         self.OFF = "#F0F0F0"  # When LED is off
         self.thread_quit_flag = False  # Easy to do clean up work
+        self.UDP_MASTER_IP = UDP_MASTER_IP
+        self.UDP_MASTER_PORT = UDP_MASTER_PORT
 
         # Draw the GUI
         self.init_GUI()  # setting [title && geometry]
@@ -729,7 +731,7 @@ class Simulator_GUI:
     def receiver(self):
 
         while not self.thread_quit_flag:
-            ready = select.select([self.sock], [], [], 0.1)
+            ready = select.select([self.sock], [], [], 0.01)
             packet_list = []
             if ready[0]:
                 data, _ = self.sock.recvfrom(30)  # buffer size is 1024 bytes
@@ -752,7 +754,7 @@ class Simulator_GUI:
         if len(udp_packet_list) != 0:  # 
             for packet in udp_packet_list:
                 try:
-                    self.sock.sendto(packet, (UDP.UDP_MASTER_IP, UDP.UDP_MASTER_PORT))
+                    self.sock.sendto(packet, (self.UDP_MASTER_IP, self.UDP_MASTER_PORT))
                     self.Update_message("UDP Sent to master!\n")
                 except Exception as e:
                     self.Update_message("{0}\n".format(e))
@@ -821,6 +823,6 @@ class Simulator_GUI:
 
 
 if __name__ == "__main__":
-    sock = UDP.init_UDP_connection(LOCAL_MODE)
+    sock, UDP_MASTER_IP, UDP_MASTER_PORT = UDP.init_UDP_connection(LOCAL_MODE)
     window = Tk()
-    Simulator_GUI(window, sock)
+    Simulator_GUI(window, sock, UDP_MASTER_IP, UDP_MASTER_PORT)
