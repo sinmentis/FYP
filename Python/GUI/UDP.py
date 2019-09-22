@@ -8,7 +8,6 @@ import time
 UDP_RECEIVE_TIMEOUT = 1
 LOOP_DELAY = 1
 
-
 """=====================Class====================="""
 
 
@@ -36,19 +35,18 @@ def init_UDP_connection(DEBUG_MODE=False):
     
         UDP_PC_IP = "127.0.0.1"
         UDP_PC_PORT = 5006
-    
     else:
         UDP_MASTER_IP = "192.168.1.26"
         UDP_MASTER_PORT = 5005
-    
+        
         UDP_PC_IP = "192.168.1.25"
-        UDP_PC_PORT = 5005
+        UDP_PC_PORT = 5005        
     print("My IP is:     {0}, PORT: {1}\nTarget IP is: {0}, PORT: {1}".format(UDP_PC_IP, UDP_PC_PORT,UDP_MASTER_IP, UDP_MASTER_PORT))
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.setblocking(0)
     sock.bind((UDP_PC_IP, UDP_PC_PORT))
 
-    return sock
+    return sock, UDP_MASTER_IP, UDP_MASTER_PORT
 
 
 """===================== MAIN ====================="""
