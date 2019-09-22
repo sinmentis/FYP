@@ -14,7 +14,7 @@ from tkinter import messagebox
 
 import UDP  # E19 UDP module
 
-LOCAL_MODE = False
+LOCAL_MODE = True
 DEBUG_MODE = True
 ENABLE_THREAD = True
 
@@ -114,8 +114,8 @@ class Simulator_GUI:
         Label(self.panel_frame, text="Button Slave").place(x=x_variable + 100, y=y_variable)
         Label(self.panel_frame, text="LED Slave").place(x=x_variable + 200, y=y_variable)
         Label(self.panel_frame, text="Other Slave").place(x=x_variable + 300, y=y_variable)
-        Label(self.panel_frame, text="Board Type").place(x=x_variable, y=y_variable + 30)
-        Label(self.panel_frame, text="Borad Number").place(x=x_variable, y=y_variable + 60)
+        Label(self.panel_frame, text="Board Number").place(x=x_variable, y=y_variable + 30) # Type
+        Label(self.panel_frame, text="Borad Type").place(x=x_variable, y=y_variable + 60)   # Number
 
         # Entrys: types
         self.but_type = Text(self.panel_frame, width=7, height=1, background=self.hwbg)
@@ -446,6 +446,8 @@ class Simulator_GUI:
             data_name = ["Left 7Seg", "Right 7Seg", "Left Dial", "Right Dial"]
             for num in range(len(data_list)):
                 self.Update_message("{0:<10}: {1:<3}\n".format(data_name[num], data_list[num]))
+        else:
+            self.Update_message("Applied!\n")
 
         # It's time to send the UDP
         self.sender()
@@ -676,20 +678,56 @@ class Simulator_GUI:
     def Update_GUI(self):
         """Update GUI based on new self.states"""
 
+        # 7 Segs
         self.seven_segs_L.delete('1.0', END)
         self.seven_segs_L.insert(END, self.states["seg_L"].state)
         self.seven_segs_R.delete('1.0', END)
         self.seven_segs_R.insert(END, self.states["seg_R"].state)
 
+        # Dials
         self.dial_L.delete('1.0', END)
         self.dial_L.insert(END, self.states["dial_L"].state)
         self.dial_R.delete('1.0', END)
         self.dial_R.insert(END, self.states["dial_R"].state)
 
+        # Pots
         self.poten_L['text'] = self.states["pot_L"].state
         self.poten_R['text'] = self.states["pot_R"].state
 
-        """TODO: BUTTON"""
+        # Buttons
+        if self.states["but_1L"].state == 1:
+            self.but_1_L()
+            self.states["but_1L"].state = 0
+
+        if self.states["but_2L"].state == 1:
+            self.but_2_L()
+            self.states["but_2L"].state = 0
+
+        if self.states["but_3L"].state == 1:
+            self.but_3_L()
+            self.states["but_3L"].state = 0
+
+        if self.states["but_4L"].state == 1:
+            self.but_4_L()
+            self.states["but_4L"].state = 0
+
+        if self.states["but_1R"].state == 1:
+            self.but_1_R()
+            self.states["but_1R"].state = 0
+
+        if self.states["but_2R"].state == 1:
+            self.but_2_R()
+            self.states["but_2R"].state = 0
+
+        if self.states["but_3R"].state == 1:
+            self.but_3_R()
+            self.states["but_3R"].state = 0
+
+        if self.states["but_4R"].state == 1:
+            self.but_4_R()
+            self.states["but_4R"].state = 0
+
+        # TODO: Three state switch
 
     """====================== States ======================"""
 
@@ -714,17 +752,17 @@ class Simulator_GUI:
                   "led_3L": UDP.UDP_packet(0, 0, 0), "led_4L": UDP.UDP_packet(0, 0, 0), \
                   "led_1R": UDP.UDP_packet(0, 0, 0), "led_2R": UDP.UDP_packet(0, 0, 0),
                   "led_3R": UDP.UDP_packet(0, 0, 0), "led_4R": UDP.UDP_packet(0, 0, 0), \
-                  "but_1L": UDP.UDP_packet(0, 0, 0), "but_1L": UDP.UDP_packet(0, 0, 0),
-                  "but_1L": UDP.UDP_packet(0, 0, 0), "but_1L": UDP.UDP_packet(0, 0, 0), \
-                  "but_1R": UDP.UDP_packet(0, 0, 0), "but_1R": UDP.UDP_packet(0, 0, 0),
-                  "but_1R": UDP.UDP_packet(0, 0, 0), "but_1R": UDP.UDP_packet(0, 0, 0), \
+                  "but_1L": UDP.UDP_packet(0, 0, 0), "but_2L": UDP.UDP_packet(0, 0, 0),
+                  "but_3L": UDP.UDP_packet(0, 0, 0), "but_4L": UDP.UDP_packet(0, 0, 0), \
+                  "but_1R": UDP.UDP_packet(0, 0, 0), "but_2R": UDP.UDP_packet(0, 0, 0),
+                  "but_3R": UDP.UDP_packet(0, 0, 0), "but_4R": UDP.UDP_packet(0, 0, 0), \
                   "swi_21_L": UDP.UDP_packet(0, 0, 0), "swi_21_R": UDP.UDP_packet(0, 0, 0), \
                   "swi_22_L": UDP.UDP_packet(0, 0, 0), "swi_22_R": UDP.UDP_packet(0, 0, 0), \
                   "swi_L": UDP.UDP_packet(0, 0, 0), "swi_R": UDP.UDP_packet(0, 0, 0), \
                   }
         return states
 
-    """====================== UDP operation ======================"""
+    """====================== UDPLED_toggle operation ======================"""
 
     def receiver(self):
 
@@ -760,7 +798,7 @@ class Simulator_GUI:
                     print("Sent Packet:{0}".format(packet))
 
     def generate_packet(self):
-        """TODO: generate new packet based on old state and new GUI"""
+        """generate new packet based on old state and new GUI"""
         # Read new state
         new_states = self.Update_states_from_GUI()  # Read from GUI to self.states
         difference_states = {}  # Empty for whatever changed
@@ -819,6 +857,9 @@ class Simulator_GUI:
 
         return dec_packet
 
+    def delay_test(self):
+        """TODO: if type and number == 64, send echo back to where it came from"""
+        pass
 
 if __name__ == "__main__":
     sock, UDP_MASTER_IP, UDP_MASTER_PORT = UDP.init_UDP_connection(LOCAL_MODE)
