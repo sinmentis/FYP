@@ -13,8 +13,8 @@ class Simulator_GUI:
         # gloabl variables
         self.message = ["\n"]
         self.F =("Helvetica", 16) # font and size
-        self.ON = "#FFD700"
-        self.OFF = "#F0F0F0"
+        self.ON_COLOR = "#FFD700"
+        self.OFF_COLOR = "#F0F0F0"
 
         # Draw the GUI
         self.init_GUI()     # setting [title && geometry]
@@ -254,10 +254,10 @@ class Simulator_GUI:
     """------ LEDs ------"""
     def LED_toggle(self, item, flag):
         if (flag % 2) == 0:
-            item.config(bg=self.ON)
+            item.config(bg=self.ON_COLOR)
             self.Update_message("LED ON\n")
         else:
-            item.config(bg=self.OFF)
+            item.config(bg=self.OFF_COLOR)
             self.Update_message("LED OFF\n")
         flag += 1
         return flag
@@ -273,39 +273,39 @@ class Simulator_GUI:
         self.switch_L_flag += 1
         if(self.switch_L_flag % 2 == 0):
             self.switch_L['relief']=SUNKEN
-            self.led_switch_L['bg']=self.ON
+            self.led_switch_L['bg']=self.ON_COLOR
             self.switch_L['text']="ON"
         else:
             self.switch_L['relief']=RAISED
-            self.led_switch_L['bg']=self.OFF
+            self.led_switch_L['bg']=self.OFF_COLOR
             self.switch_L['text']="OFF"
 
     def Switch_R(self):
         self.switch_R_flag += 1
         if(self.switch_R_flag % 2 == 0):
             self.switch_R['relief']=SUNKEN
-            self.led_switch_R['bg']=self.ON
+            self.led_switch_R['bg']=self.ON_COLOR
             self.switch_R['text']="ON"
         else:
             self.switch_R['relief']=RAISED
-            self.led_switch_R['bg']=self.OFF
+            self.led_switch_R['bg']=self.OFF_COLOR
             self.switch_R['text']="OFF"
 
     def Switch_2_R(self):
         if self.pos_R.get() == 1:
-            self.led_21_R.config(bg=self.ON)
-            self.led_22_R.config(bg=self.OFF)
+            self.led_21_R.config(bg=self.ON_COLOR)
+            self.led_22_R.config(bg=self.OFF_COLOR)
         else:
-            self.led_21_R.config(bg=self.OFF)
-            self.led_22_R.config(bg=self.ON)
+            self.led_21_R.config(bg=self.OFF_COLOR)
+            self.led_22_R.config(bg=self.ON_COLOR)
 
     def Switch_2_L(self):
         if self.pos_L.get() == 1:
-            self.led_22_L.config(bg=self.ON)
-            self.led_21_L.config(bg=self.OFF)
+            self.led_22_L.config(bg=self.ON_COLOR)
+            self.led_21_L.config(bg=self.OFF_COLOR)
         else:
-            self.led_22_L.config(bg=self.OFF)
-            self.led_21_L.config(bg=self.ON)
+            self.led_22_L.config(bg=self.OFF_COLOR)
+            self.led_21_L.config(bg=self.ON_COLOR)
 
     """------ Menus ------"""
 

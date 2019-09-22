@@ -14,7 +14,7 @@ from tkinter import messagebox
 
 import UDP  # E19 UDP module
 
-LOCAL_MODE = True
+LOCAL_MODE = False
 DEBUG_MODE = True
 ENABLE_THREAD = True
 
@@ -33,8 +33,10 @@ class Simulator_GUI:
         self.sF = ("Helvetica", 8)  # Font of hardware address
         self.hwbg = '#F8F8FF'  # Change color of HW text box
         self.defbg = '#C0C0C0'  # Default color
-        self.ON = "#FFD700"  # When LED is on
-        self.OFF = "#F0F0F0"  # When LED is off
+        self.LED_ON = 2
+        self.LED_OFF = 1
+        self.ON_COLOR = "#FFD700"  # When LED is on
+        self.OFF_COLOR = "#F0F0F0"  # When LED is off
         self.thread_quit_flag = False  # Easy to do clean up work
         self.UDP_MASTER_IP = UDP_MASTER_IP
         self.UDP_MASTER_PORT = UDP_MASTER_PORT
@@ -496,13 +498,15 @@ class Simulator_GUI:
 
     def LED_toggle(self, item, flag):
 
+        flag -= 1
         if (flag % 2) == 0:
-            item.config(bg=self.ON)
+            item.config(bg=self.ON_COLOR)
             self.Update_message("LED ON\n")
         else:
-            item.config(bg=self.OFF)
+            item.config(bg=self.OFF_COLOR)
             self.Update_message("LED OFF\n")
-        flag = (1 + flag) % 2
+        flag = (1 + flag) % 2 + 1
+
         return flag
 
     """------ Switchs ------"""
@@ -512,11 +516,11 @@ class Simulator_GUI:
         self.switch_L_flag += 1
         if (self.switch_L_flag % 2 == 1):
             self.switch_L['relief'] = SUNKEN
-            self.led_switch_L['bg'] = self.ON
+            self.led_switch_L['bg'] = self.ON_COLOR
             self.switch_L['text'] = "ON"
         else:
             self.switch_L['relief'] = RAISED
-            self.led_switch_L['bg'] = self.OFF
+            self.led_switch_L['bg'] = self.OFF_COLOR
             self.switch_L['text'] = "OFF"
         self.switch_L_flag = self.switch_L_flag % 2
         if send_flag:
@@ -527,11 +531,11 @@ class Simulator_GUI:
         self.switch_R_flag += 1
         if (self.switch_R_flag % 2 == 1):
             self.switch_R['relief'] = SUNKEN
-            self.led_switch_R['bg'] = self.ON
+            self.led_switch_R['bg'] = self.ON_COLOR
             self.switch_R['text'] = "ON"
         else:
             self.switch_R['relief'] = RAISED
-            self.led_switch_R['bg'] = self.OFF
+            self.led_switch_R['bg'] = self.OFF_COLOR
             self.switch_R['text'] = "OFF"
         self.switch_R_flag = self.switch_R_flag % 2
         if send_flag:
@@ -540,14 +544,14 @@ class Simulator_GUI:
     def Switch_2_R(self, send_flag=True):
 
         if self.pos_R.get() == 1:
-            self.led_21_R.config(bg=self.ON)
-            self.led_22_R.config(bg=self.OFF)
+            self.led_21_R.config(bg=self.ON_COLOR)
+            self.led_22_R.config(bg=self.OFF_COLOR)
         elif self.pos_R.get() == 2:
-            self.led_21_R.config(bg=self.OFF)
-            self.led_22_R.config(bg=self.ON)
+            self.led_21_R.config(bg=self.OFF_COLOR)
+            self.led_22_R.config(bg=self.ON_COLOR)
         else:
-            self.led_21_R.config(bg=self.OFF)
-            self.led_22_R.config(bg=self.OFF)
+            self.led_21_R.config(bg=self.OFF_COLOR)
+            self.led_22_R.config(bg=self.OFF_COLOR)
 
         if send_flag:
             self.sender()
@@ -555,14 +559,14 @@ class Simulator_GUI:
     def Switch_2_L(self, send_flag=True):
 
         if self.pos_L.get() == 1:
-            self.led_22_L.config(bg=self.ON)
-            self.led_21_L.config(bg=self.OFF)
+            self.led_22_L.config(bg=self.ON_COLOR)
+            self.led_21_L.config(bg=self.OFF_COLOR)
         elif self.pos_L.get() == 2:
-            self.led_22_L.config(bg=self.OFF)
-            self.led_21_L.config(bg=self.ON)
+            self.led_22_L.config(bg=self.OFF_COLOR)
+            self.led_21_L.config(bg=self.ON_COLOR)
         else:
-            self.led_22_L.config(bg=self.OFF)
-            self.led_21_L.config(bg=self.OFF)
+            self.led_22_L.config(bg=self.OFF_COLOR)
+            self.led_21_L.config(bg=self.OFF_COLOR)
 
         if send_flag:
             self.sender()
@@ -695,37 +699,37 @@ class Simulator_GUI:
         self.poten_R['text'] = self.states["pot_R"].state
 
         # Buttons
-        if self.states["but_1L"].state == 1:
+        if self.states["but_1L"].state == self.LED_ON:
             self.but_1_L()
-            self.states["but_1L"].state = 0
+            self.states["but_1L"].state = self.LED_OFF
 
-        if self.states["but_2L"].state == 1:
+        if self.states["but_2L"].state == self.LED_ON:
             self.but_2_L()
-            self.states["but_2L"].state = 0
+            self.states["but_2L"].state = self.LED_OFF
 
-        if self.states["but_3L"].state == 1:
+        if self.states["but_3L"].state == self.LED_ON:
             self.but_3_L()
-            self.states["but_3L"].state = 0
+            self.states["but_3L"].state = self.LED_OFF
 
-        if self.states["but_4L"].state == 1:
+        if self.states["but_4L"].state == self.LED_ON:
             self.but_4_L()
-            self.states["but_4L"].state = 0
+            self.states["but_4L"].state = self.LED_OFF
 
-        if self.states["but_1R"].state == 1:
+        if self.states["but_1R"].state == self.LED_ON:
             self.but_1_R()
-            self.states["but_1R"].state = 0
+            self.states["but_1R"].state = self.LED_OFF
 
-        if self.states["but_2R"].state == 1:
+        if self.states["but_2R"].state == self.LED_ON:
             self.but_2_R()
-            self.states["but_2R"].state = 0
+            self.states["but_2R"].state = self.LED_OFF
 
-        if self.states["but_3R"].state == 1:
+        if self.states["but_3R"].state == self.LED_ON:
             self.but_3_R()
-            self.states["but_3R"].state = 0
+            self.states["but_3R"].state = self.LED_OFF
 
-        if self.states["but_4R"].state == 1:
+        if self.states["but_4R"].state == self.LED_ON:
             self.but_4_R()
-            self.states["but_4R"].state = 0
+            self.states["but_4R"].state = self.LED_OFF
 
         # TODO: Three state switch
 
