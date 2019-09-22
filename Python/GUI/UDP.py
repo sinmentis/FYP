@@ -10,6 +10,8 @@ LOOP_DELAY = 1
 
 
 """=====================Class====================="""
+
+
 class UDP_packet:
     def __init__(self,board_info, board_add, state):
         self.board_type = int("{0:08b}".format(board_info)[:4], 2)
@@ -22,6 +24,7 @@ class UDP_packet:
 
     def __repr__(self):
         return "Type:{}, Num:{}, Addr:{}, State:{}".format(self.board_type, self.board_num, self.board_add, self.state)
+
 
 """=====================Support functions====================="""
 
@@ -49,6 +52,8 @@ def init_UDP_connection(DEBUG_MODE=False):
 
 
 """===================== MAIN ====================="""
+
+
 def main(sock):
 
     data = b"HELLO"
@@ -62,6 +67,7 @@ def main(sock):
         else:
             sock.sendto(data, (UDP_MASTER_IP, UDP_MASTER_PORT))
             print("PC: I just Sent a [{0}]".format(data))
+
 
 if __name__ == '__main__':
     sock = init_UDP_connection()

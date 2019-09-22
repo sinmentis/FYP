@@ -689,8 +689,6 @@ class Simulator_GUI:
 
         """TODO: BUTTON"""
 
-
-
     """====================== States ======================"""
 
     def init_state(self):
