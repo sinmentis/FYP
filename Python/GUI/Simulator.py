@@ -14,7 +14,7 @@ from tkinter import messagebox
 
 import UDP  # E19 UDP module
 
-LOCAL_MODE = False
+LOCAL_MODE = True
 DEBUG_MODE = True
 ENABLE_THREAD = True
 
@@ -782,7 +782,8 @@ class Simulator_GUI:
                 for packet in packet_list:
                     if DEBUG_MODE:
                         self.Update_message(str(packet) + '\n')
-                    self.Update_state_from_packet(packet)  # Update self.states based on packet
+                    if delay_test(packet):                     # If this is not a delay test packet
+                        self.Update_state_from_packet(packet)  # Update self.states based on packet
                 self.Update_GUI()  # Update GUI based on new self.states
         return 0
 
@@ -839,7 +840,7 @@ class Simulator_GUI:
         return packet_list
 
     def encode_packet(self, value):
-        """TODO: construct the packet
+        """Construct the packet
         packet = board_type board_num board_add board_state"""
 
         info_binary_str = '{0:004b}'.format(value.board_type) + '{0:004b}'.format(value.board_num)
@@ -861,9 +862,14 @@ class Simulator_GUI:
 
         return dec_packet
 
-    def delay_test(self):
-        """TODO: if type and number == 64, send echo back to where it came from"""
-        pass
+    def delay_test(self, packet):
+        """If type and number == 64, send echo back to where it came from"""
+        if packet.board_num == packet.board_type == 15 and packet.board_add == packet.state == 255:
+            packet = self.encode_packet(UDP.UDP_packet(255, 255, 255))
+            self.sock.sendto(packet, (self.UDP_MASTER_I,P, self.UDP_MASTER_PORT))
+            return False
+        else:
+            return True
 
 if __name__ == "__main__":
     sock, UDP_MASTER_IP, UDP_MASTER_PORT = UDP.init_UDP_connection(LOCAL_MODE)
