@@ -241,30 +241,30 @@ class Simulator_GUI:
         self.led_switch_L = tkinter.Label(self.panel_frame, text="1_pos")
         self.led_switch_L.place(x=150, y=y_variable)
 
-        self.led_1_L_flag = 0
+        self.led_1_L_flag = 1
         self.led_1_L = tkinter.Label(self.panel_frame, text="LED 1")
         self.led_1_L.place(x=220, y=y_variable)
-        self.led_2_L_flag = 0
+        self.led_2_L_flag = 1
         self.led_2_L = tkinter.Label(self.panel_frame, text="LED 2")
         self.led_2_L.place(x=260, y=y_variable)
-        self.led_3_L_flag = 0
+        self.led_3_L_flag = 1
         self.led_3_L = tkinter.Label(self.panel_frame, text="LED 3")
         self.led_3_L.place(x=300, y=y_variable)
-        self.led_4_L_flag = 0
+        self.led_4_L_flag = 1
         self.led_4_L = tkinter.Label(self.panel_frame, text="LED 4")
         self.led_4_L.place(x=340, y=y_variable)
 
         # Symmetrical
-        self.led_1_R_flag = 0
+        self.led_1_R_flag = 1
         self.led_1_R = tkinter.Label(self.panel_frame, text="LED 1")
         self.led_1_R.place(x=400, y=y_variable)
-        self.led_2_R_flag = 0
+        self.led_2_R_flag = 1
         self.led_2_R = tkinter.Label(self.panel_frame, text="LED 2")
         self.led_2_R.place(x=440, y=y_variable)
-        self.led_3_R_flag = 0
+        self.led_3_R_flag = 1
         self.led_3_R = tkinter.Label(self.panel_frame, text="LED 3")
         self.led_3_R.place(x=480, y=y_variable)
-        self.led_4_R_flag = 0
+        self.led_4_R_flag = 1
         self.led_4_R = tkinter.Label(self.panel_frame, text="LED 4")
         self.led_4_R.place(x=520, y=y_variable)
 
@@ -454,45 +454,69 @@ class Simulator_GUI:
         # It's time to send the UDP
         self.sender()
 
-    def but_1_L(self, send_flag=True):
+    def but_1_L(self, click_flag=False):
         self.led_1_L_flag = self.LED_toggle(self.led_1_L, self.led_1_L_flag)
-        if send_flag:
-            self.sender()
+        self.sender()
+        if click_flag:
+            self.led_1_L['relief'] = SUNKEN
+            time.sleep(0.1)
+            self.led_1_L['relief'] = RAISED
 
-    def but_2_L(self, send_flag=True):
+    def but_2_L(self, click_flag=False):
         self.led_2_L_flag = self.LED_toggle(self.led_2_L, self.led_2_L_flag)
-        if send_flag:
-            self.sender()
+        self.sender()
+        if click_flag:
+            self.led_2_L['relief'] = SUNKEN
+            time.sleep(0.1)
+            self.led_2_L['relief'] = RAISED
 
-    def but_3_L(self, send_flag=True):
+    def but_3_L(self, click_flag=False):
         self.led_3_L_flag = self.LED_toggle(self.led_3_L, self.led_3_L_flag)
-        if send_flag:
-            self.sender()
+        self.sender()
+        if click_flag:
+            self.led_3_L['relief'] = SUNKEN
+            time.sleep(0.1)
+            self.led_3_L['relief'] = RAISED
 
-    def but_4_L(self, send_flag=True):
+    def but_4_L(self, click_flag=False):
         self.led_4_L_flag = self.LED_toggle(self.led_4_L, self.led_4_L_flag)
-        if send_flag:
-            self.sender()
+        self.sender()
+        if click_flag:
+            self.led_4_L['relief'] = SUNKEN
+            time.sleep(0.1)
+            self.led_4_L['relief'] = RAISED
 
-    def but_1_R(self, send_flag=True):
+    def but_1_R(self, click_flag=False):
         self.led_1_R_flag = self.LED_toggle(self.led_1_R, self.led_1_R_flag)
-        if send_flag:
-            self.sender()
+        self.sender()
+        if click_flag:
+            self.led_1_R['relief'] = SUNKEN
+            time.sleep(0.1)
+            self.led_1_R['relief'] = RAISED
 
-    def but_2_R(self, send_flag=True):
+    def but_2_R(self, click_flag=False):
         self.led_2_R_flag = self.LED_toggle(self.led_2_R, self.led_2_R_flag)
-        if send_flag:
-            self.sender()
+        self.sender()
+        if click_flag:
+            self.led_2_R['relief'] = SUNKEN
+            time.sleep(0.1)
+            self.led_2_R['relief'] = RAISED
 
-    def but_3_R(self, send_flag=True):
+    def but_3_R(self, click_flag=False):
         self.led_3_R_flag = self.LED_toggle(self.led_3_R, self.led_3_R_flag)
-        if send_flag:
-            self.sender()
+        self.sender()
+        if click_flag:
+            self.led_3_R['relief'] = SUNKEN
+            time.sleep(0.1)
+            self.led_3_R['relief'] = RAISED
 
-    def but_4_R(self, send_flag=True):
+    def but_4_R(self, click_flag=False):
         self.led_4_R_flag = self.LED_toggle(self.led_4_R, self.led_4_R_flag)
-        if send_flag:
-            self.sender()
+        self.sender()
+        if click_flag:
+            self.led_4_R['relief'] = SUNKEN
+            time.sleep(0.1)
+            self.led_4_R['relief'] = RAISED
 
     """------ LEDs ------"""
 
@@ -511,7 +535,7 @@ class Simulator_GUI:
 
     """------ Switchs ------"""
 
-    def Switch_L(self, send_flag=True):
+    def Switch_L(self, click_flag=False):
 
         self.switch_L_flag += 1
         if (self.switch_L_flag % 2 == 1):
@@ -523,10 +547,9 @@ class Simulator_GUI:
             self.led_switch_L['bg'] = self.OFF_COLOR
             self.switch_L['text'] = "OFF"
         self.switch_L_flag = self.switch_L_flag % 2
-        if send_flag:
-            self.sender()
+        self.sender()
 
-    def Switch_R(self, send_flag=True):
+    def Switch_R(self, click_flag=False):
 
         self.switch_R_flag += 1
         if (self.switch_R_flag % 2 == 1):
@@ -538,10 +561,9 @@ class Simulator_GUI:
             self.led_switch_R['bg'] = self.OFF_COLOR
             self.switch_R['text'] = "OFF"
         self.switch_R_flag = self.switch_R_flag % 2
-        if send_flag:
-            self.sender()
+        self.sender()
 
-    def Switch_2_R(self, send_flag=True):
+    def Switch_2_R(self, click_flag=False):
 
         if self.pos_R.get() == 1:
             self.led_21_R.config(bg=self.ON_COLOR)
@@ -552,11 +574,10 @@ class Simulator_GUI:
         else:
             self.led_21_R.config(bg=self.OFF_COLOR)
             self.led_22_R.config(bg=self.OFF_COLOR)
+        self.sender()
 
-        if send_flag:
-            self.sender()
 
-    def Switch_2_L(self, send_flag=True):
+    def Switch_2_L(self, click_flag=False):
 
         if self.pos_L.get() == 1:
             self.led_22_L.config(bg=self.ON_COLOR)
@@ -567,9 +588,7 @@ class Simulator_GUI:
         else:
             self.led_22_L.config(bg=self.OFF_COLOR)
             self.led_21_L.config(bg=self.OFF_COLOR)
-
-        if send_flag:
-            self.sender()
+        self.sender()
 
     """------ Menus ------"""
 
@@ -732,6 +751,7 @@ class Simulator_GUI:
             self.states["but_4R"].state = self.LED_OFF
 
         # TODO: Three state switch
+        
 
     """====================== States ======================"""
 
@@ -752,10 +772,10 @@ class Simulator_GUI:
                   "led_s_L": UDP.UDP_packet(0, 0, 0), "led_s_R": UDP.UDP_packet(0, 0, 0), \
                   "led_21_L": UDP.UDP_packet(0, 0, 0), "led_21_R": UDP.UDP_packet(0, 0, 0), \
                   "led_22_L": UDP.UDP_packet(0, 0, 0), "led_22_R": UDP.UDP_packet(0, 0, 0), \
-                  "led_1L": UDP.UDP_packet(0, 0, 0), "led_2L": UDP.UDP_packet(0, 0, 0),
-                  "led_3L": UDP.UDP_packet(0, 0, 0), "led_4L": UDP.UDP_packet(0, 0, 0), \
-                  "led_1R": UDP.UDP_packet(0, 0, 0), "led_2R": UDP.UDP_packet(0, 0, 0),
-                  "led_3R": UDP.UDP_packet(0, 0, 0), "led_4R": UDP.UDP_packet(0, 0, 0), \
+                  "led_1L": UDP.UDP_packet(0, 0, 1), "led_2L": UDP.UDP_packet(0, 0, 1),
+                  "led_3L": UDP.UDP_packet(0, 0, 1), "led_4L": UDP.UDP_packet(0, 0, 1), \
+                  "led_1R": UDP.UDP_packet(0, 0, 1), "led_2R": UDP.UDP_packet(0, 0, 1),
+                  "led_3R": UDP.UDP_packet(0, 0, 1), "led_4R": UDP.UDP_packet(0, 0, 1), \
                   "but_1L": UDP.UDP_packet(0, 0, 0), "but_2L": UDP.UDP_packet(0, 0, 0),
                   "but_3L": UDP.UDP_packet(0, 0, 0), "but_4L": UDP.UDP_packet(0, 0, 0), \
                   "but_1R": UDP.UDP_packet(0, 0, 0), "but_2R": UDP.UDP_packet(0, 0, 0),
@@ -796,11 +816,9 @@ class Simulator_GUI:
             for packet in udp_packet_list:
                 try:
                     self.sock.sendto(packet, (self.UDP_MASTER_IP, self.UDP_MASTER_PORT))
-                    self.Update_message("UDP Sent to master!\n")
                 except Exception as e:
                     self.Update_message("{0}\n".format(e))
-                if DEBUG_MODE:
-                    print("Sent Packet:{0}".format(packet))
+                self.Update_message("UDP Sent:{0}\n".format(packet))
 
     def generate_packet(self):
         """generate new packet based on old state and new GUI"""
