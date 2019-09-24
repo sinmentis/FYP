@@ -547,7 +547,6 @@ class Simulator_GUI:
         self.sender()
 
     def Switch_2_R(self):
-        # TODO: FINSIH IT
         flag = self.pos_R.get()
         if flag == 3:
             self.led_21_R.config(bg=self.ON_COLOR)
@@ -568,7 +567,6 @@ class Simulator_GUI:
 
 
     def Switch_2_L(self):
-        # TODO: FINSIH IT
         flag = self.pos_L.get()
         if flag == 3:
             self.led_22_L.config(bg=self.ON_COLOR)
@@ -753,9 +751,6 @@ class Simulator_GUI:
             self.but_4_R()
             self.states["but_4R"].state = self.LED_OFF
 
-        """ TODO: Three state switch """
-
-        # TEST TODO: for 3 state switch
         if self.states["swh_2L"] == self.STATE_0:
             self.switch_0_L.invoke()
         elif self.states["swh_2L"] == self.STATE_L:
@@ -770,7 +765,6 @@ class Simulator_GUI:
         elif self.states["swh_2R"] == self.STATE_R:
             self.switch_2_R.invoke()
 
-        # TEST TODO: for 2 state switch
         if self.states["swh_1L"] != self.switch_L_flag:
             self.switch_L.invoke()
 
