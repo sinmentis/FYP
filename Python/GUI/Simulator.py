@@ -751,6 +751,7 @@ class Simulator_GUI:
             self.but_4_R()
             self.states["but_4R"].state = self.LED_OFF
 
+        # 3 states switches
         if self.states["swh_2L"] == self.STATE_0:
             self.switch_0_L.invoke()
         elif self.states["swh_2L"] == self.STATE_L:
@@ -765,22 +766,16 @@ class Simulator_GUI:
         elif self.states["swh_2R"] == self.STATE_R:
             self.switch_2_R.invoke()
 
+        # 2 states switches
         if self.states["swh_1L"] != self.switch_L_flag:
             self.switch_L.invoke()
-
         if self.states["swh_1R"] == self.switch_R_flag:
             self.switch_R.invoke()
 
     """====================== States ======================"""
 
     def init_state(self):
-        """ Contain all states:
-
-        {seg_L, seg_R, dial_L, dial R, pot_L, pot_R swh_2L, swh_2R, swh_1L, swh_1R, 
-        led_1L, led_2L, led_3L, led_4L, led_1R, led_2R, led_3R, led_4R
-        but_1L, but_2L, but_3L, but_4L, but_1R, but_2R, but_3R, but_4R}
-
-        states = {hardware_name:(board_type, board_num, board_addr, state)}"""
+        """states = {hardware_name:(board_type, board_num, board_addr, state)}"""
 
         states = {"seg_L": UDP.UDP_packet(0, 0, 0), "seg_R": UDP.UDP_packet(0, 0, 0), \
                   "dial_L": UDP.UDP_packet(0, 0, 0), "dial_R": UDP.UDP_packet(0, 0, 0), \
@@ -797,8 +792,8 @@ class Simulator_GUI:
                   "but_1L": UDP.UDP_packet(0, 0, 0), "but_2L": UDP.UDP_packet(0, 0, 0),
                   "but_3L": UDP.UDP_packet(0, 0, 0), "but_4L": UDP.UDP_packet(0, 0, 0), \
                   "but_1R": UDP.UDP_packet(0, 0, 0), "but_2R": UDP.UDP_packet(0, 0, 0),
-                  "but_3R": UDP.UDP_packet(0, 0, 0), "but_4R": UDP.UDP_packet(0, 0, 0),
-                  }
+                  "but_3R": UDP.UDP_packet(0, 0, 0), "but_4R": UDP.UDP_packet(0, 0, 0),}
+
         return states
 
     """====================== UDPLED_toggle operation ======================"""
@@ -819,7 +814,10 @@ class Simulator_GUI:
                         self.Update_message(str(packet) + '\n')
                     if delay_test(packet):                     # If this is not a delay test packet
                         self.Update_state_from_packet(packet)  # Update self.states based on packet
+                        #self.Update_GUI()
                 self.Update_GUI()  # Update GUI based on new self.states
+                # TODO: Test performance of where sould Update_GUI() goes.
+                
         return 0
 
     def sender(self):
@@ -834,6 +832,10 @@ class Simulator_GUI:
                 except Exception as e:
                     self.Update_message("{0}\n".format(e))
                 self.Update_message("UDP Sent:{0}\n".format(packet))
+        if DEBUG_MODE:
+            print("\nCurrent state: ")
+            for key, value in self.states.items():
+                print('item: {}: {}'.format(key, value))
 
     def generate_packet(self):
         """generate new packet based on old state and new GUI"""
@@ -879,10 +881,8 @@ class Simulator_GUI:
         info_binary_str = '{0:004b}'.format(value.board_type) + '{0:004b}'.format(value.board_num)
         info_dec_int = int(info_binary_str, 2)
 
-
         dec_list = [info_dec_int, value.board_add, value.state]
         dec_packet = bytes(dec_list)
-
 
         if DEBUG_MODE:
             info_ascii = chr(info_dec_int)
