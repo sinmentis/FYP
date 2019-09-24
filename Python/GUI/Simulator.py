@@ -16,7 +16,7 @@ import UDP  # E19 UDP module
 
 LOCAL_MODE = True
 DEBUG_MODE = True
-ENABLE_THREAD = True
+ENABLE_THREAD = False
 
 
 class Simulator_GUI:
@@ -33,13 +33,19 @@ class Simulator_GUI:
         self.sF = ("Helvetica", 8)  # Font of hardware address
         self.hwbg = '#F8F8FF'  # Change color of HW text box
         self.defbg = '#C0C0C0'  # Default color
-        self.LED_ON = 2
-        self.LED_OFF = 1
         self.ON_COLOR = "#FFD700"  # When LED is on
         self.OFF_COLOR = "#F0F0F0"  # When LED is off
         self.thread_quit_flag = False  # Easy to do clean up work
+
         self.UDP_MASTER_IP = UDP_MASTER_IP
         self.UDP_MASTER_PORT = UDP_MASTER_PORT
+
+        # Deafult number is 1, due to noise from UART
+        self.LED_ON = 2         # For Button and 2_state_switch and LED
+        self.LED_OFF = 1        # For Button and 2_state_switch and LED
+        self.STATE_L = 2        # For 3_state_switch
+        self.STATE_0 = 1        # For 3_state_switch
+        self.STATE_R = 3        # For 3_state_switch
 
         # Draw the GUI
         self.init_GUI()  # setting [title && geometry]
@@ -233,11 +239,14 @@ class Simulator_GUI:
     def add_leds(self):
 
         y_variable = 230
+        self.led_21_L_flag = 1
         self.led_21_L = tkinter.Label(self.panel_frame, text="State 1")
         self.led_21_L.place(x=30, y=y_variable)
+        self.led_22_L_flag = 1
         self.led_22_L = tkinter.Label(self.panel_frame, text="State 2")
         self.led_22_L.place(x=80, y=y_variable)
 
+        self.led_switch_L_flag= 1
         self.led_switch_L = tkinter.Label(self.panel_frame, text="1_pos")
         self.led_switch_L.place(x=150, y=y_variable)
 
@@ -268,11 +277,14 @@ class Simulator_GUI:
         self.led_4_R = tkinter.Label(self.panel_frame, text="LED 4")
         self.led_4_R.place(x=520, y=y_variable)
 
+        self.led_switch_R_flag= 1
         self.led_switch_R = tkinter.Label(self.panel_frame, text="1_pos")
         self.led_switch_R.place(x=600, y=y_variable)
 
+        self.led_21_R = 1
         self.led_21_R = tkinter.Label(self.panel_frame, text="State 2")
         self.led_21_R.place(x=665, y=y_variable)
+        self.led_22_R = 1
         self.led_22_R = tkinter.Label(self.panel_frame, text="State 1")
         self.led_22_R.place(x=715, y=y_variable)
 
@@ -332,19 +344,20 @@ class Simulator_GUI:
 
         # 2 pos switch
         self.pos_L = IntVar()
-        self.switch_0_L = tkinter.Radiobutton(self.panel_frame, text="State 0", variable=self.pos_L, value=0,
+        self.pos_L.set(1)
+        self.switch_0_L = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_L, value=2,
                                               command=self.Switch_2_L)
         self.switch_0_L.place(x=50, y=y_variable - 10)
-        self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_L, value=1,
+        self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="State 0", variable=self.pos_L, value=1,
                                               command=self.Switch_2_L)
         self.switch_1_L.place(x=50, y=y_variable + 15)
-        self.switch_2_L = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_L, value=2,
+        self.switch_2_L = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_L, value=3,
                                               command=self.Switch_2_L)
         self.switch_2_L.place(x=50, y=y_variable + 40)
 
 
         # 1 pos switch
-        self.switch_L_flag = 0
+        self.switch_L_flag = 1
         self.switch_L = tkinter.Button(self.panel_frame, text="OFF", height=1, width=4, relief=RAISED,
                                        command=self.Switch_L)
         self.switch_L.place(x=150, y=y_variable)
@@ -370,20 +383,21 @@ class Simulator_GUI:
         self.button_4_R.place(x=520, y=y_variable)
 
         # 1 pos switch
-        self.switch_R_flag = 0
+        self.switch_R_flag = 1
         self.switch_R = tkinter.Button(self.panel_frame, text="OFF", height=1, width=4, relief=RAISED,
                                        command=self.Switch_R)
         self.switch_R.place(x=600, y=y_variable)
 
         # 2 pos switch
         self.pos_R = IntVar()
-        self.switch_0_R = tkinter.Radiobutton(self.panel_frame, text="State 0", variable=self.pos_R, value=0,
+        self.pos_R.set(1)
+        self.switch_0_R = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_R, value=2,
                                               command=self.Switch_2_R)
         self.switch_0_R.place(x=680, y=y_variable - 10)
-        self.switch_1_R = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_R, value=1,
+        self.switch_1_R = tkinter.Radiobutton(self.panel_frame, text="State 0", variable=self.pos_R, value=1,
                                               command=self.Switch_2_R)
         self.switch_1_R.place(x=680, y=y_variable + 15)
-        self.switch_2_R = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_R, value=2,
+        self.switch_2_R = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_R, value=3,
                                               command=self.Switch_2_R)
         self.switch_2_R.place(x=680, y=y_variable + 40)
 
@@ -537,8 +551,8 @@ class Simulator_GUI:
 
     def Switch_L(self, click_flag=False):
 
-        self.switch_L_flag += 1
-        if (self.switch_L_flag % 2 == 1):
+        flag = self.switch_L_flag
+        if (flag % 2 == 1):
             self.switch_L['relief'] = SUNKEN
             self.led_switch_L['bg'] = self.ON_COLOR
             self.switch_L['text'] = "ON"
@@ -546,13 +560,13 @@ class Simulator_GUI:
             self.switch_L['relief'] = RAISED
             self.led_switch_L['bg'] = self.OFF_COLOR
             self.switch_L['text'] = "OFF"
-        self.switch_L_flag = self.switch_L_flag % 2
+        self.switch_L_flag = flag % 2 + 1
         self.sender()
 
     def Switch_R(self, click_flag=False):
 
-        self.switch_R_flag += 1
-        if (self.switch_R_flag % 2 == 1):
+        flag = self.switch_R_flag
+        if (flag % 2 == 1):
             self.switch_R['relief'] = SUNKEN
             self.led_switch_R['bg'] = self.ON_COLOR
             self.switch_R['text'] = "ON"
@@ -560,15 +574,16 @@ class Simulator_GUI:
             self.switch_R['relief'] = RAISED
             self.led_switch_R['bg'] = self.OFF_COLOR
             self.switch_R['text'] = "OFF"
-        self.switch_R_flag = self.switch_R_flag % 2
+        self.switch_R_flag = flag % 2 + 1
         self.sender()
 
     def Switch_2_R(self, click_flag=False):
-
-        if self.pos_R.get() == 1:
+        # TODO: FINSIH IT
+        flag = self.pos_R.get()
+        if flag == 3:
             self.led_21_R.config(bg=self.ON_COLOR)
             self.led_22_R.config(bg=self.OFF_COLOR)
-        elif self.pos_R.get() == 2:
+        elif flag == 2:
             self.led_21_R.config(bg=self.OFF_COLOR)
             self.led_22_R.config(bg=self.ON_COLOR)
         else:
@@ -578,11 +593,12 @@ class Simulator_GUI:
 
 
     def Switch_2_L(self, click_flag=False):
-
-        if self.pos_L.get() == 1:
+        # TODO: FINSIH IT
+        flag = self.pos_L.get()
+        if flag == 3:
             self.led_22_L.config(bg=self.ON_COLOR)
             self.led_21_L.config(bg=self.OFF_COLOR)
-        elif self.pos_L.get() == 2:
+        elif flag == 2:
             self.led_22_L.config(bg=self.OFF_COLOR)
             self.led_21_L.config(bg=self.ON_COLOR)
         else:
@@ -767,11 +783,11 @@ class Simulator_GUI:
         states = {"seg_L": UDP.UDP_packet(0, 0, 0), "seg_R": UDP.UDP_packet(0, 0, 0), \
                   "dial_L": UDP.UDP_packet(0, 0, 0), "dial_R": UDP.UDP_packet(0, 0, 0), \
                   "pot_L": UDP.UDP_packet(0, 0, 0), "pot_R": UDP.UDP_packet(0, 0, 0), \
-                  "pos_2L": UDP.UDP_packet(0, 0, 0), "pos_2R": UDP.UDP_packet(0, 0, 0), \
-                  "pos_1L": UDP.UDP_packet(0, 0, 0), "pos_1R": UDP.UDP_packet(0, 0, 0), \
-                  "led_s_L": UDP.UDP_packet(0, 0, 0), "led_s_R": UDP.UDP_packet(0, 0, 0), \
-                  "led_21_L": UDP.UDP_packet(0, 0, 0), "led_21_R": UDP.UDP_packet(0, 0, 0), \
-                  "led_22_L": UDP.UDP_packet(0, 0, 0), "led_22_R": UDP.UDP_packet(0, 0, 0), \
+                  "pos_2L": UDP.UDP_packet(0, 0, 1), "pos_2R": UDP.UDP_packet(0, 0, 1), \
+                  "pos_1L": UDP.UDP_packet(0, 0, 1), "pos_1R": UDP.UDP_packet(0, 0, 1), \
+                  "led_s_L": UDP.UDP_packet(0, 0, 1), "led_s_R": UDP.UDP_packet(0, 0, 1), \
+                  "led_21_L": UDP.UDP_packet(0, 0, 1), "led_21_R": UDP.UDP_packet(0, 0, 1), \
+                  "led_22_L": UDP.UDP_packet(0, 0, 1), "led_22_R": UDP.UDP_packet(0, 0, 1), \
                   "led_1L": UDP.UDP_packet(0, 0, 1), "led_2L": UDP.UDP_packet(0, 0, 1),
                   "led_3L": UDP.UDP_packet(0, 0, 1), "led_4L": UDP.UDP_packet(0, 0, 1), \
                   "led_1R": UDP.UDP_packet(0, 0, 1), "led_2R": UDP.UDP_packet(0, 0, 1),
@@ -780,9 +796,9 @@ class Simulator_GUI:
                   "but_3L": UDP.UDP_packet(0, 0, 0), "but_4L": UDP.UDP_packet(0, 0, 0), \
                   "but_1R": UDP.UDP_packet(0, 0, 0), "but_2R": UDP.UDP_packet(0, 0, 0),
                   "but_3R": UDP.UDP_packet(0, 0, 0), "but_4R": UDP.UDP_packet(0, 0, 0), \
-                  "swi_21_L": UDP.UDP_packet(0, 0, 0), "swi_21_R": UDP.UDP_packet(0, 0, 0), \
-                  "swi_22_L": UDP.UDP_packet(0, 0, 0), "swi_22_R": UDP.UDP_packet(0, 0, 0), \
-                  "swi_L": UDP.UDP_packet(0, 0, 0), "swi_R": UDP.UDP_packet(0, 0, 0), \
+                  "swi_21_L": UDP.UDP_packet(0, 0, 1), "swi_21_R": UDP.UDP_packet(0, 0, 1), \
+                  "swi_22_L": UDP.UDP_packet(0, 0, 1), "swi_22_R": UDP.UDP_packet(0, 0, 1), \
+                  "swi_L": UDP.UDP_packet(0, 0, 1), "swi_R": UDP.UDP_packet(0, 0, 1), \
                   }
         return states
 
