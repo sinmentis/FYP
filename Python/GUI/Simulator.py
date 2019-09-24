@@ -585,7 +585,7 @@ class Simulator_GUI:
             self.led_21_L.config(bg=self.OFF_COLOR)
             self.pos_L_1_led_flag = 1
             self.pos_L_2_led_flag = 1
-            self.sender()
+        self.sender()
 
     """------ Menus ------"""
 
@@ -691,7 +691,7 @@ class Simulator_GUI:
             states[hardware].board_type = int(self.oth_type.get("1.0", END).strip())
             states[hardware].board_num = int(self.oth_numb.get("1.0", END).strip())
 
-        for hardware in ["led_1L", "led_2L", "led_3L", "led_4L", "led_1R", "led_2R", "led_3R", "led_4R"]:
+        for hardware in ["led_1L", "led_2L", "led_3L", "led_4L", "led_1R", "led_2R", "led_3R", "led_4R", "led_21_L", "led_21_R", "led_22_L", "led_22_R", "led_s_L", "led_s_R"]:
             states[hardware].board_type = int(self.led_type.get("1.0", END).strip())
             states[hardware].board_num = int(self.led_numb.get("1.0", END).strip())
 
