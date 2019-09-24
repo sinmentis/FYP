@@ -345,12 +345,12 @@ class Simulator_GUI:
         # 2 pos switch
         self.pos_L = IntVar()
         self.pos_L.set(1)
-        self.switch_0_L = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_L, value=2,
+        self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_L, value=2,
                                               command=self.Switch_2_L)
-        self.switch_0_L.place(x=50, y=y_variable - 10)
-        self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="State 0", variable=self.pos_L, value=1,
+        self.switch_1_L.place(x=50, y=y_variable - 10)
+        self.switch_0_L = tkinter.Radiobutton(self.panel_frame, text="State 0", variable=self.pos_L, value=1,
                                               command=self.Switch_2_L)
-        self.switch_1_L.place(x=50, y=y_variable + 15)
+        self.switch_0_L.place(x=50, y=y_variable + 15)
         self.switch_2_L = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_L, value=3,
                                               command=self.Switch_2_L)
         self.switch_2_L.place(x=50, y=y_variable + 40)
@@ -391,12 +391,12 @@ class Simulator_GUI:
         # 2 pos switch
         self.pos_R = IntVar()
         self.pos_R.set(1)
-        self.switch_0_R = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_R, value=2,
+        self.switch_1_R = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_R, value=2,
                                               command=self.Switch_2_R)
-        self.switch_0_R.place(x=680, y=y_variable - 10)
-        self.switch_1_R = tkinter.Radiobutton(self.panel_frame, text="State 0", variable=self.pos_R, value=1,
+        self.switch_1_R.place(x=680, y=y_variable - 10)
+        self.switch_0_R = tkinter.Radiobutton(self.panel_frame, text="State 0", variable=self.pos_R, value=1,
                                               command=self.Switch_2_R)
-        self.switch_1_R.place(x=680, y=y_variable + 15)
+        self.switch_0_R.place(x=680, y=y_variable + 15)
         self.switch_2_R = tkinter.Radiobutton(self.panel_frame, text="State 2", variable=self.pos_R, value=3,
                                               command=self.Switch_2_R)
         self.switch_2_R.place(x=680, y=y_variable + 40)
@@ -466,71 +466,40 @@ class Simulator_GUI:
             self.Update_message("Applied!\n")
 
         # It's time to send the UDP
+        self.button_1_L.invoke()
         self.sender()
 
-    def but_1_L(self, click_flag=False):
+    def but_1_L(self):
         self.led_1_L_flag = self.LED_toggle(self.led_1_L, self.led_1_L_flag)
         self.sender()
-        if click_flag:
-            self.led_1_L['relief'] = SUNKEN
-            time.sleep(0.1)
-            self.led_1_L['relief'] = RAISED
 
-    def but_2_L(self, click_flag=False):
+    def but_2_L(self):
         self.led_2_L_flag = self.LED_toggle(self.led_2_L, self.led_2_L_flag)
         self.sender()
-        if click_flag:
-            self.led_2_L['relief'] = SUNKEN
-            time.sleep(0.1)
-            self.led_2_L['relief'] = RAISED
 
-    def but_3_L(self, click_flag=False):
+    def but_3_L(self):
         self.led_3_L_flag = self.LED_toggle(self.led_3_L, self.led_3_L_flag)
         self.sender()
-        if click_flag:
-            self.led_3_L['relief'] = SUNKEN
-            time.sleep(0.1)
-            self.led_3_L['relief'] = RAISED
 
-    def but_4_L(self, click_flag=False):
+    def but_4_L(self):
         self.led_4_L_flag = self.LED_toggle(self.led_4_L, self.led_4_L_flag)
         self.sender()
-        if click_flag:
-            self.led_4_L['relief'] = SUNKEN
-            time.sleep(0.1)
-            self.led_4_L['relief'] = RAISED
 
-    def but_1_R(self, click_flag=False):
+    def but_1_R(self):
         self.led_1_R_flag = self.LED_toggle(self.led_1_R, self.led_1_R_flag)
         self.sender()
-        if click_flag:
-            self.led_1_R['relief'] = SUNKEN
-            time.sleep(0.1)
-            self.led_1_R['relief'] = RAISED
 
-    def but_2_R(self, click_flag=False):
+    def but_2_R(self):
         self.led_2_R_flag = self.LED_toggle(self.led_2_R, self.led_2_R_flag)
         self.sender()
-        if click_flag:
-            self.led_2_R['relief'] = SUNKEN
-            time.sleep(0.1)
-            self.led_2_R['relief'] = RAISED
 
-    def but_3_R(self, click_flag=False):
+    def but_3_R(self):
         self.led_3_R_flag = self.LED_toggle(self.led_3_R, self.led_3_R_flag)
         self.sender()
-        if click_flag:
-            self.led_3_R['relief'] = SUNKEN
-            time.sleep(0.1)
-            self.led_3_R['relief'] = RAISED
 
-    def but_4_R(self, click_flag=False):
+    def but_4_R(self):
         self.led_4_R_flag = self.LED_toggle(self.led_4_R, self.led_4_R_flag)
         self.sender()
-        if click_flag:
-            self.led_4_R['relief'] = SUNKEN
-            time.sleep(0.1)
-            self.led_4_R['relief'] = RAISED
 
     """------ LEDs ------"""
 
@@ -549,7 +518,7 @@ class Simulator_GUI:
 
     """------ Switchs ------"""
 
-    def Switch_L(self, click_flag=False):
+    def Switch_L(self):
 
         flag = self.switch_L_flag
         if (flag % 2 == 1):
@@ -563,7 +532,7 @@ class Simulator_GUI:
         self.switch_L_flag = flag % 2 + 1
         self.sender()
 
-    def Switch_R(self, click_flag=False):
+    def Switch_R(self):
 
         flag = self.switch_R_flag
         if (flag % 2 == 1):
@@ -577,7 +546,7 @@ class Simulator_GUI:
         self.switch_R_flag = flag % 2 + 1
         self.sender()
 
-    def Switch_2_R(self, click_flag=False):
+    def Switch_2_R(self):
         # TODO: FINSIH IT
         flag = self.pos_R.get()
         if flag == 3:
@@ -592,7 +561,7 @@ class Simulator_GUI:
         self.sender()
 
 
-    def Switch_2_L(self, click_flag=False):
+    def Switch_2_L(self):
         # TODO: FINSIH IT
         flag = self.pos_L.get()
         if flag == 3:
@@ -676,15 +645,15 @@ class Simulator_GUI:
         states["pot_R"].board_add = self.poten_R_addr.get("1.0", END).strip()
         states["pot_R"].state = int(self.poten_R['text'])
 
-        states["pos_2L"].board_add = int(self.poten_L_addr.get("1.0", END).strip())
-        states["pos_2L"].state = int(self.pos_L.get())
-        states["pos_2R"].board_add = int(self.poten_R_addr.get("1.0", END).strip())
-        states["pos_2R"].state = int(self.pos_R.get())
+        states["swh_2L"].board_add = int(self.poten_L_addr.get("1.0", END).strip())
+        states["swh_2L"].state = int(self.pos_L.get())
+        states["swh_2R"].board_add = int(self.poten_R_addr.get("1.0", END).strip())
+        states["swh_2R"].state = int(self.pos_R.get())
 
-        states["pos_1L"].board_add = int(self.switch_L_addr.get("1.0", END).strip())
-        states["pos_1L"].state = int(self.switch_L_flag)
-        states["pos_1R"].board_add = int(self.switch_R_addr.get("1.0", END).strip())
-        states["pos_1R"].state = int(self.switch_R_flag)
+        states["swh_1L"].board_add = int(self.switch_L_addr.get("1.0", END).strip())
+        states["swh_1L"].state = int(self.switch_L_flag)
+        states["swh_1R"].board_add = int(self.switch_R_addr.get("1.0", END).strip())
+        states["swh_1R"].state = int(self.switch_R_flag)
 
         states["led_1L"].board_add = int(self.led_1_L_addr.get("1.0", END).strip())
         states["led_1L"].state = int(self.led_1_L_flag)
@@ -766,15 +735,36 @@ class Simulator_GUI:
             self.but_4_R()
             self.states["but_4R"].state = self.LED_OFF
 
-        # TODO: Three state switch
-        
+        """ TODO: Three state switch """
+
+        # TEST TODO: for 3 state switch
+        if self.states["swh_2L"] == self.STATE_0:
+            self.switch_0_L.invoke()
+        elif self.states["swh_2L"] == self.STATE_L:
+            self.switch_1_L.invoke()
+        elif self.states["swh_2L"] == self.STATE_R:
+            self.switch_2_L.invoke()
+
+        if self.states["swh_2R"] == self.STATE_0:
+            self.switch_0_R.invoke()
+        elif self.states["swh_2R"] == self.STATE_L:
+            self.switch_1_R.invoke()
+        elif self.states["swh_2R"] == self.STATE_R:
+            self.switch_2_R.invoke()
+
+        # TEST TODO: for 2 state switch
+        if self.states["swh_1L"] != self.switch_L_flag:
+            self.switch_L.invoke()
+
+        if self.states["swh_1R"] == self.switch_R_flag:
+            self.switch_R.invoke()
 
     """====================== States ======================"""
 
     def init_state(self):
         """ Contain all states:
 
-        {seg_L, seg_R, dial_L, dial R, pot_L, pot_R pos_2L, pos_2R, pos_1L, pos_1R, 
+        {seg_L, seg_R, dial_L, dial R, pot_L, pot_R swh_2L, swh_2R, swh_1L, swh_1R, 
         led_1L, led_2L, led_3L, led_4L, led_1R, led_2R, led_3R, led_4R
         but_1L, but_2L, but_3L, but_4L, but_1R, but_2R, but_3R, but_4R}
 
@@ -783,8 +773,8 @@ class Simulator_GUI:
         states = {"seg_L": UDP.UDP_packet(0, 0, 0), "seg_R": UDP.UDP_packet(0, 0, 0), \
                   "dial_L": UDP.UDP_packet(0, 0, 0), "dial_R": UDP.UDP_packet(0, 0, 0), \
                   "pot_L": UDP.UDP_packet(0, 0, 0), "pot_R": UDP.UDP_packet(0, 0, 0), \
-                  "pos_2L": UDP.UDP_packet(0, 0, 1), "pos_2R": UDP.UDP_packet(0, 0, 1), \
-                  "pos_1L": UDP.UDP_packet(0, 0, 1), "pos_1R": UDP.UDP_packet(0, 0, 1), \
+                  "swh_2L": UDP.UDP_packet(0, 0, 1), "swh_2R": UDP.UDP_packet(0, 0, 1), \
+                  "swh_1L": UDP.UDP_packet(0, 0, 1), "swh_1R": UDP.UDP_packet(0, 0, 1), \
                   "led_s_L": UDP.UDP_packet(0, 0, 1), "led_s_R": UDP.UDP_packet(0, 0, 1), \
                   "led_21_L": UDP.UDP_packet(0, 0, 1), "led_21_R": UDP.UDP_packet(0, 0, 1), \
                   "led_22_L": UDP.UDP_packet(0, 0, 1), "led_22_R": UDP.UDP_packet(0, 0, 1), \
