@@ -239,14 +239,11 @@ class Simulator_GUI:
     def add_leds(self):
 
         y_variable = 230
-        self.led_21_L_flag = 1
         self.led_21_L = tkinter.Label(self.panel_frame, text="State 1")
         self.led_21_L.place(x=30, y=y_variable)
-        self.led_22_L_flag = 1
         self.led_22_L = tkinter.Label(self.panel_frame, text="State 2")
         self.led_22_L.place(x=80, y=y_variable)
 
-        self.led_switch_L_flag= 1
         self.led_switch_L = tkinter.Label(self.panel_frame, text="1_pos")
         self.led_switch_L.place(x=150, y=y_variable)
 
@@ -277,7 +274,6 @@ class Simulator_GUI:
         self.led_4_R = tkinter.Label(self.panel_frame, text="LED 4")
         self.led_4_R.place(x=520, y=y_variable)
 
-        self.led_switch_R_flag= 1
         self.led_switch_R = tkinter.Label(self.panel_frame, text="1_pos")
         self.led_switch_R.place(x=600, y=y_variable)
 
@@ -345,6 +341,8 @@ class Simulator_GUI:
         # 2 pos switch
         self.pos_L = IntVar()
         self.pos_L.set(1)
+        self.pos_L_1_led_flag = 1
+        self.pos_L_2_led_flag = 1
         self.switch_1_L = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_L, value=2,
                                               command=self.Switch_2_L)
         self.switch_1_L.place(x=50, y=y_variable - 10)
@@ -391,6 +389,8 @@ class Simulator_GUI:
         # 2 pos switch
         self.pos_R = IntVar()
         self.pos_R.set(1)
+        self.pos_R_1_led_flag = 1
+        self.pos_R_2_led_flag = 1
         self.switch_1_R = tkinter.Radiobutton(self.panel_frame, text="State 1", variable=self.pos_R, value=2,
                                               command=self.Switch_2_R)
         self.switch_1_R.place(x=680, y=y_variable - 10)
@@ -466,7 +466,6 @@ class Simulator_GUI:
             self.Update_message("Applied!\n")
 
         # It's time to send the UDP
-        self.button_1_L.invoke()
         self.sender()
 
     def but_1_L(self):
@@ -544,6 +543,7 @@ class Simulator_GUI:
             self.led_switch_R['bg'] = self.OFF_COLOR
             self.switch_R['text'] = "OFF"
         self.switch_R_flag = flag % 2 + 1
+
         self.sender()
 
     def Switch_2_R(self):
@@ -552,12 +552,18 @@ class Simulator_GUI:
         if flag == 3:
             self.led_21_R.config(bg=self.ON_COLOR)
             self.led_22_R.config(bg=self.OFF_COLOR)
+            self.pos_R_1_led_flag = 2
+            self.pos_R_2_led_flag = 1
         elif flag == 2:
             self.led_21_R.config(bg=self.OFF_COLOR)
             self.led_22_R.config(bg=self.ON_COLOR)
+            self.pos_R_1_led_flag = 1
+            self.pos_R_2_led_flag = 2
         else:
             self.led_21_R.config(bg=self.OFF_COLOR)
             self.led_22_R.config(bg=self.OFF_COLOR)
+            self.pos_R_1_led_flag = 1
+            self.pos_R_2_led_flag = 1
         self.sender()
 
 
@@ -567,13 +573,19 @@ class Simulator_GUI:
         if flag == 3:
             self.led_22_L.config(bg=self.ON_COLOR)
             self.led_21_L.config(bg=self.OFF_COLOR)
+            self.pos_L_1_led_flag = 2
+            self.pos_L_2_led_flag = 1
         elif flag == 2:
             self.led_22_L.config(bg=self.OFF_COLOR)
             self.led_21_L.config(bg=self.ON_COLOR)
+            self.pos_L_1_led_flag = 1
+            self.pos_L_2_led_flag = 2
         else:
             self.led_22_L.config(bg=self.OFF_COLOR)
             self.led_21_L.config(bg=self.OFF_COLOR)
-        self.sender()
+            self.pos_L_1_led_flag = 1
+            self.pos_L_2_led_flag = 1
+            self.sender()
 
     """------ Menus ------"""
 
@@ -630,13 +642,11 @@ class Simulator_GUI:
         states = self.init_state()
         states["seg_L"].board_add = int(self.seven_segs_L_addr.get("1.0", END).strip())
         states["seg_L"].state = int(self.seven_segs_L.get("1.0", END).strip())
-
         states["seg_R"].board_add = int(self.seven_segs_R_addr.get("1.0", END).strip())
         states["seg_R"].state = int(self.seven_segs_R.get("1.0", END).strip())
 
         states["dial_L"].board_add = int(self.dial_L_addr.get("1.0", END).strip())
         states["dial_L"].state = int(self.dial_L.get("1.0", END).strip())
-
         states["dial_R"].board_add = int(self.dial_R_addr.get("1.0", END).strip())
         states["dial_R"].state = int(self.dial_R.get("1.0", END).strip())
 
@@ -645,15 +655,19 @@ class Simulator_GUI:
         states["pot_R"].board_add = self.poten_R_addr.get("1.0", END).strip()
         states["pot_R"].state = int(self.poten_R['text'])
 
-        states["swh_2L"].board_add = int(self.poten_L_addr.get("1.0", END).strip())
-        states["swh_2L"].state = int(self.pos_L.get())
-        states["swh_2R"].board_add = int(self.poten_R_addr.get("1.0", END).strip())
-        states["swh_2R"].state = int(self.pos_R.get())
+        states["led_s_L"].board_add = int(self.led_switch_L_addr.get("1.0", END).strip())
+        states["led_s_L"].state = int(self.switch_L_flag)
+        states["led_s_R"].board_add = int(self.led_switch_R_addr.get("1.0", END).strip())
+        states["led_s_R"].state = int(self.switch_R_flag)
 
-        states["swh_1L"].board_add = int(self.switch_L_addr.get("1.0", END).strip())
-        states["swh_1L"].state = int(self.switch_L_flag)
-        states["swh_1R"].board_add = int(self.switch_R_addr.get("1.0", END).strip())
-        states["swh_1R"].state = int(self.switch_R_flag)
+        states["led_21_L"].board_add = int(self.led_21_L_addr.get("1.0", END).strip())
+        states["led_21_L"].state = int(self.pos_L_1_led_flag)
+        states["led_21_R"].board_add = int(self.led_21_R_addr.get("1.0", END).strip())
+        states["led_21_R"].state = int(self.pos_R_1_led_flag)
+        states["led_22_L"].board_add = int(self.led_22_L_addr.get("1.0", END).strip())
+        states["led_22_L"].state = int(self.pos_L_2_led_flag)
+        states["led_22_R"].board_add = int(self.led_22_R_addr.get("1.0", END).strip())
+        states["led_22_R"].state = int(self.pos_R_2_led_flag)
 
         states["led_1L"].board_add = int(self.led_1_L_addr.get("1.0", END).strip())
         states["led_1L"].state = int(self.led_1_L_flag)
@@ -680,6 +694,10 @@ class Simulator_GUI:
         for hardware in ["led_1L", "led_2L", "led_3L", "led_4L", "led_1R", "led_2R", "led_3R", "led_4R"]:
             states[hardware].board_type = int(self.led_type.get("1.0", END).strip())
             states[hardware].board_num = int(self.led_numb.get("1.0", END).strip())
+
+        for hardware in ["swh_2L", "swh_2R", "swh_1L", "swh_1R"]:
+            states[hardware].board_type = int(self.but_type.get("1.0", END).strip())
+            states[hardware].board_num = int(self.but_numb.get("1.0", END).strip())
 
         return states
 
@@ -785,10 +803,7 @@ class Simulator_GUI:
                   "but_1L": UDP.UDP_packet(0, 0, 0), "but_2L": UDP.UDP_packet(0, 0, 0),
                   "but_3L": UDP.UDP_packet(0, 0, 0), "but_4L": UDP.UDP_packet(0, 0, 0), \
                   "but_1R": UDP.UDP_packet(0, 0, 0), "but_2R": UDP.UDP_packet(0, 0, 0),
-                  "but_3R": UDP.UDP_packet(0, 0, 0), "but_4R": UDP.UDP_packet(0, 0, 0), \
-                  "swi_21_L": UDP.UDP_packet(0, 0, 1), "swi_21_R": UDP.UDP_packet(0, 0, 1), \
-                  "swi_22_L": UDP.UDP_packet(0, 0, 1), "swi_22_R": UDP.UDP_packet(0, 0, 1), \
-                  "swi_L": UDP.UDP_packet(0, 0, 1), "swi_R": UDP.UDP_packet(0, 0, 1), \
+                  "but_3R": UDP.UDP_packet(0, 0, 0), "but_4R": UDP.UDP_packet(0, 0, 0),
                   }
         return states
 
