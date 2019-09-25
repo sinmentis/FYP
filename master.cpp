@@ -1,14 +1,15 @@
-#define FILE_NAME "UDP_MAIN"
-#define IF_SUCCESS "NO"
-#define DEBUG_MODE 0
-#define CHARGE_MODE 0
-#define PAYLOAD_LEN 10
+/******************************************************************************/
 
+
+/******************************************************************************/
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "UDPSocket.h"
+
+#define DEBUG_MODE 0
+#define PAYLOAD_LEN 10
+#define UART_TIMEOUT 1
 /*###########################   CONFIGURATION ################################*/
-//  #########################################   Config Pin
 
 // ###########################################   Ethernet Config
 EthernetInterface net;
@@ -22,8 +23,7 @@ UDPSocket sock_out;
 #define GATEWAY   "192.168.1.1" 
 
 // ############################################  uart(TX, RX)
-//Serial pc(SERIAL_TX, SERIAL_RX);
-Serial pc(UART4_TX, UART4_RX);
+Serial pc(SERIAL_TX, SERIAL_RX);
 
 // ############################################  Global Variable
 int Button_Flag;
@@ -107,17 +107,18 @@ int MySerial::puts(const char *str)
     return RawSerial::puts(str);
 }
 
-MySerial uart_led(UART2_TX, UART2_RX);  
+MySerial uart_led(UART3_TX, UART3_RX);  
 MySerial uart_but(UART7_TX, UART7_RX);  
 MySerial uart_oth(UART8_TX, UART8_RX); 
 
 void receive_UDP()
 {
-    sock_in.set_timeout(5);
+    sock_in.set_timeout(3);
     int ret = sock_in.recvfrom(&rd_addr ,UDP_in_buffer.UART_data_buffer, sizeof(UDP_in_buffer.UART_data_buffer));
     if (ret != -3001) {
-        
-        printf("Packet from \"%s\": ret:%d %s\n", rd_addr.get_ip_address(),ret, UDP_in_buffer.UART_data_buffer);
+        if (DEBUG_MODE){
+            printf("Packet from \"%s\": ret:%d %s\n", rd_addr.get_ip_address(),ret, UDP_in_buffer.UART_data_buffer);
+        }
       
         for(int i = 0; i < PAYLOAD_LEN; i++)
         {
@@ -129,15 +130,12 @@ void receive_UDP()
             UART_out_buffer.UART_data.board_num = UDP_in_buffer.UART_data[i].board_num;
             UART_out_buffer.UART_data.board_add = UDP_in_buffer.UART_data[i].board_add;
             UART_out_buffer.UART_data.state = UDP_in_buffer.UART_data[i].state;
-            
-            printf("type: %d, num: %d, add: %d, state: %d", UART_out_buffer.UART_data.board_type,
-                                                            UART_out_buffer.UART_data.board_num,
-                                                            UART_out_buffer.UART_data.board_add,
-                                                            UART_out_buffer.UART_data.state);
-            
-            // THIS DECODES WHICH UART TO SEND THE PACKET OUT ON
-            
-      
+            if(DEBUG_MODE){
+                printf("type: %d, num: %d, add: %d, state: %d", UART_out_buffer.UART_data.board_type,
+                                                                UART_out_buffer.UART_data.board_num,
+                                                                UART_out_buffer.UART_data.board_add,
+                                                                UART_out_buffer.UART_data.state);  
+            }
             // Pots, dials, 7 segs
             if (UART_out_buffer.UART_data.board_type == 0b0001 && UART_out_buffer.UART_data.board_num == 0b0001)
             {
@@ -156,7 +154,7 @@ void receive_UDP()
                     uart_oth.putc(UART_out_buffer.UART_data_buffer[x]);
                 }
             }
-        }
+        } 
     }
     memset(&UDP_in_buffer, 0, sizeof(UDP_in_buffer));
     
@@ -168,7 +166,9 @@ void send_UDP()
 {
     if (current_index != 0) {
         int scount = sock_out.sendto(PC_IP,5005, UDP_payload, sizeof UDP_payload);
-        pc.printf("sent %d [%.*s]\n", scount, UDP_payload);
+        if(DEBUG_MODE){
+            pc.printf("sent %d [%.*s]\n", scount, UDP_payload);
+        }
         current_index = 0;
         memset(UDP_payload, 0, sizeof(UDP_payload));
     }
@@ -176,81 +176,72 @@ void send_UDP()
 
 
 // WORKING :)
-void receive_UART()
+void receive_led_UART()
 {
-    if (uart_led.readable())
-    {
-    
+    if (uart_led.readable()) {
         for (int x = 0; x < sizeof(UART_in_buffer.UART_data_buffer) + 1; x++)
         {
-            UART_in_buffer.UART_data_buffer[x] = uart_led.getc(1);
+            UART_in_buffer.UART_data_buffer[x] = uart_led.getc(UART_TIMEOUT);
         }
-        pc.printf("Got from LED UART address: %c (%d), state: %c (%d) \n", UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.state, UART_in_buffer.UART_data.state);
+        if(DEBUG_MODE) {    
+            pc.printf("Got from LED UART address: %c (%d), state: %c (%d) \n", UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.state, UART_in_buffer.UART_data.state);
+        }
         UDP_payload[current_index] = UART_in_buffer.UART_data;
         current_index++;
-    
-    } else if (uart_but.readable()) {
-    
-        for (int x = 0; x < sizeof(UART_in_buffer.UART_data_buffer) + 1; x++)
-        {
-            UART_in_buffer.UART_data_buffer[x] = uart_but.getc(1);
-        }
-        pc.printf("Got from Button UART address: %c (%d), state: %c (%d) \n", UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.state, UART_in_buffer.UART_data.state);    
-        UDP_payload[current_index] = UART_in_buffer.UART_data;
-        current_index++;    
-    
-    } else if (uart_oth.readable()) {
-    
-        for (int x = 0; x < sizeof(UART_in_buffer.UART_data_buffer) + 1; x++)
-        {
-            UART_in_buffer.UART_data_buffer[x] = uart_oth.getc(1);
-        }
-        pc.printf("Got from other UART address: %c (%d), state: %c (%d) \n", UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.state, UART_in_buffer.UART_data.state);    
-        UDP_payload[current_index] = UART_in_buffer.UART_data;
-        current_index++;
+        memset(&UART_in_buffer, 0, sizeof(UART_in_buffer));
     }
 }
 
-
-void clear_buffer()
-{
-    memset(UDP_payload, 0, sizeof(UDP_payload));
+void receive_but_UART()
+{    
+    if (uart_but.readable()) {
+        for (int x = 0; x < sizeof(UART_in_buffer.UART_data_buffer) + 1; x++)
+        {
+            UART_in_buffer.UART_data_buffer[x] = uart_but.getc(UART_TIMEOUT);
+        }
+        if(DEBUG_MODE) {
+            pc.printf("Got from Button UART address: %c (%d), state: %c (%d) \n", UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.state, UART_in_buffer.UART_data.state);    
+        }
+        UDP_payload[current_index] = UART_in_buffer.UART_data;
+        current_index++;  
+        memset(&UART_in_buffer, 0, sizeof(UART_in_buffer));  
+    }    
 }
+
+void receive_oth_UART()
+{    
+    if (uart_oth.readable()) {
+        for (int x = 0; x < sizeof(UART_in_buffer.UART_data_buffer) + 1; x++)
+        {
+            UART_in_buffer.UART_data_buffer[x] = uart_oth.getc(UART_TIMEOUT);
+        }
+        if(DEBUG_MODE) {
+            pc.printf("Got from other UART address: %c (%d), state: %c (%d) \n", UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.board_add, UART_in_buffer.UART_data.state, UART_in_buffer.UART_data.state);    
+        }
+        UDP_payload[current_index] = UART_in_buffer.UART_data;
+        current_index++;
+        memset(&UART_in_buffer, 0, sizeof(UART_in_buffer));
+    }
+}
+
 /*##################################   Main   ################################*/
 
-int main(){
-    
-    
-    
+int main(){    
+
     /*##################################   INIT   ################################*/
-    pc.printf("#########Program Begins#########\n");
-    if (!CHARGE_MODE) {
-        pc.printf("#########Connection state#########\n");
-        net.set_network(MASTER_IP,NETMASK,GATEWAY);
-        net.connect();
-        printf("IP Address is %s\n\r", net.get_ip_address());
-        int i = sock_out.open(&net);
-        int j = sock_in.open(&net);
-        if(i == 0 && j == 0) {
-            pc.printf("Open and Connect all done!\n\n\n");    
-        } else {
-            pc.printf("socket.open state(0 on success):%d\n", i);
-            pc.printf("socket.connect state(0 on success):%d\n", j);
-            while(1){}
-        }
-        int bind = sock_in.bind(5005);
-        pc.printf("bind return: %d\n", bind);
-    }
-    pc.printf("#########Connection all pass#########\n");
+    net.set_network(MASTER_IP,NETMASK,GATEWAY);
+    net.connect();
+    sock_out.open(&net);
+    sock_in.open(&net);
+    sock_in.bind(5005);
+
     /*##################################   INIT DONE   ################################*/
-
-    queue.call_every(1, receive_UART);  
-    queue.call_every(15, receive_UDP); 
-    queue.call_every(5, send_UDP);
-    //queue.call_every(50, clear_buffer);
-    queue.dispatch();
-    while(true) {
-    }
-
-    return 0;
+    queue.call_every(1, receive_led_UART);
+    queue.call_every(1, receive_but_UART);
+    queue.call_every(1, receive_oth_UART);  
+    queue.call_every(100, receive_UDP); 
+    queue.call_every(40, send_UDP);
+    queue.dispatch_forever();
+    
+    while(true) {}
 }
