@@ -14,9 +14,9 @@ from tkinter import messagebox
 
 import UDP  # E19 UDP module
 
-LOCAL_MODE = False
+LOCAL_MODE = True
 DEBUG_MODE = True
-ENABLE_THREAD = True
+ENABLE_THREAD = False
 
 
 class Simulator_GUI:
@@ -553,7 +553,6 @@ class Simulator_GUI:
             self.pos_R_2_led_flag = 1
         self.sender()
 
-
     def Switch_2_L(self):
         flag = self.pos_L.get()
         if flag == 3:
@@ -576,7 +575,63 @@ class Simulator_GUI:
     """------ Menus ------"""
 
     def Menu_testing(self):
-        self.Update_message("Testing\n")
+        """TODO: Fill hardware address in there"""
+
+        self.poten_L_addr.delete('1.0', END)
+        self.poten_L_addr.insert(END, "51")
+        self.poten_R_addr.delete('1.0', END)
+        self.poten_R_addr.insert(END, "52")
+
+        self.seven_segs_L_addr.delete('1.0', END)
+        self.seven_segs_L_addr.insert(END, "50")
+        self.seven_segs_R_addr.delete('1.0', END)
+        self.seven_segs_R_addr.insert(END, "53")
+
+        self.dial_L_addr.delete('1.0', END)
+        self.dial_L_addr.insert(END, "54")
+        self.dial_R_addr.delete('1.0', END)
+        self.dial_R_addr.insert(END, "55")
+
+        self.button_1_L_addr.delete('1.0', END)
+        self.button_1_L_addr.insert(END, "11")
+        self.button_2_L_addr.delete('1.0', END)
+        self.button_2_L_addr.insert(END, "12")
+        self.button_3_L_addr.delete('1.0', END)
+        self.button_3_L_addr.insert(END, "13")
+        self.button_4_L_addr.delete('1.0', END)
+        self.button_4_L_addr.insert(END, "14")
+
+        self.button_1_R_addr.delete('1.0', END)
+        self.button_1_R_addr.insert(END, "15")
+        self.button_2_R_addr.delete('1.0', END)
+        self.button_2_R_addr.insert(END, "16")
+        self.button_3_R_addr.delete('1.0', END)
+        self.button_3_R_addr.insert(END, "17")
+        self.button_4_R_addr.delete('1.0', END)
+        self.button_4_R_addr.insert(END, "18")
+
+        self.led_1_L_addr.delete('1.0', END)
+        self.led_1_L_addr.insert(END, "21")
+        self.led_2_L_addr.delete('1.0', END)
+        self.led_2_L_addr.insert(END, "22")
+        self.led_3_L_addr.delete('1.0', END)
+        self.led_3_L_addr.insert(END, "23")
+        self.led_4_L_addr.delete('1.0', END)
+        self.led_4_L_addr.insert(END, "24")
+
+        self.led_1_R_addr.delete('1.0', END)
+        self.led_1_R_addr.insert(END, "25")
+        self.led_2_R_addr.delete('1.0', END)
+        self.led_2_R_addr.insert(END, "26")
+        self.led_3_R_addr.delete('1.0', END)
+        self.led_3_R_addr.insert(END, "27")
+        self.led_4_R_addr.delete('1.0', END)
+        self.led_4_R_addr.insert(END, "28")
+
+        self.switch_1_L_addr.delete('1.0', END)
+        self.switch_1_L_addr.insert(END, "25")
+
+        self.Update_message("Loaded\n")
 
     def Menu_about_us(self):
         showinfo(title="About us", message="This is E19")
