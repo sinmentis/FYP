@@ -14,9 +14,9 @@ from tkinter import messagebox
 
 import UDP  # E19 UDP module
 
-LOCAL_MODE = True
+LOCAL_MODE = False
 DEBUG_MODE = True
-ENABLE_THREAD = False
+ENABLE_THREAD = True
 
 
 class Simulator_GUI:
@@ -451,19 +451,7 @@ class Simulator_GUI:
     """------ Buttons ------"""
 
     def Apply_button_handler(self):
-
-        # Testing part: gather data and print out to console
-        if DEBUG_MODE:
-            v_seg_L = str(self.seven_segs_L.get("1.0", END)).strip()
-            v_seg_R = str(self.seven_segs_R.get("1.0", END)).strip()
-            v_dial_L = str(self.dial_L.get("1.0", END)).strip()
-            v_dial_R = str(self.dial_R.get("1.0", END)).strip()
-            data_list = [v_seg_L, v_seg_R, v_dial_L, v_dial_R]
-            data_name = ["Left 7Seg", "Right 7Seg", "Left Dial", "Right Dial"]
-            for num in range(len(data_list)):
-                self.Update_message("{0:<10}: {1:<3}\n".format(data_name[num], data_list[num]))
-        else:
-            self.Update_message("Applied!\n")
+        self.Update_message("Applied!\n")
 
         # It's time to send the UDP
         self.sender()
@@ -812,8 +800,8 @@ class Simulator_GUI:
                 for packet in packet_list:
                     if DEBUG_MODE:
                         self.Update_message(str(packet) + '\n')
-                    if delay_test(packet):                     # If this is not a delay test packet
-                        self.Update_state_from_packet(packet)  # Update self.states based on packet
+                    #if delay_test(packet):                     # If this is not a delay test packet
+                    self.Update_state_from_packet(packet)  # Update self.states based on packet
                         #self.Update_GUI()
                 self.Update_GUI()  # Update GUI based on new self.states
                 # TODO: Test performance of where sould Update_GUI() goes.
@@ -829,9 +817,10 @@ class Simulator_GUI:
             for packet in udp_packet_list:
                 try:
                     self.sock.sendto(packet, (self.UDP_MASTER_IP, self.UDP_MASTER_PORT))
+                    self.Update_message("UDP Sent:{0}\n".format(packet))
                 except Exception as e:
                     self.Update_message("{0}\n".format(e))
-                self.Update_message("UDP Sent:{0}\n".format(packet))
+                
         if DEBUG_MODE:
             print("\nCurrent state: ")
             for key, value in self.states.items():
@@ -884,7 +873,7 @@ class Simulator_GUI:
         dec_list = [info_dec_int, value.board_add, value.state]
         dec_packet = bytes(dec_list)
 
-        if DEBUG_MODE:
+        if DEBUG_MODE == 567:
             info_ascii = chr(info_dec_int)
             add_ascii = chr(value.board_add)
             state_ascii = chr(value.state)
