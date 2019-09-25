@@ -14,9 +14,9 @@ from tkinter import messagebox
 
 import UDP  # E19 UDP module
 
-LOCAL_MODE = True
+LOCAL_MODE = False
 DEBUG_MODE = True
-ENABLE_THREAD = False
+ENABLE_THREAD = True
 
 
 class Simulator_GUI:
@@ -633,7 +633,7 @@ class Simulator_GUI:
         self.switch_R_addr.delete('1.0', END)
         self.switch_R_addr.insert(END, "33")
         self.switch_1_R_addr.delete('1.0', END)
-        self.switch_1_R_addr.insert(END, "34")
+        self.switch_1_R_addr.insert(END, "19")
 
         self.led_21_L_addr.delete('1.0', END)
         self.led_21_L_addr.insert(END, "40")
@@ -744,7 +744,34 @@ class Simulator_GUI:
         states["led_3R"].state = int(self.led_3_R_flag)
         states["led_4R"].board_add = int(self.led_4_R_addr.get("1.0", END).strip())
         states["led_4R"].state = int(self.led_4_R_flag)
-
+        
+        states["but_1L"].board_add = int(self.button_1_L_addr.get("1.0", END).strip())
+        states["but_1L"].state = int(self.led_1_L_flag)
+        states["but_2L"].board_add = int(self.button_2_L_addr.get("1.0", END).strip())
+        states["but_2L"].state = int(self.led_2_L_flag)
+        states["but_3L"].board_add = int(self.button_3_L_addr.get("1.0", END).strip())
+        states["but_3L"].state = int(self.led_3_L_flag)
+        states["but_4L"].board_add = int(self.button_4_L_addr.get("1.0", END).strip())
+        states["but_4L"].state = int(self.led_4_L_flag)
+        states["but_1R"].board_add = int(self.button_1_R_addr.get("1.0", END).strip())
+        states["but_1R"].state = int(self.led_1_R_flag)
+        states["but_2R"].board_add = int(self.button_2_R_addr.get("1.0", END).strip())
+        states["but_2R"].state = int(self.led_2_R_flag)
+        states["but_3R"].board_add = int(self.button_3_R_addr.get("1.0", END).strip())
+        states["but_3R"].state = int(self.led_3_R_flag)
+        states["but_4R"].board_add = int(self.button_4_R_addr.get("1.0", END).strip())
+        states["but_4R"].state = int(self.led_4_R_flag)
+        
+        states["swh_2L"].board_add = int(self.switch_L_addr.get("1.0", END).strip())
+        states["swh_2L"].state = int(self.pos_L.get())
+        states["swh_2R"].board_add = int(self.switch_R_addr.get("1.0", END).strip())
+        states["swh_2R"].state = int(self.pos_R.get())
+        states["swh_1L"].board_add = int(self.switch_1_L_addr.get("1.0", END).strip())
+        states["swh_1L"].state = int(self.switch_L_flag)
+        states["swh_1R"].board_add = int(self.switch_1_R_addr.get("1.0", END).strip())
+        states["swh_1R"].state = int(self.switch_R_flag)
+        
+        
         for hardware in ["seg_L", "seg_R", "dial_L", "dial_R", "pot_L", "pot_R"]:
             states[hardware].board_type = int(self.oth_type.get("1.0", END).strip())
             states[hardware].board_num = int(self.oth_numb.get("1.0", END).strip())
@@ -813,24 +840,35 @@ class Simulator_GUI:
 
         # 3 states switches
         if self.states["swh_2L"] == self.STATE_0:
-            self.switch_0_L.invoke()
+            self.Update_message('STATE_0\n')            
+            self.Switch_0_L.invoke()
         elif self.states["swh_2L"] == self.STATE_L:
-            self.switch_1_L.invoke()
+            self.Update_message('STATE_L\n')            
+            
+            self.Switch_1_L.invoke()
         elif self.states["swh_2L"] == self.STATE_R:
-            self.switch_2_L.invoke()
+            self.Update_message('STATE_R\n')            
+            
+            self.Switch_2_L.invoke()
 
         if self.states["swh_2R"] == self.STATE_0:
-            self.switch_0_R.invoke()
+            self.Update_message('STATE_0\n')            
+            
+            self.Switch_0_R.invoke()
         elif self.states["swh_2R"] == self.STATE_L:
-            self.switch_1_R.invoke()
+            self.Update_message('STATE_L\n')            
+            
+            self.Switch_1_R.invoke()
         elif self.states["swh_2R"] == self.STATE_R:
-            self.switch_2_R.invoke()
+            self.Update_message('STATE_R\n')            
+
+            self.Switch_2_R.invoke()
 
         # 2 states switches
-        if self.states["swh_1L"] != self.switch_L_flag:
-            self.switch_L.invoke()
+        if self.states["swh_1L"] == self.switch_L_flag:
+            self.Switch_L.invoke()
         if self.states["swh_1R"] == self.switch_R_flag:
-            self.switch_R.invoke()
+            self.Switch_R.invoke()
 
     """====================== States ======================"""
 
@@ -849,10 +887,10 @@ class Simulator_GUI:
                   "led_3L": UDP.UDP_packet(0, 0, 1), "led_4L": UDP.UDP_packet(0, 0, 1), \
                   "led_1R": UDP.UDP_packet(0, 0, 1), "led_2R": UDP.UDP_packet(0, 0, 1),
                   "led_3R": UDP.UDP_packet(0, 0, 1), "led_4R": UDP.UDP_packet(0, 0, 1), \
-                  "but_1L": UDP.UDP_packet(0, 0, 0), "but_2L": UDP.UDP_packet(0, 0, 0),
-                  "but_3L": UDP.UDP_packet(0, 0, 0), "but_4L": UDP.UDP_packet(0, 0, 0), \
-                  "but_1R": UDP.UDP_packet(0, 0, 0), "but_2R": UDP.UDP_packet(0, 0, 0),
-                  "but_3R": UDP.UDP_packet(0, 0, 0), "but_4R": UDP.UDP_packet(0, 0, 0),}
+                  "but_1L": UDP.UDP_packet(0, 0, 1), "but_2L": UDP.UDP_packet(0, 0, 1),
+                  "but_3L": UDP.UDP_packet(0, 0, 1), "but_4L": UDP.UDP_packet(0, 0, 1), \
+                  "but_1R": UDP.UDP_packet(0, 0, 1), "but_2R": UDP.UDP_packet(0, 0, 1),
+                  "but_3R": UDP.UDP_packet(0, 0, 1), "but_4R": UDP.UDP_packet(0, 0, 1),}
 
         return states
 
@@ -874,9 +912,7 @@ class Simulator_GUI:
                         self.Update_message(str(packet) + '\n')
                     #if delay_test(packet):                     # If this is not a delay test packet
                     self.Update_state_from_packet(packet)  # Update self.states based on packet
-                        #self.Update_GUI()
                 self.Update_GUI()  # Update GUI based on new self.states
-                # TODO: Test performance of where sould Update_GUI() goes.
                 
         return 0
 
