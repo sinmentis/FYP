@@ -11,12 +11,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Simulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="648" column="42" selection-start-line="648" selection-start-column="42" selection-end-line="648" selection-end-column="42" />
+            <state relative-caret-position="220">
+              <caret line="948" column="71" selection-start-line="948" selection-start-column="71" selection-end-line="948" selection-end-column="71" />
               <folding>
                 <element signature="e#429#2200#0" />
                 <element signature="e#2297#2713#0" />
@@ -40,22 +40,14 @@
                 <element signature="e#21703#21983#0" />
                 <element signature="e#22051#22460#0" />
                 <element signature="e#22495#22905#0" />
-                <element signature="e#22941#23584#0" />
-                <element signature="e#23621#24264#0" />
-                <element signature="e#24404#24453#0" />
-                <element signature="e#24493#24692#0" />
-                <element signature="e#24815#25460#0" />
-                <element signature="e#25518#25862#0" />
-                <element signature="e#25910#29800#0" />
-                <element signature="e#29836#32359#0" />
-                <element signature="e#32459#33993#0" />
-                <element signature="e#34109#35151#0" />
-                <element signature="e#35184#35814#0" />
-                <element signature="e#35855#36725#0" />
-                <element signature="e#36770#37170#0" />
-                <element signature="e#37216#38142#0" />
-                <element signature="e#38186#38570#0" />
-                <element signature="e#38603#38759#0" />
+                <element signature="e#27417#27466#0" />
+                <element signature="e#27506#27705#0" />
+                <element signature="e#27828#28473#0" />
+                <element signature="e#28531#28875#0" />
+                <element signature="e#41807#42251#0" />
+                <element signature="e#42253#43179#0" />
+                <element signature="e#43223#43607#0" />
+                <element signature="e#43640#43796#0" />
               </folding>
             </state>
           </provider>
@@ -79,7 +71,6 @@
       <find>led_1_L_addr</find>
       <find>add_seeting</find>
       <find>oth_numb</find>
-      <find>Switch_2_L</find>
       <find>switch_R_flag</find>
       <find>generate_packet</find>
       <find>TODO</find>
@@ -93,6 +84,15 @@
       <find>self.OFF</find>
       <find>Menu_testing</find>
       <find>poten_L_addr</find>
+      <find>19</find>
+      <find>Current</find>
+      <find>swh_2R</find>
+      <find>Update_GUI</find>
+      <find>Switch_0_L</find>
+      <find>switch_2_L</find>
+      <find>STATE_L</find>
+      <find>Switch_2_L</find>
+      <find>switch_L_flag</find>
     </findStrings>
     <replaceStrings>
       <replace>self.ON_COLOR</replace>
@@ -234,15 +234,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="13" width="1280" height="774" extended-state="6" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49573863" visible="true" weight="0.15250199" />
-      <window_info id="Structure" order="1" sideWeight="0.5042614" side_tool="true" visible="true" weight="0.15250199" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49315068" visible="true" weight="0.15250199" />
+      <window_info id="Structure" order="1" sideWeight="0.5068493" side_tool="true" visible="true" weight="0.15250199" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.328125" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.18607955" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.1849315" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -292,8 +292,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Simulator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="648" column="42" selection-start-line="648" selection-start-column="42" selection-end-line="648" selection-end-column="42" />
+        <state relative-caret-position="220">
+          <caret line="948" column="71" selection-start-line="948" selection-start-column="71" selection-end-line="948" selection-end-column="71" />
           <folding>
             <element signature="e#429#2200#0" />
             <element signature="e#2297#2713#0" />
@@ -317,22 +317,14 @@
             <element signature="e#21703#21983#0" />
             <element signature="e#22051#22460#0" />
             <element signature="e#22495#22905#0" />
-            <element signature="e#22941#23584#0" />
-            <element signature="e#23621#24264#0" />
-            <element signature="e#24404#24453#0" />
-            <element signature="e#24493#24692#0" />
-            <element signature="e#24815#25460#0" />
-            <element signature="e#25518#25862#0" />
-            <element signature="e#25910#29800#0" />
-            <element signature="e#29836#32359#0" />
-            <element signature="e#32459#33993#0" />
-            <element signature="e#34109#35151#0" />
-            <element signature="e#35184#35814#0" />
-            <element signature="e#35855#36725#0" />
-            <element signature="e#36770#37170#0" />
-            <element signature="e#37216#38142#0" />
-            <element signature="e#38186#38570#0" />
-            <element signature="e#38603#38759#0" />
+            <element signature="e#27417#27466#0" />
+            <element signature="e#27506#27705#0" />
+            <element signature="e#27828#28473#0" />
+            <element signature="e#28531#28875#0" />
+            <element signature="e#41807#42251#0" />
+            <element signature="e#42253#43179#0" />
+            <element signature="e#43223#43607#0" />
+            <element signature="e#43640#43796#0" />
           </folding>
         </state>
       </provider>

@@ -15,7 +15,7 @@ from tkinter import messagebox
 import UDP  # E19 UDP module
 
 LOCAL_MODE = False
-DEBUG_MODE = True
+DEBUG_MODE = False
 ENABLE_THREAD = True
 
 
@@ -534,14 +534,19 @@ class Simulator_GUI:
 
         self.sender()
 
-    def Switch_2_R(self):
-        flag = self.pos_R.get()
-        if flag == 3:
+    def Switch_2_R(self, sent_flag=None):
+
+        if sent_flag:
+            flag = sent_flag
+        else:
+            flag = self.pos_R.get()
+
+        if flag == self.STATE_R:
             self.led_21_R.config(bg=self.ON_COLOR)
             self.led_22_R.config(bg=self.OFF_COLOR)
             self.pos_R_1_led_flag = 2
             self.pos_R_2_led_flag = 1
-        elif flag == 2:
+        elif flag == self.STATE_L:
             self.led_21_R.config(bg=self.OFF_COLOR)
             self.led_22_R.config(bg=self.ON_COLOR)
             self.pos_R_1_led_flag = 1
@@ -553,14 +558,19 @@ class Simulator_GUI:
             self.pos_R_2_led_flag = 1
         self.sender()
 
-    def Switch_2_L(self):
-        flag = self.pos_L.get()
-        if flag == 3:
+    def Switch_2_L(self, sent_flag=None):
+
+        if sent_flag:
+            flag = sent_flag
+        else:
+            flag = self.pos_L.get()
+
+        if flag == self.STATE_R:
             self.led_22_L.config(bg=self.ON_COLOR)
             self.led_21_L.config(bg=self.OFF_COLOR)
             self.pos_L_1_led_flag = 2
             self.pos_L_2_led_flag = 1
-        elif flag == 2:
+        elif flag == self.STATE_L:
             self.led_22_L.config(bg=self.OFF_COLOR)
             self.led_21_L.config(bg=self.ON_COLOR)
             self.pos_L_1_led_flag = 1
@@ -839,36 +849,30 @@ class Simulator_GUI:
             self.states["but_4R"].state = self.LED_OFF
 
         # 3 states switches
-        if self.states["swh_2L"] == self.STATE_0:
-            self.Update_message('STATE_0\n')            
-            self.Switch_0_L.invoke()
-        elif self.states["swh_2L"] == self.STATE_L:
-            self.Update_message('STATE_L\n')            
-            
-            self.Switch_1_L.invoke()
-        elif self.states["swh_2L"] == self.STATE_R:
-            self.Update_message('STATE_R\n')            
-            
-            self.Switch_2_L.invoke()
+        if self.states["swh_2L"].state == self.STATE_0:
+            self.Switch_2_L(self.STATE_0)
 
-        if self.states["swh_2R"] == self.STATE_0:
-            self.Update_message('STATE_0\n')            
-            
-            self.Switch_0_R.invoke()
-        elif self.states["swh_2R"] == self.STATE_L:
-            self.Update_message('STATE_L\n')            
-            
-            self.Switch_1_R.invoke()
-        elif self.states["swh_2R"] == self.STATE_R:
-            self.Update_message('STATE_R\n')            
+        elif self.states["swh_2L"].state == self.STATE_L:
+            self.Switch_2_L(self.STATE_L)
 
-            self.Switch_2_R.invoke()
+        elif self.states["swh_2L"].state == self.STATE_R:
+            self.Switch_2_L(self.STATE_R)
+
+        if self.states["swh_2R"].state == self.STATE_0:
+            self.Switch_2_R(self.STATE_0)
+
+        elif self.states["swh_2R"].state == self.STATE_L:
+            self.Switch_2_R(self.STATE_L)
+
+        elif self.states["swh_2R"].state == self.STATE_R:
+            self.Switch_2_R(self.STATE_R)
 
         # 2 states switches
-        if self.states["swh_1L"] == self.switch_L_flag:
-            self.Switch_L.invoke()
-        if self.states["swh_1R"] == self.switch_R_flag:
-            self.Switch_R.invoke()
+        if self.states["swh_1L"].state != self.switch_L_flag:
+            self.switch_L.invoke()
+
+        if self.states["swh_1R"].state != self.switch_R_flag:
+            self.switch_R.invoke()
 
     """====================== States ======================"""
 
@@ -910,7 +914,6 @@ class Simulator_GUI:
                 for packet in packet_list:
                     if DEBUG_MODE:
                         self.Update_message(str(packet) + '\n')
-                    #if delay_test(packet):                     # If this is not a delay test packet
                     self.Update_state_from_packet(packet)  # Update self.states based on packet
                 self.Update_GUI()  # Update GUI based on new self.states
                 
@@ -961,14 +964,14 @@ class Simulator_GUI:
 
     def decode_packet(self, data):
         packet_list = []
-        index = 1
 
         # decode what we got into packet.
         for index in range(len(data)):
             data_slices = data[index * 3:index * 3 + 3]
             if data_slices != b'' and data_slices != b"\x00\x00\x00":
                 packet = UDP.UDP_packet(data_slices[0], data_slices[1], data_slices[2])
-                packet_list.append(packet)
+                if packet.state != 255:
+                    packet_list.append(packet)
         return packet_list
 
     def encode_packet(self, value):
