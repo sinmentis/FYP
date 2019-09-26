@@ -14,7 +14,7 @@ from tkinter import messagebox
 
 import UDP  # E19 UDP module
 
-LOCAL_MODE = False
+LOCAL_MODE = True
 DEBUG_MODE = False
 ENABLE_THREAD = True
 
@@ -585,8 +585,7 @@ class Simulator_GUI:
     """------ Menus ------"""
 
     def Menu_testing(self):
-        """TODO: Fill hardware address in there"""
-
+        """Automatically fill the hardware address and numbers """
         self.poten_L_addr.delete('1.0', END)
         self.poten_L_addr.insert(END, "51")
         self.poten_R_addr.delete('1.0', END)
@@ -657,6 +656,20 @@ class Simulator_GUI:
         self.led_21_R_addr.insert(END, "44")
         self.led_22_R_addr.delete('1.0', END)
         self.led_22_R_addr.insert(END, "45")
+
+        self.but_numb.delete('1.0', END)
+        self.but_numb.insert(END, "2")
+        self.oth_numb.delete('1.0', END)
+        self.oth_numb.insert(END, "4")
+        self.led_numb.delete('1.0', END)
+        self.led_numb.insert(END, "1")
+
+        self.but_type.delete('1.0', END)
+        self.but_type.insert(END, "1")
+        self.oth_type.delete('1.0', END)
+        self.oth_type.insert(END, "1")
+        self.led_type.delete('1.0', END)
+        self.led_type.insert(END, "1")
 
         self.Update_message("Loaded\n")
 
@@ -811,9 +824,9 @@ class Simulator_GUI:
         self.dial_R.delete('1.0', END)
         self.dial_R.insert(END, self.states["dial_R"].state)
 
-        # Pots
-        self.poten_L['text'] = self.states["pot_L"].state
-        self.poten_R['text'] = self.states["pot_R"].state
+        # Pots | filter out noise
+        self.poten_L['text'] = min(self.states["pot_L"].state, 100)
+        self.poten_R['text'] = min(self.states["pot_R"].state, 100)
 
         # Buttons
         if self.states["but_1L"].state == self.LED_ON:
