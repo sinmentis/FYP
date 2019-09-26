@@ -14,7 +14,7 @@ from tkinter import messagebox
 
 import UDP  # E19 UDP module
 
-LOCAL_MODE = True
+LOCAL_MODE = False
 DEBUG_MODE = False
 ENABLE_THREAD = True
 
@@ -983,7 +983,11 @@ class Simulator_GUI:
             data_slices = data[index * 3:index * 3 + 3]
             if data_slices != b'' and data_slices != b"\x00\x00\x00":
                 packet = UDP.UDP_packet(data_slices[0], data_slices[1], data_slices[2])
-                if packet.state != 255:
+                # Delay test
+                if packet.board_add == 100 and packet.state == 100:
+                    self.delay_test(packet)
+                    break
+                if packet.state != 255:         # Noise filter
                     packet_list.append(packet)
         return packet_list
 
@@ -1009,13 +1013,12 @@ class Simulator_GUI:
         return dec_packet
 
     def delay_test(self, packet):
-        """If type and number == 64, send echo back to where it came from"""
-        if packet.board_num == packet.board_type == 15 and packet.board_add == packet.state == 255:
-            packet = self.encode_packet(UDP.UDP_packet(255, 255, 255))
-            self.sock.sendto(packet, (self.UDP_MASTER_I,P, self.UDP_MASTER_PORT))
-            return False
-        else:
-            return True
+        """If type and number == 100, send echo back to where it came from"""
+        packet.board_num = 4
+        packet.board_type = 1
+        delay_back_packet = self.encode_packet(packet)
+        self.sock.sendto(delay_back_packet, (self.UDP_MASTER_IP, self.UDP_MASTER_PORT))    
+        print("Delay Test!")
 
 if __name__ == "__main__":
     sock, UDP_MASTER_IP, UDP_MASTER_PORT = UDP.init_UDP_connection(LOCAL_MODE)
